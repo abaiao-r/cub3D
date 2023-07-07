@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+         #
+#    By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/07 16:03:25 by pedperei          #+#    #+#              #
-#    Updated: 2023/07/07 17:09:41 by pedperei         ###   ########.fr        #
+#    Updated: 2023/07/07 18:56:35 by abaiao-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,10 @@ OBJS = $(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 
 LIBFT_DIR = libft/
 LIBFT_INCLUDE = libft
+
+MLX_LIB_DIR = .minilibx-linux/
+MLX_INCLUDE = -I mlx_linux
+MLX_FLAGS = -L$(MLX_LIB_DIR) -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz
 
 # Targets
 NAME = cub3d
@@ -58,7 +62,8 @@ valgrind: 	all
 
 $(NAME): 	$(OBJS)
 			$(MAKE) -C $(LIBFT_DIR) bonus
-			$(CC) $(OBJS) $(CFLAGS) libft/libft.a -o  $(NAME) 
+			$(MAKE) -C $(MLX_LIB_DIR)
+			$(CC) $(OBJS) $(CFLAGS) $(MLX_INCLUDE) libft/libft.a $(MLX_FLAGS) -o  $(NAME) 
 
 %.o: %.c
 	$(CC) -Wall -Wextra -Werror -c $< -o $@ 

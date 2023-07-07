@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:24:29 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/07 16:42:30 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/07 19:13:27 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include "../libft/libft.h"
+# include "../.minilibx-linux/mlx.h"
 
 typedef struct s_map
 {
@@ -46,5 +47,6 @@ typedef struct s_cub
 	t_map		*map;
 
 }				t_cub;
+
 
 #endif
