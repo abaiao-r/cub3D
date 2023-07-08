@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:24:29 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/08 16:55:43 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/08 17:40:04 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_map
 	int		no_empty_line;
 	int		player_l;
 	int		player_c;
+	int		elements_end;
 	char	**desc_file;
 	char	**game_map;
 	char	**save_path;
@@ -48,6 +49,16 @@ typedef struct s_cub
 	t_map	*map;
 
 }			t_cub;
+
+typedef struct s_check_elements
+{
+	char	*element;
+	int		element_len;
+	int		count_elements;
+	int		num_elements;
+	int		i;
+	int		j;
+}			t_check_elements;
 
 /* check_args.c */
 int			check_args(int argc, char **argv);
@@ -67,6 +78,5 @@ t_map		*init_map(char **str_map);
 
 /* map_elements_check.c */
 int			check_elements(t_map *map);
-
 
 #endif

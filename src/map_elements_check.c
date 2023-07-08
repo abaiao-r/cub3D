@@ -6,7 +6,7 @@
 /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:28:55 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/08 17:04:12 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/08 17:40:23 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 int check_elements(t_map *map)
 {
+
     char *elements[6];
     int i;
     int j;
@@ -44,6 +45,8 @@ int check_elements(t_map *map)
             if (ft_strncmp(map->desc_file[j], element, element_len) == 0)
             {
                 count_elements++;
+                if (count_elements == num_elements)
+                    map->elements_end = j;
             }
             j++;
         }
