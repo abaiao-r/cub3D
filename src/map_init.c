@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:30:51 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/08 16:56:14 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/08 17:25:16 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,14 +96,14 @@ char	**read_map(char **desc_file, int lines, int start_map)
 	char	**map;
 
 	i = 0;
-	j = 0;
 	map = (char **)ft_calloc(lines - start_map, sizeof(char *));
 	if (!map)
 		return (0);
 	while (i < start_map)
 		i++;
+	j = -1;
 	while ((i + ++j) < lines)
-		map[i] = ft_strdup(desc_file[i + j]);
+		map[j] = ft_strdup(desc_file[i + j]);
 	return (map);
 }
 
@@ -152,10 +152,17 @@ t_map	*init_map(char **str_map)
 	map->lin = count_lines(str_map[1]);
 	if(!check_elements(map))
 		return (0);
+
 	map->game_map = read_map(map->desc_file, map->lin, map_start);
 	if (!map->game_map)
 		return (NULL);
 	map->map_lin = map->lin - map_start;
+	int i = 0;
+	while (i < map->map_lin)
+	{
+		printf("%s", map->game_map[i]);
+		i++;
+	}
 	map->save_path = copy_map(map);
 	//map->col = count_cols(str_map[1]);
 	//if (!is_rectangule(map))
