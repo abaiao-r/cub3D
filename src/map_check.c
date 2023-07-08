@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 12:12:12 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/08 13:45:59 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/08 14:21:46 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	is_char_valid(char c)
 	if (c == 'N' || c == 'E' || c == 'S' || c == 'W' || c == '0' || c == '1')
 		return (1);
 	if (ft_isspace((int)c))
-		return (1);
+		return (2);
 	return (0);
 }
 
@@ -102,17 +102,26 @@ int	is_wall(t_map *map)
 		{
 			if (is_player_empty(map->game_map[i][j]))
 				is_surrounded(map, i, j);
+			if (is_char_valid(map->game_map[i][j]) == 1)
+				map->no_empty_line = 1;
 			if (!is_char_valid(map->game_map[i][j]))
 				map->check_chars = 1;
 			if (is_player(map->game_map[i][j]))
+			{
 				map->count_player++;
+				map->player_l = i;
+				map->player_c = j;
+			}
 			if (map->check_wall == 1 || map->check_chars == 1
 				|| map->count_player > 1)
 				return (0);
 			j++;
 		}
+		if (map->no_empty_line == 0)
+			return (0);
+		map->no_empty_line = 0;
 		i++;
 	}
-	map->check_wall = 1;
+	map->no_empty_line = 1;
 	return (1);
 }

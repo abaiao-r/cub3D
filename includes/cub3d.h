@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:24:29 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/08 14:00:42 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/08 14:15:50 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,7 @@ typedef struct s_map
 	int		check_wall;
 	int		check_chars;
 	int		count_player;
-	int		count_exit;
-	int		count_collect;
-	int		check_path_exit;
-	int		check_path_collect;
+	int		no_empty_line;
 	int		player_l;
 	int		player_c;
 	char	**game_map;
