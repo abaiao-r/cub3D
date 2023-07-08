@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:24:29 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/08 12:36:30 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/08 13:40:57 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ typedef struct s_map
 	int		col;
 	int		lin;
 	int		check_wall;
-	int		check_rectangule;
 	int		check_chars;
 	int		count_player;
 	int		count_exit;

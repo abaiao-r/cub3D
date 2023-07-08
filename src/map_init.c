@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:30:51 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/08 12:58:35 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/08 13:53:23 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,17 @@ char	**copy_map(t_map *map)
 	return (blank_map);
 }
 
+t_map *map_error_msg(t_map *map)
+{
+	if (map->check_wall == 1)
+		printf("Map not surrounded by walls\n");
+	if (map->check_chars == 1)
+		printf("Invalid character in map\n");
+	if (map->count_player > 1)
+		printf("Invalid number of players\n");
+	return (NULL);
+}
+
 t_map	*init_map(char **str_map)
 {
 	t_map	*map;
@@ -120,10 +131,7 @@ t_map	*init_map(char **str_map)
 	//if (!is_rectangule(map))
 	//	return (free_t_map(map, 'r'));
 	if (!is_wall(map))
-	{
-		printf("MAP not OK\n");
-		return (NULL);
-	}
+		return (map_error_msg(map));
 	else
 		printf("MAP OK\n");
 	return (map);

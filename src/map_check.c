@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 12:12:12 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/08 13:00:27 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/08 13:45:59 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,15 @@ int	check_chars(t_map *map)
 	return (1);
 }
 
+int	is_char_valid(char c)
+{
+	if (c == 'N' || c == 'E' || c == 'S' || c == 'W' || c == '0' || c == '1')
+		return (1);
+	if (ft_isspace((int)c))
+		return (1);
+	return (0);
+}
+
 int	is_player_empty(char c)
 {
 	if (c == 'N' || c == 'E' || c == 'S' || c == 'W' || c == '0')
@@ -48,7 +57,14 @@ int	is_player_empty(char c)
 	return (0);
 }
 
-void is_surrounded(t_map *map, int pos_l, int pos_c)
+int	is_player(char c)
+{
+	if (c == 'N' || c == 'E' || c == 'S' || c == 'W')
+		return (1);
+	return (0);
+}
+
+void	is_surrounded(t_map *map, int pos_l, int pos_c)
 {
 	if (!(pos_l >= 0 && pos_l < map->lin))
 	{
@@ -79,14 +95,19 @@ int	is_wall(t_map *map)
 	int	j;
 
 	i = 0;
-	while (map->game_map[i])
+	while (i < map->lin)
 	{
 		j = 0;
 		while (map->game_map[i][j] != '\n' && map->game_map[i][j] != '\0')
 		{
 			if (is_player_empty(map->game_map[i][j]))
 				is_surrounded(map, i, j);
-			if (map->check_wall == 1)
+			if (!is_char_valid(map->game_map[i][j]))
+				map->check_chars = 1;
+			if (is_player(map->game_map[i][j]))
+				map->count_player++;
+			if (map->check_wall == 1 || map->check_chars == 1
+				|| map->count_player > 1)
 				return (0);
 			j++;
 		}
