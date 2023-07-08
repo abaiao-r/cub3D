@@ -6,7 +6,7 @@
 /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 12:32:41 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/08 13:55:29 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/08 15:24:19 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	check_args(int argc, char **argv)
 
 	if (argc != 2)
 	{
-		write(2, "Usage: ./cub3d <maps/map.cub>\n", 31);
+		write(2, "Usage: ./cub3D <maps/map.cub>\n", 31);
 		return (0);
 	}
 	else

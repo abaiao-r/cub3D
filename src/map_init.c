@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:30:51 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/08 14:19:40 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/08 16:22:34 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,7 @@ t_map *map_error_msg(t_map *map)
 	return (NULL);
 }
 
+
 t_map	*init_map(char **str_map)
 {
 	t_map	*map;
@@ -128,6 +129,8 @@ t_map	*init_map(char **str_map)
 	if (!map->game_map)
 		return (NULL);
 	map->lin = count_lines(str_map[1]);
+	if(!check_elements(map))
+		return (0);
 	map->save_path = copy_map(map);
 	//map->col = count_cols(str_map[1]);
 	//if (!is_rectangule(map))
