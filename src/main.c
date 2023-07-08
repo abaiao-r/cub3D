@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 12:05:10 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/08 13:26:05 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/08 14:04:51 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,11 @@
 
 int	main(int argc, char **argv)
 {
-	t_cub *cub;
+	t_cub	*cub;
 
 	(void)argc;
+	if (!check_args(argc, argv))
+		return (1);
 	cub = (t_cub *)ft_calloc(1, sizeof(t_cub));
 	if (!cub)
 		return (0);
@@ -28,7 +30,7 @@ int	main(int argc, char **argv)
 	}
 	// map test
 	int i = 0;
-	while (i < cub->map->lin) 
+	while (i < cub->map->lin)
 	{
 		printf("%s", cub->map->game_map[i]);
 		i++;

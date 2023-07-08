@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+         #
+#    By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/07 16:03:25 by pedperei          #+#    #+#              #
-#    Updated: 2023/07/08 13:15:14 by pedperei         ###   ########.fr        #
+#    Updated: 2023/07/08 14:01:49 by abaiao-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ OBJDIR = ./objs
 # Source Files
 
 SRCS = 	$(SRCDIR)/main.c \
+		$(SRCDIR)/check_args.c \
 		$(SRCDIR)/map_init.c \
 		$(SRCDIR)/map_check.c
 
