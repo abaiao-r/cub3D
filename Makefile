@@ -6,7 +6,7 @@
 #    By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/07 16:03:25 by pedperei          #+#    #+#              #
-#    Updated: 2023/07/08 12:25:17 by pedperei         ###   ########.fr        #
+#    Updated: 2023/07/08 13:12:42 by pedperei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ OBJDIR = ./objs
 # Source Files
 
 SRCS = 	$(SRCDIR)/main.c \
-		$(SRCDIR)/map_init.c \
+		$(SRCDIR)/map_init_init.c \
 		$(SRCDIR)/map_check.c
 
 OBJS = $(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
