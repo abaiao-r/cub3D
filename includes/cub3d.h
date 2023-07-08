@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:24:29 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/08 13:40:57 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/08 14:00:42 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 # include <fcntl.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdio.h>
+# include <string.h>
+# include <errno.h>
 
 typedef struct s_map
 {
@@ -46,6 +49,9 @@ typedef struct s_cub
 	t_map	*map;
 
 }			t_cub;
+
+/* check_args.c */
+int			check_args(int argc, char **argv);
 
 /* map_init.c */
 int			count_lines(char *map);
