@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 12:12:12 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/08 14:21:46 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/08 16:56:11 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ void	is_surrounded(t_map *map, int pos_l, int pos_c)
 		map->check_wall = 1;
 		return ;
 	}
-	map->col = ft_strlen_mod(map->game_map[pos_l]);
-	if (!(pos_c >= 0 && pos_c < map->col))
+	map->map_col = ft_strlen_mod(map->game_map[pos_l]);
+	if (!(pos_c >= 0 && pos_c < map->map_col))
 	{
 		map->check_wall = 1;
 		return ;

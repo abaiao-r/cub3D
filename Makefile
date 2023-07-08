@@ -6,13 +6,13 @@
 #    By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/07 16:03:25 by pedperei          #+#    #+#              #
-#    Updated: 2023/07/08 14:01:49 by abaiao-r         ###   ########.fr        #
+#    Updated: 2023/07/08 16:31:05 by abaiao-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Compiler settings	
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=thread
+CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address
 
 # Directories
 SRCDIR = ./src
@@ -22,8 +22,9 @@ OBJDIR = ./objs
 
 SRCS = 	$(SRCDIR)/main.c \
 		$(SRCDIR)/check_args.c \
+		$(SRCDIR)/map_check.c \
 		$(SRCDIR)/map_init.c \
-		$(SRCDIR)/map_check.c
+		$(SRCDIR)/map_elements_check.c
 
 OBJS = $(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 
@@ -35,7 +36,7 @@ MLX_INCLUDE = -I mlx_linux
 MLX_FLAGS = -L$(MLX_LIB_DIR) -lmlx_Linux -L/usr/lib -lXext -lX11 -lm -lz
 
 # Targets
-NAME = cub3d
+NAME = cub3D
 
 all: 	$(NAME)
 

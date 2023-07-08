@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:30:51 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/08 16:29:34 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/08 16:56:14 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,18 +89,14 @@ char	**read_desc_file(char *desc_file)
 	return (file);
 }
 
-char	**read_map(char *desc_file, int start_map)
+char	**read_map(char **desc_file, int lines, int start_map)
 {
 	int		i;
 	int		j;
-	int		lines;
 	char	**map;
 
 	i = 0;
 	j = 0;
-	lines = count_lines(desc_file);
-	if (!lines)
-		return (0);
 	map = (char **)ft_calloc(lines - start_map, sizeof(char *));
 	if (!map)
 		return (0);
@@ -140,6 +136,7 @@ t_map *map_error_msg(t_map *map)
 	return (NULL);
 }
 
+
 t_map	*init_map(char **str_map)
 {
 	t_map	*map;
@@ -152,10 +149,13 @@ t_map	*init_map(char **str_map)
 	map->desc_file = read_desc_file(str_map[1]);
 	if (!map->desc_file)
 		return (NULL);
-	map->game_map = read_map(map->desc_file, map_start);
+	map->lin = count_lines(str_map[1]);
+	if(!check_elements(map))
+		return (0);
+	map->game_map = read_map(map->desc_file, map->lin, map_start);
 	if (!map->game_map)
 		return (NULL);
-	map->lin = count_lines(str_map[1]);
+	map->map_lin = map->lin - map_start;
 	map->save_path = copy_map(map);
 	//map->col = count_cols(str_map[1]);
 	//if (!is_rectangule(map))
