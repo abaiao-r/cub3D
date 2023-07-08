@@ -6,7 +6,7 @@
 /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:28:55 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/08 17:40:23 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/08 18:18:15 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,11 @@ int check_elements(t_map *map)
                 count_elements++;
                 if (count_elements == num_elements)
                     map->elements_end = j;
+            }
+            else if(count_elements < num_elements && ft_strncmp(map->desc_file[j], element, element_len) != 0)
+            {
+                printf("Error: Invalid element\n");
+                return 0;
             }
             j++;
         }

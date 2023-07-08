@@ -6,7 +6,7 @@
 /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:30:51 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/08 17:52:16 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/08 18:03:25 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,9 +113,9 @@ char	**copy_map(t_map *map)
 	char	**blank_map;
 	int		i;
 
-	blank_map = (char **)ft_calloc(map->lin, sizeof(char *));
+	blank_map = (char **)ft_calloc(map->map_lin, sizeof(char *));
 	i = 0;
-	while (i < map->lin)
+	while (i < map->map_lin)
 	{
 		blank_map[i] = ft_calloc(ft_strlen(map->game_map[i]) + 1, sizeof(char));
 		i++;
@@ -139,7 +139,6 @@ t_map *map_error_msg(t_map *map)
 int	index_map_start(t_map *map)
 {
 	int i;
-	int j;
 
 	i = map->elements_end + 1;
 	while (i < map->lin)
@@ -171,12 +170,6 @@ t_map	*init_map(char **str_map)
 	if (!map->game_map)
 		return (NULL);
 	map->map_lin = map->lin - map_start;
-	int i = 0;
-	while (i < map->map_lin)
-	{
-		printf("%s", map->game_map[i]);
-		i++;
-	}
 	map->save_path = copy_map(map);
 	//map->col = count_cols(str_map[1]);
 	//if (!is_rectangule(map))

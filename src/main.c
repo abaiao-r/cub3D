@@ -6,7 +6,7 @@
 /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 12:05:10 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/08 14:04:51 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/08 18:02:51 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	main(int argc, char **argv)
 	}
 	// map test
 	int i = 0;
-	while (i < cub->map->lin)
+	while (i < cub->map->map_lin)
 	{
 		printf("%s", cub->map->game_map[i]);
 		i++;
