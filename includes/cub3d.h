@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:24:29 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/08 16:24:26 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/08 16:55:43 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,16 @@
 
 typedef struct s_map
 {
-	int		col;
 	int		lin;
+	int		map_lin;
+	int		map_col;
 	int		check_wall;
 	int		check_chars;
 	int		count_player;
 	int		no_empty_line;
 	int		player_l;
 	int		player_c;
+	char	**desc_file;
 	char	**game_map;
 	char	**save_path;
 
@@ -60,7 +62,7 @@ int			is_wall(t_map *map);
 int			count_lines(char *map);
 int			ft_strlen_mod(const char *str);
 int			count_cols(char *map);
-char		**read_map(char *str_map);
+char		**read_map(char **str_map, int lines, int start_map);
 t_map		*init_map(char **str_map);
 
 /* map_elements_check.c */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 12:12:12 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/08 14:21:46 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/08 17:05:45 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,8 @@ void	is_surrounded(t_map *map, int pos_l, int pos_c)
 		map->check_wall = 1;
 		return ;
 	}
-	map->col = ft_strlen_mod(map->game_map[pos_l]);
-	if (!(pos_c >= 0 && pos_c < map->col))
+	map->map_col = ft_strlen_mod(map->game_map[pos_l]);
+	if (!(pos_c >= 0 && pos_c < map->map_col))
 	{
 		map->check_wall = 1;
 		return ;
@@ -95,7 +95,7 @@ int	is_wall(t_map *map)
 	int	j;
 
 	i = 0;
-	while (i < map->lin)
+	while (i < map->map_lin)
 	{
 		j = 0;
 		while (map->game_map[i][j] != '\n' && map->game_map[i][j] != '\0')

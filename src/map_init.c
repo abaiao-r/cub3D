@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:30:51 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/08 16:22:34 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/08 16:56:14 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,28 +66,47 @@ int	count_cols(char *map)
 /*Aloca memória para gravar o mapa como array de strings (char **)
 utiliza-se a funcao get_next_line para ir lendo as linhas 
 passadas no ficheiro com a estrutura do mapa (.ber)*/
-char	**read_map(char *str_map)
+char	**read_desc_file(char *desc_file)
 {
 	int		fd;
 	int		i;
 	int		lines;
-	char	**map;
+	char	**file;
 
-	lines = count_lines(str_map);
+	lines = count_lines(desc_file);
 	if (!lines)
 		return (0);
-	map = (char **)ft_calloc(lines, sizeof(char *));
-	if (!map)
+	file = (char **)ft_calloc(lines, sizeof(char *));
+	if (!file)
 		return (0);
-	fd = open(str_map, O_RDONLY);
+	fd = open(desc_file, O_RDONLY);
 	if (fd < 0 || fd > 4096)
 		return (0);
 	i = -1;
 	while (++i < lines)
-		map[i] = get_next_line(fd);
+		file[i] = get_next_line(fd);
 	close(fd);
+	return (file);
+}
+
+char	**read_map(char **desc_file, int lines, int start_map)
+{
+	int		i;
+	int		j;
+	char	**map;
+
+	i = 0;
+	j = 0;
+	map = (char **)ft_calloc(lines - start_map, sizeof(char *));
+	if (!map)
+		return (0);
+	while (i < start_map)
+		i++;
+	while ((i + ++j) < lines)
+		map[i] = ft_strdup(desc_file[i + j]);
 	return (map);
 }
+
 
 char	**copy_map(t_map *map)
 {
@@ -121,16 +140,22 @@ t_map *map_error_msg(t_map *map)
 t_map	*init_map(char **str_map)
 {
 	t_map	*map;
+	int		map_start;
 
+	map_start = 0;
 	map = (t_map *)ft_calloc(1, sizeof(t_map));
 	if (!map)
 		return (0);
-	map->game_map = read_map(str_map[1]);
-	if (!map->game_map)
+	map->desc_file = read_desc_file(str_map[1]);
+	if (!map->desc_file)
 		return (NULL);
 	map->lin = count_lines(str_map[1]);
 	if(!check_elements(map))
 		return (0);
+	map->game_map = read_map(map->desc_file, map->lin, map_start);
+	if (!map->game_map)
+		return (NULL);
+	map->map_lin = map->lin - map_start;
 	map->save_path = copy_map(map);
 	//map->col = count_cols(str_map[1]);
 	//if (!is_rectangule(map))

@@ -6,9 +6,10 @@
 /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:28:55 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/08 17:02:06 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/08 17:04:12 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../includes/cub3d.h"
 
@@ -39,8 +40,8 @@ int check_elements(t_map *map)
         j = 0;
         while (j < map->lin)
         {
-            ft_skip_whitespace(&map->game_map[j]);
-            if (ft_strncmp(map->game_map[j], element, element_len) == 0)
+            ft_skip_whitespace(&map->desc_file[j]);
+            if (ft_strncmp(map->desc_file[j], element, element_len) == 0)
             {
                 count_elements++;
             }
