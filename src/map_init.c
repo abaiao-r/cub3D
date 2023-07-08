@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:30:51 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/08 18:03:25 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/08 19:07:42 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,8 @@ t_map	*init_map(char **str_map)
 	if(!check_elements(map))
 		return (0);
 	map_start = index_map_start(map);
+	if(!check_extra_args(map))
+		return (0);
 	map->game_map = read_map(map->desc_file, map->lin, map_start);
 	if (!map->game_map)
 		return (NULL);
