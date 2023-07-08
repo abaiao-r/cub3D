@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:30:51 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/08 12:20:44 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/08 12:58:35 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,6 @@ int	count_cols(char *map)
 	return (len);
 }
 
-
 /*Aloca memória para gravar o mapa como array de strings (char **)
 utiliza-se a funcao get_next_line para ir lendo as linhas 
 passadas no ficheiro com a estrutura do mapa (.ber)*/
@@ -90,6 +89,20 @@ char	**read_map(char *str_map)
 	return (map);
 }
 
+char	**copy_map(t_map *map)
+{
+	char	**blank_map;
+	int		i;
+
+	blank_map = (char **)ft_calloc(map->lin, sizeof(char *));
+	i = 0;
+	while (i < map->lin)
+	{
+		blank_map[i] = ft_calloc(ft_strlen(map->game_map[i]) + 1, sizeof(char));
+		i++;
+	}
+	return (blank_map);
+}
 
 t_map	*init_map(char **str_map)
 {
@@ -102,7 +115,8 @@ t_map	*init_map(char **str_map)
 	if (!map->game_map)
 		return (NULL);
 	map->lin = count_lines(str_map[1]);
-	map->col = count_cols(str_map[1]);
+	map->save_path = copy_map(map);
+	//map->col = count_cols(str_map[1]);
 	//if (!is_rectangule(map))
 	//	return (free_t_map(map, 'r'));
 	if (!is_wall(map))

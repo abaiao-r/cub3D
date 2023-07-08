@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 12:12:12 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/08 12:19:14 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/08 13:00:27 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,20 +48,29 @@ int	is_player_empty(char c)
 	return (0);
 }
 
-int is_surrounded(t_map *map, int pos_l, int pos_c)
+void is_surrounded(t_map *map, int pos_l, int pos_c)
 {
 	if (!(pos_l >= 0 && pos_l < map->lin))
-		return (0);
-	map->col = ft_strlen_mod(map->game_map[pos_l - 1]);
+	{
+		map->check_wall = 1;
+		return ;
+	}
+	map->col = ft_strlen_mod(map->game_map[pos_l]);
 	if (!(pos_c >= 0 && pos_c < map->col))
-		return (0);
+	{
+		map->check_wall = 1;
+		return ;
+	}
+	if (map->save_path[pos_l][pos_c] == '1')
+		return ;
 	if (map->game_map[pos_l][pos_c] == '1')
-		return (1);
+		return ;
+	map->save_path[pos_l][pos_c] = '1';
 	is_surrounded(map, pos_l + 1, pos_c);
 	is_surrounded(map, pos_l, pos_c + 1);
 	is_surrounded(map, pos_l - 1, pos_c);
 	is_surrounded(map, pos_l, pos_c - 1);
-	return (0);
+	return ;
 }
 
 int	is_wall(t_map *map)
@@ -76,8 +85,9 @@ int	is_wall(t_map *map)
 		while (map->game_map[i][j] != '\n' && map->game_map[i][j] != '\0')
 		{
 			if (is_player_empty(map->game_map[i][j]))
-				if(!is_surrounded(map, i, j))
-					return (0);
+				is_surrounded(map, i, j);
+			if (map->check_wall == 1)
+				return (0);
 			j++;
 		}
 		i++;

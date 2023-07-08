@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:24:29 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/08 12:19:20 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/08 12:36:30 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_map		*init_map(char **str_map);
 /* map_check.c */
 int			check_chars(t_map *map);
 int			is_player_empty(char c);
-int			is_surrounded(t_map *map, int pos_l, int pos_c);
+void			is_surrounded(t_map *map, int pos_l, int pos_c);
 int			is_wall(t_map *map);
 
 #endif
