@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: andrefrancisco <andrefrancisco@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:30:51 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/09 11:32:29 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/09 14:59:57 by andrefranci      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,21 +152,21 @@ t_map *map_error_msg(t_map *map)
 {
 	if (map->check_elem == 1)
 	{
-		printf("Error\nIdentifiers not correctly written\n");
+		write(2, "Error\nIdentifiers not correctly written\n", 41);
 		free_str_array(map->desc_file);
 		free(map);
 		return (NULL);
 	}
 	if (map->empty_map == 1)
-		printf("Error\nEmpty map\n");
+		write(2, "Error\nEmpty map\n", 16);
 	else if (map->check_wall == 1)
-		printf("Error\nMap not surrounded by walls\n");
+		write(2, "Error\nMap not surrounded by walls\n", 34);
 	else if (map->check_chars == 1)
-		printf("Error\nInvalid character in map\n");
+		write(2, "Error\nInvalid character in map\n", 32);
 	else if (map->count_player != 1)
-		printf("Error\nInvalid number of players\n");
+		write(2, "Error\nInvalid number of players\n", 33);
 	else if (map->no_empty_line == 0)
-		printf("Error\nEmpty line in the map\n");
+		write(2, "Error\nEmpty line in the map\n", 28);
 	map_free(map);
 	return (NULL);
 }

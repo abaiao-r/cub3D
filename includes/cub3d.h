@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: andrefrancisco <andrefrancisco@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:24:29 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/09 11:37:56 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/09 14:34:40 by andrefranci      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,16 @@ typedef struct s_cub
 	t_map	*map;
 
 }			t_cub;
+
+typedef struct s_elements_data
+{
+    char *elements[6];
+	int		num_elements;
+	int		count_elements;
+	char	*element;
+	char	*temp;
+	int		element_len;
+}			t_elements_data;
 
 /* check_args.c */
 int			check_args(int argc, char **argv);
