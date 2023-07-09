@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:24:29 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/09 01:37:30 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/09 11:37:56 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,16 +51,6 @@ typedef struct s_cub
 	t_map	*map;
 
 }			t_cub;
-
-typedef struct s_check_elements
-{
-	char	*element;
-	int		element_len;
-	int		count_elements;
-	int		num_elements;
-	int		i;
-	int		j;
-}			t_check_elements;
 
 /* check_args.c */
 int			check_args(int argc, char **argv);
