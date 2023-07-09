@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:28:55 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/08 19:07:29 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/09 11:32:22 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	check_elements(t_map *map)
 	int		num_elements;
 	int		count_elements;
 	char	*element;
+	char	*temp;
 	int		element_len;
 
 	elements[0] = "NO";
@@ -38,9 +39,10 @@ int	check_elements(t_map *map)
 		j = 0;
 		while (j < map->lin)
 		{
-			ft_skip_whitespace(&map->desc_file[j]);
-			if (ft_strncmp(map->desc_file[j], element, element_len) == 0
-				&& ft_isspace(map->desc_file[j][element_len]))
+			temp = map->desc_file[j];
+			ft_skip_whitespace(&temp);
+			if (ft_strncmp(temp, element, element_len) == 0
+				&& ft_isspace(temp[element_len]))
 			{
 				count_elements++;
 				if (count_elements == num_elements)
@@ -52,7 +54,7 @@ int	check_elements(t_map *map)
 	}
 	if (count_elements != num_elements)
 	{
-		printf("Error: Missing element(s)\n");
+		map->check_elem = 1;
 		return (0);
 	}
 	printf("OK\n");
@@ -75,14 +77,16 @@ int	is_valid_identifier(char *str)
 int	check_extra_args(t_map *map)
 {
 	int	i;
+	char *temp;
 
 	i = 0;
 	while (i < map->elements_end + 1)
 	{
-		ft_skip_whitespace(&map->desc_file[i]);
-		if (!is_valid_identifier(map->desc_file[i]))
+		temp = map->desc_file[i];
+		ft_skip_whitespace(&temp);
+		if (!is_valid_identifier(temp))
 		{
-			printf("Extra arg in identifiers\n");
+			map->check_elem = 1;
 			return (0);
 		}
 		i++;

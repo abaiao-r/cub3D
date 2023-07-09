@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 12:12:12 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/08 17:05:45 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/09 11:32:17 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,17 @@ void	is_surrounded(t_map *map, int pos_l, int pos_c)
 	return ;
 }
 
-int	is_wall(t_map *map)
+int	is_map_valid(t_map *map)
 {
 	int	i;
 	int	j;
 
 	i = 0;
+	if (map->map_lin == 0)
+	{
+		map->empty_map = 1;
+		return (0);
+	}
 	while (i < map->map_lin)
 	{
 		j = 0;
@@ -123,5 +128,7 @@ int	is_wall(t_map *map)
 		i++;
 	}
 	map->no_empty_line = 1;
+	if (map->count_player != 1)
+		return (0);
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 12:32:41 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/08 15:24:19 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/09 11:32:05 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ int	check_args(int argc, char **argv)
 	}
 	else
 	{
-		if (strncmp(argv[1], "maps/", 5) != 0 || strncmp(argv[1]
-				+ strlen(argv[1]) - 4, ".cub", 4) != 0)
+		if (ft_strncmp(argv[1], "maps/", 5) != 0 || ft_strncmp(argv[1]
+				+ ft_strlen(argv[1]) - 4, ".cub", 4) != 0)
 		{
 			write(2, "Usage: ./cub3d <maps/map.cub>\n", 31);
 			return (0);

@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:24:29 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/08 19:08:09 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/09 01:37:30 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ typedef struct s_map
 	int		map_col;
 	int		check_wall;
 	int		check_chars;
+	int		check_elem;
 	int		count_player;
 	int		no_empty_line;
+	int		empty_map;
 	int		player_l;
 	int		player_c;
 	int		elements_end;
@@ -67,7 +69,7 @@ int			check_args(int argc, char **argv);
 int			check_chars(t_map *map);
 int			is_player_empty(char c);
 void		is_surrounded(t_map *map, int pos_l, int pos_c);
-int			is_wall(t_map *map);
+int			is_map_valid(t_map *map);
 
 /* map_init.c */
 int			count_lines(char *map);
