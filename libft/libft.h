@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: andrefrancisco <andrefrancisco@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:00:36 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/07 16:24:10 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/09 20:58:11 by andrefranci      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_list
 }					t_list;
 
 char				*ft_itoa(int n);
-int					ft_atoll(const char *nptr);
+int					ft_atoi(const char *nptr);
 int					ft_isspace(int c);
 int					ft_isalnum(int c);
 int					ft_isalpha(int c);

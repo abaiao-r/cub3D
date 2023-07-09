@@ -6,7 +6,7 @@
 /*   By: andrefrancisco <andrefrancisco@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:24:29 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/09 14:34:40 by andrefranci      ###   ########.fr       */
+/*   Updated: 2023/07/09 21:13:48 by andrefranci      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,20 @@ typedef struct s_map
 
 }			t_map;
 
+typedef struct s_elements_data
+{
+	char	*no_texture;
+	char	*so_texture;
+	char	*we_texture;
+	char	*ea_texture;
+	int		floor_colour_r;
+	int		floor_colour_g;
+	int		floor_colour_b;
+	int		ceiling_colour_r;
+	int		ceiling_colour_g;
+	int		ceiling_colour_b;
+}			t_elements_data;
+
 typedef struct s_cub
 {
 	void	*mlx_ptr;
@@ -52,7 +66,7 @@ typedef struct s_cub
 
 }			t_cub;
 
-typedef struct s_elements_data
+typedef struct s_elements_var
 {
     char *elements[6];
 	int		num_elements;
@@ -60,7 +74,7 @@ typedef struct s_elements_data
 	char	*element;
 	char	*temp;
 	int		element_len;
-}			t_elements_data;
+}			t_elements_var;
 
 /* check_args.c */
 int			check_args(int argc, char **argv);
