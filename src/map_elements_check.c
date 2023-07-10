@@ -55,6 +55,76 @@ static int check_rgb_values(int r, int g, int b)
 	return (1);
 }
 
+void ft_search_and_replace(char *str, char find, char replace)
+{
+	int i;
+
+	i = 0;
+	while (str[i] != '\0')
+	{
+		if (str[i] == find)
+			str[i] = replace;
+		i++;
+	}
+}
+
+static int check_rgb_is_digit(char **rgb)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while (rgb[i])
+	{
+		j = 0;
+		while (rgb[i][j] != '\0')
+		{
+			if (ft_isspace(rgb[i][j]) == 0)
+			{
+				if (ft_isdigit(rgb[i][j]) == 0)
+				{
+					write(2, "Error\nRGB values must be numbers\n", 34);
+					return (0);
+				}
+			}
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}
+
+static int check_rgb_count_words(char **rgb)
+{
+	int i;
+	int j;
+	int count_words;
+
+	i = 0;
+	while (rgb[i])
+	{
+		count_words = 0;
+		j = 0;
+		while (rgb[i][j] != '\0')
+		{
+			if (ft_isspace(rgb[i][j]) == 0)
+			{
+				count_words++;
+				if(count_words > 1)
+				{
+					write(2, "Error\nRGB values invalid\n", 26);
+					return (0);
+				}
+				while (ft_isspace(rgb[i][j]) == 0 && rgb[i][j] != '\0')
+					j++;
+			}
+			else
+				j++;
+		}
+		i++;
+	}
+	return (1);
+}
 
 static int check_textures_path(t_map *map, t_elements_var *elements_var)
 {
@@ -65,10 +135,18 @@ static int check_textures_path(t_map *map, t_elements_var *elements_var)
 	char **rgb;
 
 	elements_data = ft_calloc(1, sizeof(t_elements_data));
+	ft_search_and_replace(elements_var->temp, '\n', '\0');
 	k = elements_var->element_len;
-	while (elements_var->temp[k] != '\0' && !ft_isspace(elements_var->temp[k]))
+	while (elements_var->temp[k] != '\0' && ft_isspace(elements_var->temp[k]))
 		k++;
-	path  = ft_strdup(&elements_var->temp[k]); 
+	printf("elements_var->temp:%s\n", &elements_var->temp[k]); // test debug
+	if (ft_strncmp(&elements_var->temp[k], "./", 2) == 0)
+	{
+		path = ft_strdup(&elements_var->temp[k]);
+		printf("entrei\n"); // test debug
+	}
+	else
+		path  = ft_strdup(&elements_var->temp[k]); 
 	if (ft_strncmp(elements_var->element, "NO", 2) == 0)
 	{
 		elements_data->no_texture = path;
@@ -88,6 +166,8 @@ static int check_textures_path(t_map *map, t_elements_var *elements_var)
 	else if (ft_strncmp(elements_var->element, "F", 1) == 0)
 	{
 		rgb = ft_split(path, ',');
+		check_rgb_count_words(rgb);
+		check_rgb_is_digit(rgb);
 		elements_data->floor_colour_r = ft_atoi(rgb[0]);
 		elements_data->floor_colour_g = ft_atoi(rgb[1]);
 		elements_data->floor_colour_b = ft_atoi(rgb[2]);
@@ -101,6 +181,8 @@ static int check_textures_path(t_map *map, t_elements_var *elements_var)
 	else if (ft_strncmp(elements_var->element, "C", 1) == 0)
 	{
 		rgb = ft_split(path, ',');
+		check_rgb_count_words(rgb);
+		check_rgb_is_digit(rgb);
 		elements_data->ceiling_colour_r = ft_atoi(rgb[0]);
 		elements_data->ceiling_colour_g = ft_atoi(rgb[1]);
 		elements_data->ceiling_colour_b = ft_atoi(rgb[2]);
@@ -112,7 +194,7 @@ static int check_textures_path(t_map *map, t_elements_var *elements_var)
 		return (1);
 	}
 	printf("path:%s\n", path); // test debug
-	fd = open("path", O_RDONLY);
+	fd = open(path, O_RDONLY);
 	if (fd < 0)
 	{
 		printf("fd: %d\n", fd); // test debug
