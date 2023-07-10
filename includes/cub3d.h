@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:24:29 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/10 15:06:36 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/10 19:12:56 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ typedef struct s_cub
 
 typedef struct s_elements_var
 {
-    char *elements[6];
+	char	*elements[6];
 	int		num_elements;
 	int		count_elements;
 	char	*element;
@@ -97,5 +97,18 @@ t_map		*init_map(char **str_map);
 /* map_elements_check.c */
 int			check_elements(t_map *map);
 int			check_extra_args(t_map *map);
+
+/* free_map_aux.c*/
+void		free_str_array(char **str_arr);
+void		map_free(t_map *map);
+t_map		*map_error_msg(t_map *map);
+
+/*utils_map.c*/
+int			count_lines(char *map);
+int			ft_strlen_mod(const char *str);
+int			count_cols(char *map);
+
+/*map_conditions.c*/
+int		map_conditions(t_map *map, int i);
 
 #endif

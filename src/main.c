@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 12:05:10 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/09 11:32:11 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/10 19:07:04 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	main(int argc, char **argv)
 {
 	t_cub	*cub;
+	int		i;
 
 	(void)argc;
 	if (!check_args(argc, argv))
@@ -28,8 +29,7 @@ int	main(int argc, char **argv)
 		free(cub);
 		return (0);
 	}
-	// map test
-	int i = 0;
+	i = 0;
 	while (i < cub->map->map_lin)
 	{
 		printf("%s", cub->map->game_map[i]);
