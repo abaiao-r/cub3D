@@ -6,7 +6,7 @@
 /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 19:51:36 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/10 19:58:02 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/10 22:40:48 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int	check_textures_path(t_map *map, t_elements_var *elements_var,
 	}
 	if (file_exists(path, map) == 0)
 		return (0);
+    /* if (path)
+        free(path); */
 	return (1);
 }
 
@@ -117,10 +119,10 @@ int	parse_rgb_values(char *path, t_map *map,
 	{
 		write(2, "Error\nRGB parsing failed!\n", 26);
 		map->check_elem = 1;
-		return (0);
+		return (free(path), 0);
 	}
 	if (check_rgb_count_words(rgb) == 0 || check_rgb_is_digit(rgb) == 0)
-		return (0);
+		return (free(path), 0);
 	elements_data->floor_colour_r = ft_atoi(rgb[0]);
 	elements_data->floor_colour_g = ft_atoi(rgb[1]);
 	elements_data->floor_colour_b = ft_atoi(rgb[2]);

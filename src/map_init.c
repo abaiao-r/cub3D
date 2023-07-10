@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:30:51 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/10 19:06:31 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/10 23:15:57 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ t_map	*init_map(char **str_map)
 		return (0);
 	map->desc_file = read_desc_file(str_map[1]);
 	if (!map->desc_file)
-		return (NULL);
+		return (free(map), NULL);
 	map->lin = count_lines(str_map[1]);
 	if (!check_elements(map))
 		return (map_error_msg(map));

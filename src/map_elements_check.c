@@ -6,7 +6,7 @@
 /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:28:55 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/10 20:05:29 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/10 23:15:09 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,14 @@ static void	init_elements_var(t_elements_var *elements_var)
 	elements_var->j = 0;
 }
 
+void	free_map_elements(t_elements_data *elements_data,
+		t_elements_var *elements_var, t_map *map)
+{
+	free(elements_data);
+	free(elements_var);
+	map->check_elem = 1;
+}
+
 int	check_elements(t_map *map)
 {
 	t_elements_var	*elements_var;
@@ -62,13 +70,17 @@ int	check_elements(t_map *map)
 	while (elements_var->i < elements_var->num_elements)
 	{
 		elements_var->j = 0;
-		process_element(map, elements_var, elements_data);
+		if (process_element(map, elements_var, elements_data) == 0)
+		{
+			free_map_elements(elements_data, elements_var, map);
+			return (0);
+		}
 		elements_var->i++;
 	}
 	if (elements_var->count_elements != elements_var->num_elements)
 	{
-		map->check_elem = 1;
-		free(elements_var);
+		write(2, "Error\nNumber of elements is incorrect\n", 38);
+		free_map_elements(elements_data, elements_var, map);
 		return (0);
 	}
 	free(elements_var);

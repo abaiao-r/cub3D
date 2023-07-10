@@ -6,7 +6,7 @@
 #    By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/07 16:03:25 by pedperei          #+#    #+#              #
-#    Updated: 2023/07/10 20:57:46 by abaiao-r         ###   ########.fr        #
+#    Updated: 2023/07/10 21:03:13 by abaiao-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ SRCS = 	$(SRCDIR)/main.c \
 		$(SRCDIR)/map_conditions.c \
 		$(SRCDIR)/map_elements_check.c \
 		$(SRCDIR)/map_init.c \
-		$(SRCDIR)/utils_map.c \ \
+		$(SRCDIR)/utils_map.c \
 		$(SRCDIR)/map_elements_check_utils.c \
 		$(SRCDIR)/map_elements_check_utils2.c \
 		$(SRCDIR)/map_elements_check_utils3.c \

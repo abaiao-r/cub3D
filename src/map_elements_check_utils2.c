@@ -6,7 +6,7 @@
 /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 19:58:58 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/10 20:50:23 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/10 22:51:40 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int	check_rgb_is_digit(char **rgb)
 				if (ft_isdigit(rgb[i][j]) == 0)
 				{
 					write(2, "Error\nRGB values must be numbers\n", 34);
+					ft_free_array2d(rgb);
 					return (0);
 				}
 			}
@@ -60,6 +61,7 @@ int	check_rgb_count_words(char **rgb)
 		if (count_words > 1)
 		{
 			write(2, "Error\nRGB values invalid\n", 26);
+			ft_free_array2d(rgb);
 			return (0);
 		}
 		i++;
@@ -67,6 +69,7 @@ int	check_rgb_count_words(char **rgb)
 	if (i != 3)
 	{
 		write(2, "Error\nRGB values invalid\n", 26);
+		ft_free_array2d(rgb);
 		return (0);
 	}
 	return (1);

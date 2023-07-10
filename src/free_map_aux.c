@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_map_aux.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 18:47:13 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/10 18:51:53 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/10 23:16:17 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ t_map	*map_error_msg(t_map *map)
 {
 	if (map->check_elem == 1)
 	{
-		write(2, "Error\nIdentifiers not correctly written\n", 41);
 		free_str_array(map->desc_file);
 		free(map);
 		return (NULL);
