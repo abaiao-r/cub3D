@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andrefrancisco <andrefrancisco@student.    +#+  +:+       +#+        */
+/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 14:00:36 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/09 20:58:11 by andrefranci      ###   ########.fr       */
+/*   Updated: 2023/07/10 16:44:00 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,10 @@ int					ft_toupper(int c);
 int					ft_tolower(int c);
 int					ft_is_input_only_whitespaces(char *str);
 int					ft_is_input_quotes_and_whitespaces(char *str);
+void				ft_search_and_replace(char *str, char find, char replace);
+int					ft_count_words(char *str);
+int					ft_strlen_word(char *str);
+void				ft_free_array2d(char **array);
 /* ft_printf */
 int					ft_printf(const char *s, ...);
 

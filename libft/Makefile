@@ -6,7 +6,7 @@
 #    By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/25 12:44:03 by abaiao-r          #+#    #+#              #
-#    Updated: 2023/06/24 17:02:57 by abaiao-r         ###   ########.fr        #
+#    Updated: 2023/07/10 16:41:48 by abaiao-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ NAME = libft.a
 SRC = 	ft_atoi.c \
 		ft_bzero.c \
 		ft_calloc.c \
+		ft_count_words.c \
 		ft_isalnum.c \
 		ft_isalpha.c \
 		ft_isascii.c \
@@ -25,6 +26,7 @@ SRC = 	ft_atoi.c \
 		ft_is_quote.c \
 		ft_isspace.c \
 		ft_itoa.c \
+		ft_free_array2d.c \
 		ft_memchr.c \
 		ft_memcmp.c \
 		ft_memcpy.c \
@@ -35,6 +37,7 @@ SRC = 	ft_atoi.c \
 		ft_putchar_fd.c \
 		ft_putnbr_fd.c \
 		ft_putstr_fd.c \
+		ft_search_and_replace.c \
 		ft_skip_whitespace.c \
 		ft_split.c \
 		ft_strchr.c \
@@ -46,6 +49,7 @@ SRC = 	ft_atoi.c \
 		ft_strlcat.c \
 		ft_strlcpy.c \
 		ft_strlen.c \
+		ft_strlen_word.c \
 		ft_strmapi.c \
 		ft_strncmp.c \
 		ft_strncpy.c \

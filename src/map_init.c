@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andrefrancisco <andrefrancisco@student.    +#+  +:+       +#+        */
+/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:30:51 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/09 14:59:57 by andrefranci      ###   ########.fr       */
+/*   Updated: 2023/07/10 14:49:49 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ char	**read_map(char **desc_file, int lines, int start_map)
 	j = -1;
 	while ((i + ++j) < lines)
 		map[j] = ft_strdup(desc_file[i + j]);
-	map[j] = '\0';
+	map[j] = NULL;
 	return (map);
 }
 
@@ -121,7 +121,7 @@ char	**copy_map(t_map *map)
 		blank_map[i] = ft_calloc(ft_strlen(map->game_map[i]) + 1, sizeof(char));
 		i++;
 	}
-	blank_map[i] = '\0';
+	blank_map[i] = NULL;
 	return (blank_map);
 }
 
