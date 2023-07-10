@@ -6,7 +6,7 @@
 /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:28:55 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/10 17:15:39 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/10 18:32:18 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,14 +141,39 @@ static int check_path_count_words(char *path)
 	return (1);
 }
 
+static char *def_path(char *temp, t_elements_var *elements_var)
+{
+	int i;
+	char *path;
+
+	i = elements_var->element_len;
+	while (temp[i] != '\0' && ft_isspace(temp[i]))
+		i++;
+	printf("elements_var->temp:%s\n", &elements_var->temp[i]); // test debug
+	if (ft_strncmp(&elements_var->temp[i], "./", 2) == 0)
+	{
+		if(check_path_count_words(&elements_var->temp[i]) != 1)
+			return (0);
+		path = ft_strndup(&elements_var->temp[i], ft_strlen_word(&elements_var->temp[i]));
+		printf("entrei\n"); // test debug
+	}
+	else
+		path  = ft_strdup(&elements_var->temp[i]);
+	return (path);
+}
+
+
 static int check_textures_path(t_map *map, t_elements_var *elements_var, t_elements_data *elements_data)
 {
 	char	*path;
 	int fd;
-	int k;
+	/* int k; */
 	char **rgb;
 
-	ft_search_and_replace(elements_var->temp, '\n', '\0');
+	path = def_path(elements_var->temp, elements_var);
+	if (path == NULL)
+		return (0);
+	/* ft_search_and_replace(elements_var->temp, '\n', '\0');
 	k = elements_var->element_len;
 	while (elements_var->temp[k] != '\0' && ft_isspace(elements_var->temp[k]))
 		k++;
@@ -161,7 +186,7 @@ static int check_textures_path(t_map *map, t_elements_var *elements_var, t_eleme
 		printf("entrei\n"); // test debug
 	}
 	else
-		path  = ft_strdup(&elements_var->temp[k]);
+		path  = ft_strdup(&elements_var->temp[k]); */
 	if (ft_strncmp(elements_var->element, "NO", 2) == 0)
 	{
 		if (check_path_extension(path) == 0)
