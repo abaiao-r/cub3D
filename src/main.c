@@ -3,14 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 12:05:10 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/10 23:14:37 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/11 23:26:43 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+int	init_mlx_lib(t_cub *cub)
+{
+	int		i;
+
+	i = 0;
+	cub->mlx_ptr = mlx_init();
+	cub->win_ptr = mlx_new_window(cub->mlx_ptr, 1280, 720, "cub3D");
+	mlx_loop(cub->mlx_ptr);
+	mlx_get_time
+	return (0);
+}
 
 int	main(int argc, char **argv)
 {
@@ -25,10 +37,8 @@ int	main(int argc, char **argv)
 		return (0);
 	cub->map = init_map(argv);
 	if (!cub->map)
-	{
-		free(cub);
-		return (0);
-	}
+		return(free(cub), 0);
+	init_mlx_lib(cub);
 	i = 0;
 	while (i < cub->map->map_lin)
 	{
