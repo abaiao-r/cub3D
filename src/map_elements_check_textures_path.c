@@ -6,7 +6,7 @@
 /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 19:51:36 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/11 15:34:01 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/11 19:00:59 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,8 @@ static char	*def_path(char *temp, t_elements_var *elements_var)
 {
 	int		i;
 	char	*path;
+	char	*temp2;
+	size_t	len;
 
 	i = elements_var->element_len;
 	while (temp[i] != '\0' && ft_isspace(temp[i]))
@@ -140,7 +142,13 @@ static char	*def_path(char *temp, t_elements_var *elements_var)
 				ft_strlen_word(&elements_var->temp[i]));
 	}
 	else
-		path = ft_strdup(&elements_var->temp[i]);
+	{
+		temp2 = ft_strchr(&elements_var->temp[i], '\n');
+		if (temp2 == NULL)
+			return (0);
+		len = temp2 - &elements_var->temp[i];
+		path = ft_strndup(&elements_var->temp[i], len);
+	}
 	return (path);
 }
 

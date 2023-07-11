@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: andrefrancisco <andrefrancisco@student.    +#+  +:+       +#+         #
+#    By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/07 16:03:25 by pedperei          #+#    #+#              #
-#    Updated: 2023/07/11 12:14:52 by andrefranci      ###   ########.fr        #
+#    Updated: 2023/07/11 15:58:44 by abaiao-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,10 +26,10 @@ SRCS = 	$(SRCDIR)/main.c \
 		$(SRCDIR)/map_check.c \
 		$(SRCDIR)/map_check_extra_args.c \
 		$(SRCDIR)/map_conditions.c \
+		$(SRCDIR)/map_elements_check_textures_path_utils.c \
 		$(SRCDIR)/map_elements_check.c \
 		$(SRCDIR)/map_elements_check_textures_path.c \
 		$(SRCDIR)/map_elements_check_textures_path2.c \
-		$(SRCDIR)/map_elements_check_textures path_utils.c \
 		$(SRCDIR)/map_init.c \
 		$(SRCDIR)/utils_map.c
 

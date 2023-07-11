@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andrefrancisco <andrefrancisco@student.    +#+  +:+       +#+        */
+/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:24:29 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/11 12:24:07 by andrefranci      ###   ########.fr       */
+/*   Updated: 2023/07/11 15:59:54 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,13 @@ t_map				*init_map(char **str_map);
 /* map_elements_check.c */
 int					check_elements(t_map *map);
 
+/* map_check_textures_path_utils.c */
+int					check_rgb_values(t_elements_data *elements_data);
+int					check_rgb_is_digit(char **rgb);
+int					check_rgb_count_words(char **rgb);
+int					check_path_extension(char *path);
+int					check_path_count_words(char *path);
+
 /* map_elements_check_textures_path.c */
 int					check_textures_path(t_map *map,
 						t_elements_var *elements_var,
@@ -108,13 +115,6 @@ int					check_textures_path(t_map *map,
 
 /* map_elements_check_textures_path2.c */
 int					file_exists(char *path, t_map *map);
-
-/* map_check_textures_path_utils.c */
-int					check_rgb_values(t_elements_data *elements_data);
-int					check_rgb_is_digit(char **rgb);
-int					check_rgb_count_words(char **rgb);
-int					check_path_extension(char *path);
-int					check_path_count_words(char *path);
 
 /* free_map_aux.c*/
 void				free_str_array(char **str_arr);

@@ -1,7 +1,7 @@
-NO ./textures/no_test.xpm 
-EA ./textures/ea_test.xpm                
-SO ./textures/so_test.xpm
-WE ./textures/we_test.xpm   
+NO  ./textures/no_test.xpm 
+EA  ./textures/ea_test.xpm                
+SO  ./textures/so_test.xpm
+WE  ./textures/we_test.xpm   
 
 F 220,100,0
 C 225,30,0

@@ -6,7 +6,7 @@
 /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:28:55 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/11 15:06:41 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/11 18:52:30 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ static void	free_map_elements(t_elements_data *elements_data,
 	if (elements_data->ea_texture)
 		free(elements_data->ea_texture);
 	free(elements_data);
-	if (elements_var->elements)
-		free(elements_var);
+	free(elements_var);
 	map->check_elem = 1;
 }
 
@@ -62,7 +61,7 @@ static int	process_element(t_map *map, t_elements_var *elements_var,
 			elements_var->count_elements++;
 			if (check_textures_path(map, elements_var, elements_data) == 0)
 				return (0);
-			if (elements_var->count_elements == elements_var->num_elements)
+			if (map->elements_end <= elements_var->j)
 				map->elements_end = elements_var->j;
 		}
 		elements_var->j++;
