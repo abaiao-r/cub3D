@@ -3,15 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   map_elements_check_textures_path_ utils.c          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andrefrancisco <andrefrancisco@student.    +#+  +:+       +#+        */
+/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 12:16:53 by andrefranci       #+#    #+#             */
-/*   Updated: 2023/07/11 12:23:39 by andrefranci      ###   ########.fr       */
+/*   Updated: 2023/07/11 15:31:40 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+/*  check_rgb_values: checks if the rgb values are between 0 and 255.
+ *  If they are not, it returns 0.
+ *  @param elements_data: elements_data structure.
+ *  @return: 1 if the rgb values are between 0 and 255, 0 if not.
+ */
 int	check_rgb_values(t_elements_data *elements_data)
 {
 	if (elements_data->floor_colour_r < 0 || elements_data->floor_colour_r > 255
@@ -32,6 +37,11 @@ int	check_rgb_values(t_elements_data *elements_data)
 	return (1);
 }
 
+/*  check_rgb_is_digit: checks if the rgb values are digits.
+ *  If they are not, it returns 0 and frees the allocated memory.
+ *  @param rgb: rgb values.
+ *  @return: 1 if the rgb values are digits, 0 if not.
+ */
 int	check_rgb_is_digit(char **rgb)
 {
 	int	i;
@@ -59,6 +69,12 @@ int	check_rgb_is_digit(char **rgb)
 	return (1);
 }
 
+/*  check_rgb_count_words: checks if the rgb values have more than one word.
+ *  If they have more than one word, it returns 0.
+ *  If rgb array has more than 3 elements, it returns 0.
+ *  @param rgb: rgb values.
+ *  @return: 1 if the rgb values have one word, 0 if not.
+ */
 int	check_rgb_count_words(char **rgb)
 {
 	int	i;
@@ -85,6 +101,12 @@ int	check_rgb_count_words(char **rgb)
 	return (1);
 }
 
+/*  check_path_extension: checks if the path has the correct extension.
+ *  It checks if the path starts with ./ and ends with .xpm.
+ *  If it has not, it returns 0.
+ *  @param path: path of the texture.
+ *  @return: 1 if the path has the correct extension, 0 if not.
+ */
 int	check_path_extension(char *path)
 {
 	int		i;
@@ -111,6 +133,11 @@ int	check_path_extension(char *path)
 	return (1);
 }
 
+/*  check_path_count_words: checks if the path has more than one word.
+ *  If it has more than one word, it returns 0.
+ *  @param path: path of the texture.
+ *  @return: 1 if the path has one word, 0 if not.
+ */
 int	check_path_count_words(char *path)
 {
 	int	count_words;

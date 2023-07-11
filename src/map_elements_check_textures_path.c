@@ -3,15 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   map_elements_check_textures_path.c                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: andrefrancisco <andrefrancisco@student.    +#+  +:+       +#+        */
+/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 19:51:36 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/11 12:21:02 by andrefranci      ###   ########.fr       */
+/*   Updated: 2023/07/11 15:34:01 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+/*  init_rgb_values: initializes the rgb values.
+ *  @param elements_data: elements_data structure.
+ *  @param rgb: rgb values.
+ *  @param c: character.
+ * @return: 1 if the rgb values are correct, 0 if not.
+ */
 static void	init_rgb_values(t_elements_data *elements_data, char **rgb, char c)
 {
 	if (c == 'F')
@@ -28,6 +34,20 @@ static void	init_rgb_values(t_elements_data *elements_data, char **rgb, char c)
 	}
 }
 
+/*  parse_rgb_values: parses the rgb values.
+ *  Split the path of the texture by the comma and stores it in rgb.
+ *  If the number of words is not 3, it returns 0.
+ *  Then it checks if the rgb values are digits.
+ *  If they are not, it returns 0 and frees the allocated memory.
+ *  Then it stores the rgb values in the elements_data structure.
+ *  If the rgb values are not between 0 and 255, it returns 0.
+ *  If the rgb values are correct, it frees the allocated memory.
+ *  @param path: path of the texture.
+ *  @param map: map structure.
+ *  @param elements_data: elements_data structure.
+ *  @param c: character.
+ *  @return: 1 if the rgb values are correct, 0 if not.
+ */
 static int	parse_rgb_values(char *path, t_map *map,
 		t_elements_data *elements_data, char c)
 {
@@ -57,6 +77,18 @@ static int	parse_rgb_values(char *path, t_map *map,
 	return (1);
 }
 
+/*  verify_path: verifies if the path of the texture is correct.
+ *  It checks if the path has the correct extension.
+ *  If it does not, it returns 0 and frees the allocated memory.
+ *  Then it checks if the element is NO, SO, WE or EA.
+ *  If it is, it checks if the path of the texture is already defined.
+ *  If the path of the texture is not already defined, it copies the path 
+ *  to store in the map structure.
+ *  @param path: path of the texture.
+ *  @param elements_var: elements_var structure.
+ *  @param elements_data: elements_data structure.
+ *  @return: 1 if the path of the texture is correct, 0 if not.
+ */
 static int	verify_path(char *path, t_elements_var *elements_var,
 		t_elements_data *elements_data)
 {
@@ -83,6 +115,15 @@ static int	verify_path(char *path, t_elements_var *elements_var,
 	return (1);
 }
 
+/*  def_path: defines the path of the texture.
+ *  It checks if the path starts with ./.
+ *  If it does, it checks if the path has only one word.
+ *  If it does, it copies the path.
+ *  If it does not, it returns 0.
+ *  @param temp: temporary string.
+ *  @param elements_var: elements_var structure.
+ *  @return: the path of the texture.
+ */
 static char	*def_path(char *temp, t_elements_var *elements_var)
 {
 	int		i;
@@ -103,6 +144,16 @@ static char	*def_path(char *temp, t_elements_var *elements_var)
 	return (path);
 }
 
+/*  check_textures_path: checks if the path of the texture is correct.
+ *  def_path: defines the path of the texture.
+ *  verify_path: verifies if the path of the texture is correct.
+ * parse_rgb_values: parses the rgb values.
+ * file_exists: checks if the file exists.
+ * @param map: map structure.
+ * @param elements_var: elements_var structure.
+ * @param elements_data: elements_data structure.
+ * @return: 1 if the path of the texture is correct, 0 if not.
+ */
 int	check_textures_path(t_map *map, t_elements_var *elements_var,
 		t_elements_data *elements_data)
 {
