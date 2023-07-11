@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_elements_check_utils2.c                        :+:      :+:    :+:   */
+/*   map_elements_check_textures_path_ utils.c          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: andrefrancisco <andrefrancisco@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/10 19:58:58 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/11 11:43:23 by andrefranci      ###   ########.fr       */
+/*   Created: 2023/07/11 12:16:53 by andrefranci       #+#    #+#             */
+/*   Updated: 2023/07/11 12:23:39 by andrefranci      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,19 +85,6 @@ int	check_rgb_count_words(char **rgb)
 	return (1);
 }
 
-int	check_path_count_words(char *path)
-{
-	int	count_words;
-
-	count_words = ft_count_words(path);
-	if (count_words > 1)
-	{
-		write(2, "Error\nInvalid texture path. Too many arguments\n", 48);
-		return (0);
-	}
-	return (1);
-}
-
 int	check_path_extension(char *path)
 {
 	int		i;
@@ -121,5 +108,18 @@ int	check_path_extension(char *path)
 		i++;
 	}
 	free(temp);
+	return (1);
+}
+
+int	check_path_count_words(char *path)
+{
+	int	count_words;
+
+	count_words = ft_count_words(path);
+	if (count_words > 1)
+	{
+		write(2, "Error\nInvalid texture path. Too many arguments\n", 48);
+		return (0);
+	}
 	return (1);
 }

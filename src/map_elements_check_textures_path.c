@@ -1,63 +1,63 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_elements_check_utils.c                         :+:      :+:    :+:   */
+/*   map_elements_check_textures_path.c                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: andrefrancisco <andrefrancisco@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 19:51:36 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/11 11:44:07 by andrefranci      ###   ########.fr       */
+/*   Updated: 2023/07/11 12:21:02 by andrefranci      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int	check_textures_path(t_map *map, t_elements_var *elements_var,
-		t_elements_data *elements_data)
+static void	init_rgb_values(t_elements_data *elements_data, char **rgb, char c)
 {
-	char	*path;
-
-	path = def_path(elements_var->temp, elements_var);
-	if (path == NULL)
-		return (0);
-	if (verify_path(path, elements_var, elements_data) == 0)
-		return (0);
-	if (ft_strncmp(elements_var->element, "F", 1) == 0)
+	if (c == 'F')
 	{
-		if (parse_rgb_values(path, map, elements_data, 'F') == 0)
-			return (0);
-		return (1);
+		elements_data->floor_colour_r = ft_atoi(rgb[0]);
+		elements_data->floor_colour_g = ft_atoi(rgb[1]);
+		elements_data->floor_colour_b = ft_atoi(rgb[2]);
 	}
-	if (ft_strncmp(elements_var->element, "C", 1) == 0)
+	else if (c == 'C')
 	{
-		if (parse_rgb_values(path, map, elements_data, 'C') == 0)
-			return (0);
-		return (1);
+		elements_data->ceiling_colour_r = ft_atoi(rgb[0]);
+		elements_data->ceiling_colour_g = ft_atoi(rgb[1]);
+		elements_data->ceiling_colour_b = ft_atoi(rgb[2]);
 	}
-	if (file_exists(path, map) == 0)
-		return (0);
-	return (1);
 }
 
-int	file_exists(char *path, t_map *map)
+static int	parse_rgb_values(char *path, t_map *map,
+		t_elements_data *elements_data, char c)
 {
-	int	fd;
+	char	**rgb;
 
-	fd = open(path, O_RDONLY);
-	if (fd < 0)
+	rgb = ft_split(path, ',');
+	if (rgb == NULL)
 	{
-		write(2, "Error\nTexture file does not exist\n", 35);
+		write(2, "Error\nRGB parsing failed!\n", 26);
 		map->check_elem = 1;
-		close(fd);
+		return (free(path), 0);
+	}
+	if (check_rgb_count_words(rgb) == 0 || check_rgb_is_digit(rgb) == 0)
+		return (free(path), 0);
+	if (c == 'F')
+		init_rgb_values(elements_data, rgb, c);
+	else if (c == 'C')
+		init_rgb_values(elements_data, rgb, c);
+	if (check_rgb_values(elements_data) == 0)
+	{
 		free(path);
+		ft_free_array2d(rgb);
 		return (0);
 	}
-	close(fd);
 	free(path);
+	ft_free_array2d(rgb);
 	return (1);
 }
 
-int	verify_path(char *path, t_elements_var *elements_var,
+static int	verify_path(char *path, t_elements_var *elements_var,
 		t_elements_data *elements_data)
 {
 	if (ft_strncmp(elements_var->element, "NO", 2) == 0
@@ -83,7 +83,7 @@ int	verify_path(char *path, t_elements_var *elements_var,
 	return (1);
 }
 
-char	*def_path(char *temp, t_elements_var *elements_var)
+static char	*def_path(char *temp, t_elements_var *elements_var)
 {
 	int		i;
 	char	*path;
@@ -103,46 +103,29 @@ char	*def_path(char *temp, t_elements_var *elements_var)
 	return (path);
 }
 
-void	init_rgb_values(t_elements_data *elements_data, char **rgb, char c)
+int	check_textures_path(t_map *map, t_elements_var *elements_var,
+		t_elements_data *elements_data)
 {
-	if (c == 'F')
-	{
-		elements_data->floor_colour_r = ft_atoi(rgb[0]);
-		elements_data->floor_colour_g = ft_atoi(rgb[1]);
-		elements_data->floor_colour_b = ft_atoi(rgb[2]);
-	}
-	else if (c == 'C')
-	{
-		elements_data->ceiling_colour_r = ft_atoi(rgb[0]);
-		elements_data->ceiling_colour_g = ft_atoi(rgb[1]);
-		elements_data->ceiling_colour_b = ft_atoi(rgb[2]);
-	}
-}
+	char	*path;
 
-int	parse_rgb_values(char *path, t_map *map, t_elements_data *elements_data, char c)
-{
-	char	**rgb;
-
-	rgb = ft_split(path, ',');
-	if (rgb == NULL)
-	{
-		write(2, "Error\nRGB parsing failed!\n", 26);
-		map->check_elem = 1;
-		return (free(path), 0);
-	}
-	if (check_rgb_count_words(rgb) == 0 || check_rgb_is_digit(rgb) == 0)
-		return (free(path), 0);
-	if (c == 'F')
-		init_rgb_values(elements_data, rgb, c);
-	else if (c == 'C')
-		init_rgb_values(elements_data, rgb, c);
-	if (check_rgb_values(elements_data) == 0)
-	{
-		free(path);
-		ft_free_array2d(rgb);
+	path = def_path(elements_var->temp, elements_var);
+	if (path == NULL)
 		return (0);
+	if (verify_path(path, elements_var, elements_data) == 0)
+		return (0);
+	if (ft_strncmp(elements_var->element, "F", 1) == 0)
+	{
+		if (parse_rgb_values(path, map, elements_data, 'F') == 0)
+			return (0);
+		return (1);
 	}
-	free(path);
-	ft_free_array2d(rgb);
+	if (ft_strncmp(elements_var->element, "C", 1) == 0)
+	{
+		if (parse_rgb_values(path, map, elements_data, 'C') == 0)
+			return (0);
+		return (1);
+	}
+	if (file_exists(path, map) == 0)
+		return (0);
 	return (1);
 }

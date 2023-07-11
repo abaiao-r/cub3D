@@ -3,14 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   map_elements_check.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: andrefrancisco <andrefrancisco@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:28:55 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/11 00:54:50 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/11 12:23:23 by andrefranci      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+static void	free_map_elements(t_elements_data *elements_data,
+		t_elements_var *elements_var, t_map *map)
+{
+	if (elements_data->no_texture)
+		free(elements_data->no_texture);
+	if (elements_data->so_texture)
+		free(elements_data->so_texture);
+	if (elements_data->we_texture)
+		free(elements_data->we_texture);
+	if (elements_data->ea_texture)
+		free(elements_data->ea_texture);
+	free(elements_data);
+	if (elements_var->elements)
+		free(elements_var);
+	map->check_elem = 1;
+}
 
 static int	process_element(t_map *map, t_elements_var *elements_var,
 		t_elements_data *elements_data)
@@ -49,23 +66,6 @@ static void	init_elements_var(t_elements_var *elements_var)
 	elements_var->count_elements = 0;
 	elements_var->i = 0;
 	elements_var->j = 0;
-}
-
-void	free_map_elements(t_elements_data *elements_data,
-		t_elements_var *elements_var, t_map *map)
-{
-	if (elements_data->no_texture)	
-		free(elements_data->no_texture);
-	if (elements_data->so_texture)
-		free(elements_data->so_texture);
-	if (elements_data->we_texture)
-		free(elements_data->we_texture);
-	if (elements_data->ea_texture)
-		free(elements_data->ea_texture);
-	free(elements_data);
-	if (elements_var->elements)
-		free(elements_var);
-	map->check_elem = 1;
 }
 
 int	check_elements(t_map *map)

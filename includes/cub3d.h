@@ -6,7 +6,7 @@
 /*   By: andrefrancisco <andrefrancisco@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:24:29 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/11 11:36:48 by andrefranci      ###   ########.fr       */
+/*   Updated: 2023/07/11 12:24:07 by andrefranci      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,9 @@ int					is_player_empty(char c);
 void				is_surrounded(t_map *map, int pos_l, int pos_c);
 int					is_map_valid(t_map *map);
 
+/* map_check_extra_args */
+int					check_extra_args(t_map *map);
+
 /* map_init.c */
 int					count_lines(char *map);
 int					ft_strlen_mod(const char *str);
@@ -96,31 +99,22 @@ char				**read_map(char **str_map, int lines, int start_map);
 t_map				*init_map(char **str_map);
 
 /* map_elements_check.c */
-void				free_map_elements(t_elements_data *elements_data, t_elements_var *elements_var, t_map *map);
 int					check_elements(t_map *map);
-int					check_extra_args(t_map *map);
 
-/* map_elements_check_utils.c */
+/* map_elements_check_textures_path.c */
 int					check_textures_path(t_map *map,
 						t_elements_var *elements_var,
 						t_elements_data *elements_data);
-int					file_exists(char *path, t_map *map);
-int					verify_path(char *path, t_elements_var *elements_var,
-						t_elements_data *elements_data);
-char				*def_path(char *temp, t_elements_var *elements_var);
-int					parse_rgb_values(char *path, t_map *map,
-						t_elements_data *elements_data, char c);
 
-/* map_elements_check_utils2.c */
+/* map_elements_check_textures_path2.c */
+int					file_exists(char *path, t_map *map);
+
+/* map_check_textures_path_utils.c */
 int					check_rgb_values(t_elements_data *elements_data);
 int					check_rgb_is_digit(char **rgb);
 int					check_rgb_count_words(char **rgb);
-int					check_path_count_words(char *path);
 int					check_path_extension(char *path);
-
-/*  map_elements_check_utils3.c */
-int					is_valid_identifier(char *str);
-int					check_extra_args(t_map *map);
+int					check_path_count_words(char *path);
 
 /* free_map_aux.c*/
 void				free_str_array(char **str_arr);

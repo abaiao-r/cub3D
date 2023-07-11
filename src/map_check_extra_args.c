@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_elements_check_utils3.c                        :+:      :+:    :+:   */
+/*   map_check_extra_args.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: andrefrancisco <andrefrancisco@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/07/10 20:05:10 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/10 20:05:35 by abaiao-r         ###   ########.fr       */
+/*   Created: 2023/07/11 12:17:12 by andrefranci       #+#    #+#             */
+/*   Updated: 2023/07/11 12:17:16 by andrefranci      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int	is_valid_identifier(char *str)
+static int	is_valid_identifier(char *str)
 {
 	if (ft_strncmp(str, "NO", 2) == 0 || ft_strncmp(str, "SO", 2) == 0)
 		return (1);
