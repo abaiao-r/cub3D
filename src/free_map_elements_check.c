@@ -3,13 +3,11 @@
 /*                                                        :::      ::::::::   */
 /*   free_map_elements_check.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: andrefrancisco <andrefrancisco@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 21:18:54 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/10 21:23:40 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/11 11:42:39 by andrefranci      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-void free_map_elements(

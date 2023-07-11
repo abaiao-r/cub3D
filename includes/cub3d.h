@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: andrefrancisco <andrefrancisco@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:24:29 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/11 01:06:40 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/11 11:36:48 by andrefranci      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,8 +96,7 @@ char				**read_map(char **str_map, int lines, int start_map);
 t_map				*init_map(char **str_map);
 
 /* map_elements_check.c */
-void	free_map_elements(t_elements_data *elements_data,
-		t_elements_var *elements_var, t_map *map);
+void				free_map_elements(t_elements_data *elements_data, t_elements_var *elements_var, t_map *map);
 int					check_elements(t_map *map);
 int					check_extra_args(t_map *map);
 
@@ -110,32 +109,10 @@ int					verify_path(char *path, t_elements_var *elements_var,
 						t_elements_data *elements_data);
 char				*def_path(char *temp, t_elements_var *elements_var);
 int					parse_rgb_values(char *path, t_map *map,
-						t_elements_data *elements_data);
+						t_elements_data *elements_data, char c);
 
 /* map_elements_check_utils2.c */
-int					check_rgb_values(int r, int g, int b);
-int					check_rgb_is_digit(char **rgb);
-int					check_rgb_count_words(char **rgb);
-int					check_path_count_words(char *path);
-int					check_path_extension(char *path);
-
-/*  map_elements_check_utils3.c */
-int					is_valid_identifier(char *str);
-int					check_extra_args(t_map *map);
-
-/* map_elements_check_utils.c */
-int					check_textures_path(t_map *map,
-						t_elements_var *elements_var,
-						t_elements_data *elements_data);
-int					file_exists(char *path, t_map *map);
-int					verify_path(char *path, t_elements_var *elements_var,
-						t_elements_data *elements_data);
-char				*def_path(char *temp, t_elements_var *elements_var);
-int					parse_rgb_values(char *path, t_map *map,
-						t_elements_data *elements_data);
-
-/* map_elements_check_utils2.c */
-int					check_rgb_values(int r, int g, int b);
+int					check_rgb_values(t_elements_data *elements_data);
 int					check_rgb_is_digit(char **rgb);
 int					check_rgb_count_words(char **rgb);
 int					check_path_count_words(char *path);

@@ -3,18 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   map_elements_check_utils2.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: andrefrancisco <andrefrancisco@student.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 19:58:58 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/10 22:51:40 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/11 11:43:23 by andrefranci      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-int	check_rgb_values(int r, int g, int b)
+int	check_rgb_values(t_elements_data *elements_data)
 {
-	if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
+	if (elements_data->floor_colour_r < 0 || elements_data->floor_colour_r > 255
+		|| elements_data->floor_colour_g < 0
+		|| elements_data->floor_colour_g > 255
+		|| elements_data->floor_colour_b < 0
+		|| elements_data->floor_colour_b > 255
+		|| elements_data->ceiling_colour_r < 0
+		|| elements_data->ceiling_colour_r > 255
+		|| elements_data->ceiling_colour_g < 0
+		|| elements_data->ceiling_colour_g > 255
+		|| elements_data->ceiling_colour_b < 0
+		|| elements_data->ceiling_colour_b > 255)
 	{
 		write(2, "Error\nRGB values must be between 0 and 255\n", 43);
 		return (0);
