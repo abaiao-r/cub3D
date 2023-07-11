@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_elements_check.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 15:28:55 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/10 23:15:09 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/11 00:54:50 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ int	check_elements(t_map *map)
 		free_map_elements(elements_data, elements_var, map);
 		return (0);
 	}
+	map->elements_data = elements_data;
 	free(elements_var);
 	return (1);
 }

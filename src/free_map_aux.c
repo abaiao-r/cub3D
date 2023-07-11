@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_map_aux.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 18:47:13 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/10 23:16:17 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/11 01:11:19 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	map_free(t_map *map)
 	free_str_array(map->desc_file);
 	free_str_array(map->game_map);
 	free_str_array(map->save_path);
+	free(map->elements_data);
 	free(map);
 }
 
@@ -40,6 +41,7 @@ t_map	*map_error_msg(t_map *map)
 	if (map->check_elem == 1)
 	{
 		free_str_array(map->desc_file);
+		free(map->elements_data);
 		free(map);
 		return (NULL);
 	}
