@@ -96,6 +96,8 @@ char				**read_map(char **str_map, int lines, int start_map);
 t_map				*init_map(char **str_map);
 
 /* map_elements_check.c */
+void	free_map_elements(t_elements_data *elements_data,
+		t_elements_var *elements_var, t_map *map);
 int					check_elements(t_map *map);
 int					check_extra_args(t_map *map);
 

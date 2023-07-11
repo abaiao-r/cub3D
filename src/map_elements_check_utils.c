@@ -36,8 +36,6 @@ int	check_textures_path(t_map *map, t_elements_var *elements_var,
 	}
 	if (file_exists(path, map) == 0)
 		return (0);
-    /* if (path)
-        free(path); */
 	return (1);
 }
 
@@ -66,25 +64,29 @@ int	verify_path(char *path, t_elements_var *elements_var,
 	{
 		if (check_path_extension(path) == 0)
 			return (free(path), 0);
-		elements_data->no_texture = path;
+		if (elements_data->no_texture != NULL)
+			elements_data->no_texture = ft_strdup(path);
 	}
 	else if (ft_strncmp(elements_var->element, "SO", 2) == 0)
 	{
 		if (check_path_extension(path) == 0)
 			return (free(path), 0);
-		elements_data->so_texture = path;
+		if (elements_data->so_texture != NULL)	
+			elements_data->so_texture = ft_strdup(path);
 	}
 	else if (ft_strncmp(elements_var->element, "WE", 2) == 0)
 	{
 		if (check_path_extension(path) == 0)
 			return (free(path), 0);
-		elements_data->we_texture = path;
+		if(elements_data->we_texture != NULL)
+			elements_data->we_texture = ft_strdup(path);
 	}
 	else if (ft_strncmp(elements_var->element, "EA", 2) == 0)
 	{
 		if (check_path_extension(path) == 0)
 			return (free(path), 0);
-		elements_data->ea_texture = path;
+		if (elements_data->ea_texture != NULL)	
+			elements_data->ea_texture = ft_strdup(path);
 	}
 	return (1);
 }

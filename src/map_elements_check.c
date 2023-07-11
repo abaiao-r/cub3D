@@ -54,8 +54,17 @@ static void	init_elements_var(t_elements_var *elements_var)
 void	free_map_elements(t_elements_data *elements_data,
 		t_elements_var *elements_var, t_map *map)
 {
+	if (elements_data->no_texture)	
+		free(elements_data->no_texture);
+	if (elements_data->so_texture)
+		free(elements_data->so_texture);
+	if (elements_data->we_texture)
+		free(elements_data->we_texture);
+	if (elements_data->ea_texture)
+		free(elements_data->ea_texture);
 	free(elements_data);
-	free(elements_var);
+	if (elements_var->elements)
+		free(elements_var);
 	map->check_elem = 1;
 }
 
