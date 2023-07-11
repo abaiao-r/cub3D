@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 12:12:12 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/10 19:12:48 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/11 19:30:22 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,17 @@ int	check_chars(t_map *map)
 	return (1);
 }
 
+int	check_whitespace(char **str, int pos)
+{
+	while (str && str[pos])
+	{
+		if (!(ft_is_input_only_whitespaces(str[pos])))
+			return (0);
+		pos++;
+	}
+	return (1);
+}
+
 int	is_map_valid(t_map *map)
 {
 	int	i;
@@ -55,7 +66,7 @@ int	is_map_valid(t_map *map)
 	{
 		if (!(map_conditions(map, i)))
 			return (0);
-		if (map->no_empty_line == 0)
+		if (map->no_empty_line == 0 && !check_whitespace(map->game_map, i))
 			return (0);
 		map->no_empty_line = 0;
 		i++;

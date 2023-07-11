@@ -6,7 +6,7 @@
 /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/11 12:17:12 by andrefranci       #+#    #+#             */
-/*   Updated: 2023/07/11 15:33:17 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/11 19:47:54 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	check_extra_args(t_map *map)
 		if (!is_valid_identifier(temp))
 		{
 			map->check_elem = 1;
+			map->check_extra_args = 1;
 			return (0);
 		}
 		i++;

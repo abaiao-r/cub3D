@@ -6,7 +6,7 @@
 /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:24:29 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/11 15:59:54 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/11 19:47:52 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_map
 	int				check_wall;
 	int				check_chars;
 	int				check_elem;
+	int				check_extra_args;
 	int				count_player;
 	int				no_empty_line;
 	int				empty_map;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_map_aux.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 18:47:13 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/11 01:11:19 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/11 19:48:16 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ t_map	*map_error_msg(t_map *map)
 {
 	if (map->check_elem == 1)
 	{
+		if (map->check_extra_args == 1)
+			write(2, "Error\nExtra arg identifiers\n", 16);
 		free_str_array(map->desc_file);
 		free(map->elements_data);
 		free(map);
