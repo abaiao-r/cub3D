@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+         #
+#    By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/07 16:03:25 by pedperei          #+#    #+#              #
-#    Updated: 2023/07/12 15:22:05 by abaiao-r         ###   ########.fr        #
+#    Updated: 2023/07/12 21:56:54 by pedperei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,9 @@ SRCS = 	$(SRCDIR)/main.c \
 		$(SRCDIR)/map_elements_check_textures_path.c \
 		$(SRCDIR)/map_elements_check_textures_path2.c \
 		$(SRCDIR)/map_init.c \
-		$(SRCDIR)/utils_map.c
+		$(SRCDIR)/utils_map.c \
+		$(SRCDIR)/image_utils.c \
+
 
 OBJS = $(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 

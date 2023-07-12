@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 12:05:10 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/12 18:06:34 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/12 22:30:51 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	init_mlx_lib(t_cub *cub)
 	cub->mlx_ptr = mlx_init();
 	if (!cub->mlx_ptr)
 		return (free_mlx(cub));
-	cub->win_ptr = mlx_new_window(cub->mlx_ptr, 1280, 720, "cub3D");
+	cub->win_ptr = mlx_new_window(cub->mlx_ptr, 640, 640, "cub3D");
 	if (!cub->win_ptr)
 		return (free_mlx(cub));
 /* 	if (!load_textures(cub))
@@ -49,6 +49,6 @@ int	main(int argc, char **argv)
 		printf("%s", cub->map->game_map[i]);
 		i++;
 	}
-	printf("\n"); // test
 	init_mlx_lib(cub);
+	init_images(cub);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:24:29 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/12 17:33:41 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/12 22:19:03 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+
+# define PX 64
 
 typedef struct s_elements_data
 {
@@ -58,20 +60,23 @@ typedef struct s_map
 
 }					t_map;
 
-typedef struct s_img_ptr
+typedef struct s_img
 {
-	void			*no;
-	void			*so;
-	void			*we;
-	void			*ea;
-	
-}					t_img_ptr;
+	void	*img_ptr;
+	char	*addr;
+	int		height;
+	int		width;
+	int		bpp;
+	int		endian;
+	int		line_len;
+}		t_img;
 
 typedef struct s_cub
 {
 	void			*mlx_ptr;
 	void			*win_ptr;
-	//t_images		*img_ptr;
+	char			**textures;
+	t_img			**img;
 	t_map			*map;
 
 }					t_cub;
@@ -141,5 +146,9 @@ int					count_cols(char *map);
 
 /*map_conditions.c*/
 int					map_conditions(t_map *map, int i);
+
+
+void init_images(t_cub *cub);
+
 
 #endif
