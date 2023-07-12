@@ -6,7 +6,7 @@
 #    By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/07 16:03:25 by pedperei          #+#    #+#              #
-#    Updated: 2023/07/11 15:58:44 by abaiao-r         ###   ########.fr        #
+#    Updated: 2023/07/12 14:31:17 by abaiao-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ OBJDIR = ./objs
 SRCS = 	$(SRCDIR)/main.c \
 		$(SRCDIR)/check_args.c \
 		$(SRCDIR)/free_map_aux.c \
+		$(SRCDIR)/free_resources.c \
 		$(SRCDIR)/map_check.c \
 		$(SRCDIR)/map_check_extra_args.c \
 		$(SRCDIR)/map_conditions.c \
@@ -69,7 +70,7 @@ gdb:	all
 		gdb $(NAME)
 
 valgrind: 	all
-			valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME)
+			valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes ./$(NAME) $(ARGS)
 
 $(NAME): 	$(OBJS)
 			$(MAKE) -C $(LIBFT_DIR) bonus

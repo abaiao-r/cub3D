@@ -6,7 +6,7 @@
 /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:24:29 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/11 19:47:52 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/12 14:48:26 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,15 @@ typedef struct s_elements_var
 /* check_args.c */
 int					check_args(int argc, char **argv);
 
+/* free_map_aux.c*/
+void				free_str_array(char **str_arr);
+void				map_free(t_map *map);
+t_map				*map_error_msg(t_map *map);
+
+/* free_resources.c */
+int					close_win(t_cub *cub);
+int					free_mlx(t_cub *cub);
+
 /* map_check.c */
 int					check_chars(t_map *map);
 int					is_player_empty(char c);
@@ -116,11 +125,6 @@ int					check_textures_path(t_map *map,
 
 /* map_elements_check_textures_path2.c */
 int					file_exists(char *path, t_map *map);
-
-/* free_map_aux.c*/
-void				free_str_array(char **str_arr);
-void				map_free(t_map *map);
-t_map				*map_error_msg(t_map *map);
 
 /*utils_map.c*/
 int					count_lines(char *map);

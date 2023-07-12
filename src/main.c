@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 12:05:10 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/11 23:26:43 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/12 15:03:37 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,23 @@ int	init_mlx_lib(t_cub *cub)
 
 	i = 0;
 	cub->mlx_ptr = mlx_init();
+	if (!cub->mlx_ptr)
+		return (free_mlx(cub));
 	cub->win_ptr = mlx_new_window(cub->mlx_ptr, 1280, 720, "cub3D");
+	if (!cub->win_ptr)
+		return (free_mlx(cub));
+	if (!load_textures(cub))
+		return (free_mlx(cub));
+	mlx_hook(cub->win_ptr, 17, 1L << 0, close_win, cub);
+	//mlx_hook(cub->win_ptr, 2, 1L << 0, key_press, cub);
 	mlx_loop(cub->mlx_ptr);
-	mlx_get_time
 	return (0);
 }
 
 int	main(int argc, char **argv)
 {
 	t_cub	*cub;
-	int		i;
+	int		i; // test
 
 	(void)argc;
 	if (!check_args(argc, argv))
@@ -38,12 +45,12 @@ int	main(int argc, char **argv)
 	cub->map = init_map(argv);
 	if (!cub->map)
 		return(free(cub), 0);
-	init_mlx_lib(cub);
-	i = 0;
+	i = 0; // test
 	while (i < cub->map->map_lin)
 	{
 		printf("%s", cub->map->game_map[i]);
 		i++;
 	}
-	printf("\n");
+	printf("\n"); // test
+	init_mlx_lib(cub);
 }
