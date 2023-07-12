@@ -6,7 +6,7 @@
 /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 19:51:36 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/11 19:00:59 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/12 17:57:40 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,16 +100,16 @@ static int	verify_path(char *path, t_elements_var *elements_var,
 		if (check_path_extension(path) == 0)
 			return (free(path), 0);
 		if (ft_strncmp(elements_var->element, "NO", 2) == 0
-			&& elements_data->no_texture != NULL)
+			&& elements_data->no_texture == NULL)
 			elements_data->no_texture = ft_strdup(path);
 		else if (ft_strncmp(elements_var->element, "SO", 2) == 0
-			&& elements_data->so_texture != NULL)
+			&& elements_data->so_texture == NULL)
 			elements_data->so_texture = ft_strdup(path);
 		else if (ft_strncmp(elements_var->element, "WE", 2) == 0
-			&& elements_data->we_texture != NULL)
+			&& elements_data->we_texture == NULL)
 			elements_data->we_texture = ft_strdup(path);
 		else if (ft_strncmp(elements_var->element, "EA", 2) == 0
-			&& elements_data->ea_texture != NULL)
+			&& elements_data->ea_texture == NULL)
 			elements_data->ea_texture = ft_strdup(path);
 	}
 	return (1);
@@ -140,6 +140,7 @@ static char	*def_path(char *temp, t_elements_var *elements_var)
 			return (0);
 		path = ft_strndup(&elements_var->temp[i],
 				ft_strlen_word(&elements_var->temp[i]));
+		printf("path: %s\n", path);
 	}
 	else
 	{

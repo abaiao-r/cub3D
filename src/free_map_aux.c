@@ -6,7 +6,7 @@
 /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 18:47:13 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/11 21:41:42 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/12 18:00:10 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,10 @@ void	map_free(t_map *map)
 	free_str_array(map->desc_file);
 	free_str_array(map->game_map);
 	free_str_array(map->save_path);
+	free(map->elements_data->no_texture);
+	free(map->elements_data->so_texture);
+	free(map->elements_data->we_texture);
+	free(map->elements_data->ea_texture);
 	free(map->elements_data);
 	free(map);
 }

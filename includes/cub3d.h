@@ -6,7 +6,7 @@
 /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:24:29 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/12 14:48:26 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/12 17:33:41 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,20 @@ typedef struct s_map
 
 }					t_map;
 
+typedef struct s_img_ptr
+{
+	void			*no;
+	void			*so;
+	void			*we;
+	void			*ea;
+	
+}					t_img_ptr;
+
 typedef struct s_cub
 {
 	void			*mlx_ptr;
 	void			*win_ptr;
-	//t_images	*img_ptr;
-	int				n_moves;
+	//t_images		*img_ptr;
 	t_map			*map;
 
 }					t_cub;
