@@ -6,9 +6,13 @@
 /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 15:05:36 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/12 15:18:31 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/12 15:30:38 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+int load_textures(t_cub *cub)
+{
+    
+}
