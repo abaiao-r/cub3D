@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 12:05:10 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/12 22:30:51 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/13 16:22:45 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,12 @@ int	init_mlx_lib(t_cub *cub)
 	cub->mlx_ptr = mlx_init();
 	if (!cub->mlx_ptr)
 		return (free_mlx(cub));
-	cub->win_ptr = mlx_new_window(cub->mlx_ptr, 640, 640, "cub3D");
+	cub->win_ptr = mlx_new_window(cub->mlx_ptr, WINDOW_H, WINDOW_W, "cub3D");
 	if (!cub->win_ptr)
 		return (free_mlx(cub));
 /* 	if (!load_textures(cub))
 		return (free_mlx(cub)); */
+	init_images(cub);
 	mlx_hook(cub->win_ptr, 17, 1L << 0, close_win, cub);
 	//mlx_hook(cub->win_ptr, 2, 1L << 0, key_press, cub);
 	mlx_loop(cub->mlx_ptr);
@@ -50,5 +51,4 @@ int	main(int argc, char **argv)
 		i++;
 	}
 	init_mlx_lib(cub);
-	init_images(cub);
 }
