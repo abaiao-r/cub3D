@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:18:46 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/13 19:54:41 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/13 20:42:09 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,35 @@ void	set_image_pixel(t_img *image, int x, int y, int color)
 	image->addr[pixel] = color;
 }
 
+/* rgb_to_hex: converts rgb values to hex
+ * first, we convert the rgb values to hex values
+ * then, we multiply the red value by 65536 (256 * 256)
+ * then, we multiply the green value by 256
+ * then, we add the red, green, and blue values together
+ * then, we return the hex value
+ * note: we use unsigned int to avoid overflow
+*/
+unsigned int	rgb_to_hex(t_elements_data *d, char c)
+{
+	unsigned int r_hex = 0;
+	unsigned int g_hex = 0;
+	unsigned int b_hex = 0;
+
+	if (c == 'C')
+	{
+		r_hex = (unsigned int)d->ceiling_colour_r / 16 * 16 + (unsigned int)d->ceiling_colour_r % 16;
+		g_hex = (unsigned int)d->ceiling_colour_g / 16 * 16 + (unsigned int)d->ceiling_colour_g % 16;
+		b_hex = (unsigned int)d->ceiling_colour_b / 16 * 16 + (unsigned int)d->ceiling_colour_b % 16;
+	}
+	if (c == 'F')
+	{
+		r_hex = (unsigned int)d->floor_colour_r / 16 * 16 + (unsigned int)d->ceiling_colour_r % 16;
+		g_hex = (unsigned int)d->floor_colour_g / 16 * 16 + (unsigned int)d->ceiling_colour_g % 16;
+		b_hex = (unsigned int)d->floor_colour_b / 16 * 16 + (unsigned int)d->ceiling_colour_b % 16;
+	}
+	return (r_hex * 65536 + g_hex * 256 + b_hex);
+}
+
 void draw_floor_ceiling(t_cub *cub)
 {
 	int	i;
@@ -77,9 +106,9 @@ void draw_floor_ceiling(t_cub *cub)
 		while (j < WINDOW_W)
 		{
 			if (i < WINDOW_H/2)
-				set_image_pixel(img, j, i, cub->img[0]->addr[j]);
+				set_image_pixel(img, j, i, rgb_to_hex(cub->map->elements_data, 'C'));
 			else if (i < WINDOW_H - 1)
-				set_image_pixel(img, j, i, cub->img[2]->addr[j]);
+				set_image_pixel(img, j, i, rgb_to_hex(cub->map->elements_data, 'F'));
 			j++;
 		}
 		i++;

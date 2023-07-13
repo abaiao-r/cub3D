@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:42:40 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/13 19:52:46 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/13 21:11:00 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,8 @@ void	init_raycast_vars(t_cub *cub, t_map *map, t_raycast *ray)
 		calc_camera_distance(ray);
 		prep_draw_line(ray);
         img = select_texture(cub, ray);
-        
+        img->imgXpos = (int)(ray->wallX * img->imgW);
+        if ((ray->side == 0 && ray->rayDirX > 0) || (ray->side == 1 && ray->rayDirY < 0))
+            img->imgXpos = img->imgW - img->imgXpos - 1;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:24:29 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/13 19:54:52 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/13 21:04:08 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 # include <math.h>
 
 # define PX 64
-# define WINDOW_H 640
-# define WINDOW_W 480
+# define WINDOW_H 1920
+# define WINDOW_W 1080
 
 typedef struct s_elements_data
 {
@@ -67,10 +67,10 @@ typedef struct s_map
 typedef struct s_img
 {
 	char	*dir;
-	double 	size;
-	double	imgX;
+	double 	imgW;
+	double	imgXpos;
 	double	imgStep;
-	double	imgPos;
+	double	imgYpos;
 	void	*img_ptr;
 	int		*addr;
 	int		height;
