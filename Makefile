@@ -6,7 +6,7 @@
 #    By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/07 16:03:25 by pedperei          #+#    #+#              #
-#    Updated: 2023/07/12 21:56:54 by pedperei         ###   ########.fr        #
+#    Updated: 2023/07/13 19:50:25 by pedperei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRCS = 	$(SRCDIR)/main.c \
 		$(SRCDIR)/map_init.c \
 		$(SRCDIR)/utils_map.c \
 		$(SRCDIR)/image_utils.c \
+		$(SRCDIR)/raycasting.c \
 
 
 OBJS = $(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)

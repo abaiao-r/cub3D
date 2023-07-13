@@ -6,11 +6,18 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 12:05:10 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/13 16:22:45 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/13 19:54:28 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+int raycast(t_cub *cub)
+{
+	init_raycast_vars(cub, cub->map, cub->raycast);
+	return 0;
+}
+
 
 int	init_mlx_lib(t_cub *cub)
 {
@@ -23,6 +30,8 @@ int	init_mlx_lib(t_cub *cub)
 /* 	if (!load_textures(cub))
 		return (free_mlx(cub)); */
 	init_images(cub);
+	raycast(cub);
+	draw_floor_ceiling(cub);
 	mlx_hook(cub->win_ptr, 17, 1L << 0, close_win, cub);
 	//mlx_hook(cub->win_ptr, 2, 1L << 0, key_press, cub);
 	mlx_loop(cub->mlx_ptr);

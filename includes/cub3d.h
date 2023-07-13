@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:24:29 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/13 16:26:08 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/13 19:54:52 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
+# include <math.h>
 
 # define PX 64
 # define WINDOW_H 640
 # define WINDOW_W 480
-
 
 typedef struct s_elements_data
 {
@@ -55,6 +55,7 @@ typedef struct s_map
 	int				empty_map;
 	int				player_l;
 	int				player_c;
+	int				direction;
 	int				elements_end;
 	char			**desc_file;
 	char			**game_map;
@@ -65,6 +66,11 @@ typedef struct s_map
 
 typedef struct s_img
 {
+	char	*dir;
+	double 	size;
+	double	imgX;
+	double	imgStep;
+	double	imgPos;
 	void	*img_ptr;
 	int		*addr;
 	int		height;
@@ -74,11 +80,40 @@ typedef struct s_img
 	int		line_len;
 }		t_img;
 
+typedef struct s_raycast
+{
+	int		posX; //player start position x
+	int		posY; //player start position y
+	double		dirX; //initial direction vector
+	double		dirY; //initial direction vector
+	double		planeX; //2d raycaster version of camera plane
+	double		planeY; //2d raycaster version of camera plane
+	double		cameraX; //x-coordinate in camera space
+	double		rayDirX; //direction of the ray
+	double		rayDirY; //direction of the ray
+	double		sideDistX; //distance the ray has to travel from its start position to the first x-side
+	double		sideDistY; //distance the ray has to travel from its start position to the first y-side
+	double		deltaDistX; //distance the ray has to travel to go from 1 x-side to the next x-side
+	double		deltaDistY; //distance the ray has to travel to go from 1 y-side to the next y-side
+	double		perpWallDist; //length of the ray
+	double		wallX;
+	int		mapX;
+	int		mapY;
+	int		stepX;
+	int		stepY; //what direction to step in x or y-direction (either +1 or -1)
+	int		hit; //was there a wall hit?
+	int		side; //was a NS or a EW wall hit?
+	int		lineHeight;
+	int		drawStart;
+	int		drawEnd;
+}					t_raycast;
+
 typedef struct s_cub
 {
 	void			*mlx_ptr;
 	void			*win_ptr;
 	char			**textures;
+	t_raycast		*raycast;
 	t_img			**img;
 	t_map			*map;
 
@@ -152,6 +187,8 @@ int					map_conditions(t_map *map, int i);
 
 
 void init_images(t_cub *cub);
+void	init_raycast_vars(t_cub *cub, t_map *map, t_raycast *ray);
+void draw_floor_ceiling(t_cub *cub);
 
 
 #endif

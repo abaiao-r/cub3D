@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 19:03:17 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/10 19:12:04 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/13 17:21:14 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ int	map_conditions(t_map *map, int i)
 			map->count_player++;
 			map->player_l = i;
 			map->player_c = j;
+			map->direction = map->game_map[i][j];
 		}
 		if (map->check_wall == 1 || map->check_chars == 1
 			|| map->count_player > 1)
