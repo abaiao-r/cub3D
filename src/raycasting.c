@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:42:40 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/13 21:11:00 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/15 19:40:44 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@ void	define_direction_camera(t_map *map, t_raycast *ray)
 	if (map->direction == 'N')
 	{
 		ray->dirX = 0;
-		ray->dirY = 1;
-		ray->planeX = -0.66;
+		ray->dirY = -1;
+		ray->planeX = 0.66;
 		ray->planeY = 0;
 	}
 	else if (map->direction == 'S')
 	{
 		ray->dirX = 0;
-		ray->dirY = -1;
-		ray->planeX = 0.66;
+		ray->dirY = 1;
+		ray->planeX = -0.66;
 		ray->planeY = 0;
 	}
 	else if (map->direction == 'E')
@@ -33,14 +33,14 @@ void	define_direction_camera(t_map *map, t_raycast *ray)
 		ray->dirX = 1;
 		ray->dirY = 0;
 		ray->planeX = 0;
-		ray->planeY = -0.66;
+		ray->planeY = 0.66;
 	}
 	else if (map->direction == 'W')
 	{
-		ray->dirX = -1;
+		ray->dirX = 1;
 		ray->dirY = 0;
 		ray->planeX = 0;
-		ray->planeY = 0.66;
+		ray->planeY = -0.66;
 	}
 }
 
@@ -169,14 +169,17 @@ void	init_raycast_vars(t_cub *cub, t_map *map, t_raycast *ray)
 {
 	int	x;
     t_img   *img;
-
 	(void)cub;
+
 	x = -1;
 	ray = ft_calloc(1, sizeof(t_raycast));
 	ray->posX = map->player_l;
 	ray->posY = map->player_c;
-	define_direction_camera(map, ray);
-	while (++x < map->map_lin)
+	ray->dirX = 0;
+	ray->dirY = 1;
+	ray->planeX = -0.66;
+	ray->planeY = 0;
+	while (++x < WINDOW_H)
 	{
 		init_ray_vars(ray, x);
 		calc_step_side_dist(ray);
@@ -187,5 +190,15 @@ void	init_raycast_vars(t_cub *cub, t_map *map, t_raycast *ray)
         img->imgXpos = (int)(ray->wallX * img->imgW);
         if ((ray->side == 0 && ray->rayDirX > 0) || (ray->side == 1 && ray->rayDirY < 0))
             img->imgXpos = img->imgW - img->imgXpos - 1;
+		ray->step = img->imgH/ray->lineHeight;
+		img->imgPos = (ray->drawStart - WINDOW_H/2 + ray->lineHeight /2) * ray->step;
+		while (ray->drawStart < ray->drawEnd)
+		{
+			img->imgYpos = (int)img->imgPos & (int)(img->imgH - 1);
+			img->imgPos += img->imgStep;
+			cub->img[4]->addr[(int)(x * (cub->img[4]->line_len / 4) + ray->drawStart)] = img->addr[(int)(img->imgH * img->imgYpos + img->imgXpos)];
+			ray->drawStart++;
+		}
 	}
+	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img[4]->img_ptr, 0, 0);
 }

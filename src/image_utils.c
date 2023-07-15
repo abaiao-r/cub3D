@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:18:46 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/13 20:42:09 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/15 16:00:39 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,7 @@ void draw_floor_ceiling(t_cub *cub)
 	t_img *img;
 
 	i = 0;
-	img = ft_calloc(1, sizeof(t_img));
-	img = blank_image(cub, img);
+	img = cub->img[4];
 	while (i < WINDOW_H)
 	{
 		j = 0;
@@ -118,7 +117,7 @@ void draw_floor_ceiling(t_cub *cub)
 
 void	init_images(t_cub *cub)
 {
-	cub->img = (t_img **)ft_calloc(4, sizeof(t_img *));
+	cub->img = (t_img **)ft_calloc(5, sizeof(t_img *));
 	if (!cub->img)
 		return ;
 	cub->img[0] = open_xpm_image(cub, cub->img[0],
@@ -129,4 +128,6 @@ void	init_images(t_cub *cub)
 			cub->map->elements_data->ea_texture, "EA");
 	cub->img[3] = open_xpm_image(cub, cub->img[3],
 			cub->map->elements_data->we_texture, "WE");
+	cub->img[4] = ft_calloc(1, sizeof(t_img));
+	blank_image(cub, cub->img[4]);
 }

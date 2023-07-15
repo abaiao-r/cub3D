@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:24:29 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/13 21:04:08 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/15 19:28:08 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 # include <math.h>
 
 # define PX 64
-# define WINDOW_H 1920
-# define WINDOW_W 1080
+# define WINDOW_H 640
+# define WINDOW_W 480
 
 typedef struct s_elements_data
 {
@@ -68,9 +68,11 @@ typedef struct s_img
 {
 	char	*dir;
 	double 	imgW;
+	double 	imgH;
 	double	imgXpos;
 	double	imgStep;
 	double	imgYpos;
+	double	imgPos;
 	void	*img_ptr;
 	int		*addr;
 	int		height;
@@ -106,6 +108,7 @@ typedef struct s_raycast
 	int		lineHeight;
 	int		drawStart;
 	int		drawEnd;
+	int		step;
 }					t_raycast;
 
 typedef struct s_cub
@@ -113,6 +116,7 @@ typedef struct s_cub
 	void			*mlx_ptr;
 	void			*win_ptr;
 	char			**textures;
+	int				**textures2;
 	t_raycast		*raycast;
 	t_img			**img;
 	t_map			*map;
@@ -189,6 +193,7 @@ int					map_conditions(t_map *map, int i);
 void init_images(t_cub *cub);
 void	init_raycast_vars(t_cub *cub, t_map *map, t_raycast *ray);
 void draw_floor_ceiling(t_cub *cub);
+t_img	*blank_image(t_cub *cub, t_img *img);
 
 
 #endif
