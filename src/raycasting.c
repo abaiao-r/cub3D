@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:42:40 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/15 19:40:44 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/15 19:58:17 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,23 +44,23 @@ void	define_direction_camera(t_map *map, t_raycast *ray)
 	}
 }
 
-int	delta_dist(int dir)
+/* int	delta_dist(int dir)
 {
 	if (dir == 0)
 		return (1000000);
 	else
-		return (abs(1 / dir));
-}
+		return (fabs(1 / dir));
+} */
 
-void	init_ray_vars(t_raycast *ray, int x)
+void	init_ray_vars(t_raycast *ray, int x, t_map *map)
 {
-	ray->cameraX = 2 * x / WINDOW_W - 1;
+	ray->cameraX = 2 * x / (double)WINDOW_W - 1;
 	ray->rayDirX = ray->dirX + ray->planeX * ray->cameraX;
 	ray->rayDirY = ray->dirY + ray->planeY * ray->cameraX;
-	ray->deltaDistX = delta_dist(ray->rayDirX);
-	ray->deltaDistY = delta_dist(ray->rayDirY);
-	ray->mapX = (int)ray->posX;
-	ray->mapY = (int)ray->posY;
+	ray->deltaDistX = fabs(1/ray->rayDirX);
+	ray->deltaDistY = fabs(1/ray->rayDirY);
+	ray->mapX = (int)map->player_c;
+	ray->mapY = (int)map->player_l;
 }
 
 void	calc_step_side_dist(t_raycast *ray)
@@ -104,8 +104,13 @@ void	perform_dda(t_raycast *ray, t_map *map)
 			ray->mapY += ray->stepY;
 			ray->side = 1;
 		}
+		if (ray->mapY < 0.25
+			|| ray->mapX < 0.25
+			|| ray->mapY > WINDOW_H - 0.25
+			|| ray->mapX > WINDOW_W - 1.25)
+			break ;
 		//Check if ray has hit a wall
-		if (map->game_map[ray->mapX][ray->mapY] == '1')
+		else if (map->game_map[ray->mapY][ray->mapX] == '1')
 			ray->hit = 1;
 	}
 }
@@ -175,13 +180,10 @@ void	init_raycast_vars(t_cub *cub, t_map *map, t_raycast *ray)
 	ray = ft_calloc(1, sizeof(t_raycast));
 	ray->posX = map->player_l;
 	ray->posY = map->player_c;
-	ray->dirX = 0;
-	ray->dirY = 1;
-	ray->planeX = -0.66;
-	ray->planeY = 0;
-	while (++x < WINDOW_H)
+	define_direction_camera(map,ray);
+	while (++x < WINDOW_W)
 	{
-		init_ray_vars(ray, x);
+		init_ray_vars(ray, x, map);
 		calc_step_side_dist(ray);
 		perform_dda(ray, map);
 		calc_camera_distance(ray);
