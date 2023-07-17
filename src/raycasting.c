@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:42:40 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/15 19:58:17 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/17 22:56:08 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 void	define_direction_camera(t_map *map, t_raycast *ray)
 {
-	if (map->direction == 'N')
+	if (map->direction == 'S')
 	{
 		ray->dirX = 0;
 		ray->dirY = -1;
 		ray->planeX = 0.66;
 		ray->planeY = 0;
 	}
-	else if (map->direction == 'S')
+	else if (map->direction == 'N')
 	{
 		ray->dirX = 0;
 		ray->dirY = 1;
@@ -104,13 +104,13 @@ void	perform_dda(t_raycast *ray, t_map *map)
 			ray->mapY += ray->stepY;
 			ray->side = 1;
 		}
-		if (ray->mapY < 0.25
+		/* if (ray->mapY < 0.25
 			|| ray->mapX < 0.25
 			|| ray->mapY > WINDOW_H - 0.25
 			|| ray->mapX > WINDOW_W - 1.25)
-			break ;
+			break ; */
 		//Check if ray has hit a wall
-		else if (map->game_map[ray->mapY][ray->mapX] == '1')
+		if (map->game_map[ray->mapX][ray->mapY] == '1')
 			ray->hit = 1;
 	}
 }
@@ -163,9 +163,9 @@ t_img   *select_texture(t_cub *cub, t_raycast *ray)
         return(search_texture(cub->img, "SO"));
     if (ray->side == 1 && ray->dirY <= 0)
         return(search_texture(cub->img, "NO"));
-    if (ray->side == 0 && ray->dirX > 0)
+    if (ray->side == 0 && ray->dirX >= 0)
         return(search_texture(cub->img, "EA"));
-    if (ray->side == 0 && ray->dirX <= 0)
+    if (ray->side == 0 && ray->dirX < 0)
         return(search_texture(cub->img, "WE"));
     return (NULL);
 }
@@ -173,7 +173,9 @@ t_img   *select_texture(t_cub *cub, t_raycast *ray)
 void	init_raycast_vars(t_cub *cub, t_map *map, t_raycast *ray)
 {
 	int	x;
+	int	y;
     t_img   *img;
+	int color;
 	(void)cub;
 
 	x = -1;
@@ -190,17 +192,20 @@ void	init_raycast_vars(t_cub *cub, t_map *map, t_raycast *ray)
 		prep_draw_line(ray);
         img = select_texture(cub, ray);
         img->imgXpos = (int)(ray->wallX * img->imgW);
-        if ((ray->side == 0 && ray->rayDirX > 0) || (ray->side == 1 && ray->rayDirY < 0))
+        if ((ray->side == 0 && ray->rayDirX < 0) || (ray->side == 1 && ray->rayDirY > 0))
             img->imgXpos = img->imgW - img->imgXpos - 1;
-		ray->step = img->imgH/ray->lineHeight;
+		ray->step = img->imgH / ray->lineHeight;
 		img->imgPos = (ray->drawStart - WINDOW_H/2 + ray->lineHeight /2) * ray->step;
-		while (ray->drawStart < ray->drawEnd)
+		y = ray->drawStart;
+		while (y < ray->drawEnd)
 		{
-			img->imgYpos = (int)img->imgPos & (int)(img->imgH - 1);
+			img->imgYpos = (int)img->imgPos & (int)(img->imgW - 1);
 			img->imgPos += img->imgStep;
-			cub->img[4]->addr[(int)(x * (cub->img[4]->line_len / 4) + ray->drawStart)] = img->addr[(int)(img->imgH * img->imgYpos + img->imgXpos)];
-			ray->drawStart++;
+			color = img->text_int_px[(int)(img->imgW * img->imgYpos + img->imgXpos)];
+			if (color > 0)
+				cub->int_px[y][x] = color;
+			y++;
 		}
+		//mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img[4]->img_ptr, x, ray->drawStart);
 	}
-	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img[4]->img_ptr, 0, 0);
 }

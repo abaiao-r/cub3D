@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:24:29 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/15 19:28:08 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/17 22:29:28 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <math.h>
 
 # define PX 64
-# define WINDOW_H 640
+# define WINDOW_H 480
 # define WINDOW_W 480
 
 typedef struct s_elements_data
@@ -53,9 +53,9 @@ typedef struct s_map
 	int				count_player;
 	int				no_empty_line;
 	int				empty_map;
-	int				player_l;
-	int				player_c;
-	int				direction;
+	double				player_l;
+	double				player_c;
+	char				direction;
 	int				elements_end;
 	char			**desc_file;
 	char			**game_map;
@@ -75,6 +75,7 @@ typedef struct s_img
 	double	imgPos;
 	void	*img_ptr;
 	int		*addr;
+	int		*text_int_px;
 	int		height;
 	int		width;
 	int		bpp;
@@ -116,7 +117,7 @@ typedef struct s_cub
 	void			*mlx_ptr;
 	void			*win_ptr;
 	char			**textures;
-	int				**textures2;
+	int				**int_px;
 	t_raycast		*raycast;
 	t_img			**img;
 	t_map			*map;

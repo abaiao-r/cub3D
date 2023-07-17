@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:18:46 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/15 16:00:39 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/17 23:06:59 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ t_img	*open_xpm_image(t_cub *cub, t_img *img, char *xpm_path, char *dir)
 {
 	int	x;
 	int	y;
+	int *temp;
 
 	x = PX;
 	y = PX;
@@ -25,6 +26,21 @@ t_img	*open_xpm_image(t_cub *cub, t_img *img, char *xpm_path, char *dir)
 	img->img_ptr = mlx_xpm_file_to_image(cub->mlx_ptr, xpm_path, &x, &y);
 	img->addr = (int *)mlx_get_data_addr(img->img_ptr, &img->bpp, &img->line_len,
 			&img->endian);
+	temp = ft_calloc(1,
+			sizeof * temp * PX * PX);
+	x = 0;
+	y = 0;
+	while (y < PX)
+	{
+		x = 0;
+		while (x < PX)
+		{
+			temp[y * PX + x] = img->addr[y * PX + x];
+			++x;
+		}
+		y++;
+	}
+	img->text_int_px = temp;
 	return (img);
 }
 
@@ -91,6 +107,14 @@ unsigned int	rgb_to_hex(t_elements_data *d, char c)
 	return (r_hex * 65536 + g_hex * 256 + b_hex);
 }
 
+void	set_image_pixel2(t_img *image, int x, int y, int color)
+{
+	int	pixel;
+
+	pixel = y * (image->line_len / 4) + x;
+	image->addr[pixel] = color;
+}
+
 void draw_floor_ceiling(t_cub *cub)
 {
 	int	i;
@@ -104,7 +128,9 @@ void draw_floor_ceiling(t_cub *cub)
 		j = 0;
 		while (j < WINDOW_W)
 		{
-			if (i < WINDOW_H/2)
+			if (cub->int_px[i][j])
+				set_image_pixel2(img, j, i, cub->int_px[i][j]);
+			else if (i < WINDOW_H/2)
 				set_image_pixel(img, j, i, rgb_to_hex(cub->map->elements_data, 'C'));
 			else if (i < WINDOW_H - 1)
 				set_image_pixel(img, j, i, rgb_to_hex(cub->map->elements_data, 'F'));
@@ -115,8 +141,24 @@ void draw_floor_ceiling(t_cub *cub)
 	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, img->img_ptr, 0, 0);
 }
 
+int **create_int_px(void)
+{
+	int i;
+	int **int_px;
+
+	i = 0;
+	int_px = ft_calloc(WINDOW_H + 1, sizeof(int *));
+	while (i < WINDOW_H)
+	{
+		int_px[i] = ft_calloc(WINDOW_W + 1, sizeof(int));
+		i++;
+	}
+	return (int_px);
+}
+
 void	init_images(t_cub *cub)
 {
+	cub->int_px = create_int_px();
 	cub->img = (t_img **)ft_calloc(5, sizeof(t_img *));
 	if (!cub->img)
 		return ;
@@ -131,3 +173,4 @@ void	init_images(t_cub *cub)
 	cub->img[4] = ft_calloc(1, sizeof(t_img));
 	blank_image(cub, cub->img[4]);
 }
+
