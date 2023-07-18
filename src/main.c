@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 12:05:10 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/18 20:39:47 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/18 22:35:06 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	init_mlx_lib(t_cub *cub)
 		return (free_mlx(cub)); */
 	init_images(cub);
 	raycast(cub);
-	draw_floor_ceiling(cub);
+	//draw_floor_ceiling(cub);
 	mlx_hook(cub->win_ptr, 17, 1L << 0, close_win, cub);
 	//mlx_hook(cub->win_ptr, 2, 1L << 0, key_press, cub);
 	mlx_loop(cub->mlx_ptr);
@@ -54,10 +54,10 @@ int	main(int argc, char **argv)
 	if (!cub->map)
 		return(free(cub), 0);
 	i = 0; // test
-	/* while (i < cub->map->map_lin)
+	while (i < cub->map->map_lin)
 	{
 		printf("%s", cub->map->game_map[i]);
 		i++;
-	} */
+	}
 	init_mlx_lib(cub);
 }

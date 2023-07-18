@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:24:29 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/18 20:14:46 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/18 22:48:26 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ typedef struct s_img
 {
 	char	*dir;
 	int 	imgW;
-	double 	imgH;
 	int		imgXpos;
 	double	imgStep;
 	int		imgYpos;
@@ -109,7 +108,7 @@ typedef struct s_raycast
 	int		lineHeight;
 	int		drawStart;
 	int		drawEnd;
-	int		step;
+	double		step;
 }					t_raycast;
 
 typedef struct s_cub

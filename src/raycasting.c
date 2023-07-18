@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:42:40 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/18 21:05:48 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/18 22:57:14 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void	prep_draw_line(t_raycast *ray)
 	//Calculate height of line to draw on screen
 	ray->lineHeight = (int)(WINDOW_H / ray->perpWallDist);
 	//calculate lowest and highest pixel to fill in current stripe
-	ray->drawStart = -ray->lineHeight / 2 + WINDOW_H / 2;
+	ray->drawStart = -(ray->lineHeight) / 2 + WINDOW_H / 2;
 	if (ray->drawStart < 0)
 		ray->drawStart = 0;
 	ray->drawEnd = ray->lineHeight / 2 + WINDOW_H / 2;
@@ -164,10 +164,10 @@ t_img   *select_texture(t_cub *cub, t_raycast *ray)
         return(search_texture(cub->img, "SO"));
     if (ray->side == 1 && ray->dirY <= 0)
         return(search_texture(cub->img, "NO"));
-    if (ray->side == 0 && ray->dirX >= 0)
-        return(search_texture(cub->img, "EA"));
-    if (ray->side == 0 && ray->dirX < 0)
+    if (ray->side == 0 && ray->dirX > 0)
         return(search_texture(cub->img, "WE"));
+    if (ray->side == 0 && ray->dirX <= 0)
+        return(search_texture(cub->img, "EA"));
     return (NULL);
 }
 
@@ -195,7 +195,7 @@ void	init_raycast_vars(t_cub *cub, t_map *map, t_raycast *ray)
         img->imgXpos = (int)(ray->wallX * img->imgW);
         if ((ray->side == 0 && ray->rayDirX < 0) || (ray->side == 1 && ray->rayDirY > 0))
             img->imgXpos = img->imgW - img->imgXpos - 1;
-		ray->step = 1.0 * img->imgH / ray->lineHeight;
+		ray->step = 1.0 * img->imgW / ray->lineHeight;
 		img->imgPos = (ray->drawStart - WINDOW_H/2 + ray->lineHeight /2) * ray->step;
 		y = ray->drawStart;
 		while (y < ray->drawEnd)
@@ -203,6 +203,7 @@ void	init_raycast_vars(t_cub *cub, t_map *map, t_raycast *ray)
 			img->imgYpos = (int)img->imgPos & (img->imgW - 1);
 			img->imgPos += img->imgStep;
 			color = img->text_int_px[img->imgW * img->imgYpos + img->imgXpos];
+			mlx_pixel_put(cub->mlx_ptr,cub->win_ptr,x,y,img->text_int_px[img->imgW * img->imgYpos + img->imgXpos]);
 			//if (color != img->addr[img->imgW * img->imgYpos + img->imgXpos])
 				//printf("1");
 			/* if (ft_strcmp(img->dir, "NO") == 0 || ft_strcmp(img->dir, "EA"))

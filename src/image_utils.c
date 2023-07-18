@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:18:46 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/18 21:07:37 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/18 22:29:32 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,11 @@ t_img	*open_xpm_image(t_cub *cub, t_img *img, char *xpm_path, char *dir)
 	x = PX;
 	y = PX;
 	img = ft_calloc(1, sizeof(t_img));
-	/* img->img_ptr = NULL;
-	img->addr = NULL;
-	img->bpp = 0;
-	img->line_len = 0;
-	img->endian = 0; */
 	img->dir = ft_strdup(dir);
 	img->img_ptr = mlx_xpm_file_to_image(cub->mlx_ptr, xpm_path, &x, &y);
-	img->addr = (int *)mlx_get_data_addr(img->img_ptr, &x, &img->line_len,
+	img->addr = (int *)mlx_get_data_addr(img->img_ptr, &img->bpp, &img->line_len,
 			&img->endian);
-	img->text_int_px = ft_calloc(1,
-			sizeof(int) * PX * PX);
+	img->text_int_px = ft_calloc(1, sizeof(int) * PX * PX);
 	x = 0;
 	y = 0;
 	while (y < PX)
