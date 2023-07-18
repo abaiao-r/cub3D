@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:24:29 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/17 22:29:28 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/18 20:14:46 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include <math.h>
 
 # define PX 64
-# define WINDOW_H 480
+# define WINDOW_H 640
 # define WINDOW_W 480
 
 typedef struct s_elements_data
@@ -67,11 +67,11 @@ typedef struct s_map
 typedef struct s_img
 {
 	char	*dir;
-	double 	imgW;
+	int 	imgW;
 	double 	imgH;
-	double	imgXpos;
+	int		imgXpos;
 	double	imgStep;
-	double	imgYpos;
+	int		imgYpos;
 	double	imgPos;
 	void	*img_ptr;
 	int		*addr;
@@ -85,8 +85,8 @@ typedef struct s_img
 
 typedef struct s_raycast
 {
-	int		posX; //player start position x
-	int		posY; //player start position y
+	double		posX; //player start position x
+	double		posY; //player start position y
 	double		dirX; //initial direction vector
 	double		dirY; //initial direction vector
 	double		planeX; //2d raycaster version of camera plane

@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:42:40 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/17 22:56:08 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/18 21:05:48 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,15 @@ void	define_direction_camera(t_map *map, t_raycast *ray)
 	if (map->direction == 'S')
 	{
 		ray->dirX = 0;
-		ray->dirY = -1;
-		ray->planeX = 0.66;
+		ray->dirY = 1;
+		ray->planeX = -0.66;
 		ray->planeY = 0;
 	}
 	else if (map->direction == 'N')
 	{
 		ray->dirX = 0;
-		ray->dirY = 1;
-		ray->planeX = -0.66;
+		ray->dirY = -1;
+		ray->planeX = 0.66;
 		ray->planeY = 0;
 	}
 	else if (map->direction == 'E')
@@ -37,7 +37,7 @@ void	define_direction_camera(t_map *map, t_raycast *ray)
 	}
 	else if (map->direction == 'W')
 	{
-		ray->dirX = 1;
+		ray->dirX = -1;
 		ray->dirY = 0;
 		ray->planeX = 0;
 		ray->planeY = -0.66;
@@ -89,6 +89,7 @@ void	calc_step_side_dist(t_raycast *ray)
 
 void	perform_dda(t_raycast *ray, t_map *map)
 {
+	ray->hit = 0;
 	while (ray->hit == 0)
 	{
 		//jump to next map square, either in x-direction, or in y-direction
@@ -180,8 +181,8 @@ void	init_raycast_vars(t_cub *cub, t_map *map, t_raycast *ray)
 
 	x = -1;
 	ray = ft_calloc(1, sizeof(t_raycast));
-	ray->posX = map->player_l;
-	ray->posY = map->player_c;
+	ray->posX = map->player_c;
+	ray->posY = map->player_l;
 	define_direction_camera(map,ray);
 	while (++x < WINDOW_W)
 	{
@@ -194,14 +195,18 @@ void	init_raycast_vars(t_cub *cub, t_map *map, t_raycast *ray)
         img->imgXpos = (int)(ray->wallX * img->imgW);
         if ((ray->side == 0 && ray->rayDirX < 0) || (ray->side == 1 && ray->rayDirY > 0))
             img->imgXpos = img->imgW - img->imgXpos - 1;
-		ray->step = img->imgH / ray->lineHeight;
+		ray->step = 1.0 * img->imgH / ray->lineHeight;
 		img->imgPos = (ray->drawStart - WINDOW_H/2 + ray->lineHeight /2) * ray->step;
 		y = ray->drawStart;
 		while (y < ray->drawEnd)
 		{
-			img->imgYpos = (int)img->imgPos & (int)(img->imgW - 1);
+			img->imgYpos = (int)img->imgPos & (img->imgW - 1);
 			img->imgPos += img->imgStep;
-			color = img->text_int_px[(int)(img->imgW * img->imgYpos + img->imgXpos)];
+			color = img->text_int_px[img->imgW * img->imgYpos + img->imgXpos];
+			//if (color != img->addr[img->imgW * img->imgYpos + img->imgXpos])
+				//printf("1");
+			/* if (ft_strcmp(img->dir, "NO") == 0 || ft_strcmp(img->dir, "EA"))
+				color = (color >> 1) & 8355711; */
 			if (color > 0)
 				cub->int_px[y][x] = color;
 			y++;

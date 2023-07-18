@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 12:05:10 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/17 21:00:58 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/18 20:39:47 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	init_mlx_lib(t_cub *cub)
 	cub->mlx_ptr = mlx_init();
 	if (!cub->mlx_ptr)
 		return (free_mlx(cub));
-	cub->win_ptr = mlx_new_window(cub->mlx_ptr, WINDOW_H, WINDOW_W, "cub3D");
+	cub->win_ptr = mlx_new_window(cub->mlx_ptr, WINDOW_W, WINDOW_H, "cub3D");
 	if (!cub->win_ptr)
 		return (free_mlx(cub));
 /* 	if (!load_textures(cub))
@@ -54,10 +54,10 @@ int	main(int argc, char **argv)
 	if (!cub->map)
 		return(free(cub), 0);
 	i = 0; // test
-	while (i < cub->map->map_lin)
+	/* while (i < cub->map->map_lin)
 	{
 		printf("%s", cub->map->game_map[i]);
 		i++;
-	}
+	} */
 	init_mlx_lib(cub);
 }
