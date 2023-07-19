@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:42:40 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/19 20:25:13 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/19 21:51:30 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,6 +182,7 @@ void	init_raycast_vars(t_cub *cub, t_map *map, t_raycast *ray)
 
 	x = -1;
 	ray = ft_calloc(1, sizeof(t_raycast));
+	cub->raycast = ray;
 	ray->posX = map->player_c;
 	ray->posY = map->player_l;
 	define_direction_camera(map,ray);
@@ -196,19 +197,16 @@ void	init_raycast_vars(t_cub *cub, t_map *map, t_raycast *ray)
         img->imgXpos = (int)(ray->wallX * img->imgW);
         if ((ray->side == 0 && ray->rayDirX < 0) || (ray->side == 1 && ray->rayDirY > 0))
             img->imgXpos = img->imgW - img->imgXpos - 1;
-		img->imgStep = 1.0 * img->imgW / ray->lineHeight;
+		img->imgStep = (double)img->imgW / ray->lineHeight;
 		img->imgPos = (ray->drawStart - WINDOW_H/2 + ray->lineHeight /2) * img->imgStep;
 		y = ray->drawStart;
 		while (y < ray->drawEnd)
 		{
 			img->imgYpos = (int)img->imgPos & (img->imgW - 1);
 			img->imgPos += img->imgStep;
-			/* if (ft_strcmp(img->dir, "NO") == 0 || ft_strcmp(img->dir, "EA") == 0)
-				color = (color >> 1) & 8355711; */
 			if (img->text_int_px[img->imgW * img->imgYpos + img->imgXpos] > 0)
 				cub->int_px[y][x] = img->text_int_px[img->imgW * img->imgYpos + img->imgXpos];
 			y++;
 		}
-		//mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img[4]->img_ptr, 0, 0);
 	}
 }

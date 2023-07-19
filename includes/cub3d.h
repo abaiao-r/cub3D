@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:24:29 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/19 18:32:32 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/19 21:47:07 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,15 @@
 # include <string.h>
 # include <unistd.h>
 # include <math.h>
+# include <X11/keysym.h>
+# include <X11/X.h>
+# include <stdbool.h>
 
 # define PX 64
 # define WINDOW_H 1020
 # define WINDOW_W 1920
+# define MOVESPEED 0.0125
+# define ROTSPEED 0.015
 
 typedef struct s_elements_data
 {
@@ -194,6 +199,7 @@ void init_images(t_cub *cub);
 void	init_raycast_vars(t_cub *cub, t_map *map, t_raycast *ray);
 void draw_floor_ceiling(t_cub *cub);
 t_img	*blank_image(t_cub *cub, t_img *img);
-
+int key_press(int key, t_cub *cub);
+void	define_direction_camera(t_map *map, t_raycast *ray);
 
 #endif
