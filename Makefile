@@ -6,7 +6,7 @@
 #    By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/07 16:03:25 by pedperei          #+#    #+#              #
-#    Updated: 2023/07/17 21:47:45 by pedperei         ###   ########.fr        #
+#    Updated: 2023/07/19 18:08:52 by pedperei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,7 +24,6 @@ SRCS = 	$(SRCDIR)/main.c \
 		$(SRCDIR)/check_args.c \
 		$(SRCDIR)/free_map_aux.c \
 		$(SRCDIR)/free_resources.c \
-		$(SRCDIR)/load_textures.c \
 		$(SRCDIR)/map_check.c \
 		$(SRCDIR)/map_check_extra_args.c \
 		$(SRCDIR)/map_conditions.c \
