@@ -1,8 +1,14 @@
-NO  ./textures/no_test.xpm 
-EA  ./textures/ea_test.xpm                
-SO  ./textures/so_test.xpm
-WE  ./textures/we_test.xpm   
+NO ./textures/simonkraft/wet_sponge.xpm
+SO ./textures/simonkraft/wet_sponge.xpm
+WE ./textures/simonkraft/wet_sponge.xpm
+EA ./textures/simonkraft/wet_sponge.xpm 
 
 F 220,100,0
 C 225,30,0
 
+11111
+10001
+10001
+10001
+1N001
+11111

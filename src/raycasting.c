@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:42:40 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/19 18:27:11 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/19 20:25:13 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	perform_dda(t_raycast *ray, t_map *map)
 			|| ray->mapX > WINDOW_W - 1.25)
 			break ; */
 		//Check if ray has hit a wall
-		if (map->game_map[ray->mapX][ray->mapY] == '1')
+		if (map->game_map[ray->mapY][ray->mapX] == '1')
 			ray->hit = 1;
 	}
 }
@@ -164,10 +164,10 @@ t_img   *select_texture(t_cub *cub, t_raycast *ray)
         return(search_texture(cub->img, "SO"));
     if (ray->side == 1 && ray->dirY <= 0)
         return(search_texture(cub->img, "NO"));
-    if (ray->side == 0 && ray->dirX > 0)
-        return(search_texture(cub->img, "WE"));
-    if (ray->side == 0 && ray->dirX <= 0)
+    if (ray->side == 0 && ray->dirX >= 0)
         return(search_texture(cub->img, "EA"));
+    if (ray->side == 0 && ray->dirX < 0)
+        return(search_texture(cub->img, "WE"));
     return (NULL);
 }
 
@@ -178,6 +178,7 @@ void	init_raycast_vars(t_cub *cub, t_map *map, t_raycast *ray)
     t_img   *img;
 	int color;
 	(void)cub;
+	(void)color;
 
 	x = -1;
 	ray = ft_calloc(1, sizeof(t_raycast));
@@ -196,22 +197,18 @@ void	init_raycast_vars(t_cub *cub, t_map *map, t_raycast *ray)
         if ((ray->side == 0 && ray->rayDirX < 0) || (ray->side == 1 && ray->rayDirY > 0))
             img->imgXpos = img->imgW - img->imgXpos - 1;
 		img->imgStep = 1.0 * img->imgW / ray->lineHeight;
-		img->imgPos = (ray->drawStart - WINDOW_H/2 + ray->lineHeight /2) * ray->step;
+		img->imgPos = (ray->drawStart - WINDOW_H/2 + ray->lineHeight /2) * img->imgStep;
 		y = ray->drawStart;
 		while (y < ray->drawEnd)
 		{
 			img->imgYpos = (int)img->imgPos & (img->imgW - 1);
 			img->imgPos += img->imgStep;
-			color = img->text_int_px[img->imgW * img->imgYpos + img->imgXpos];
-			//mlx_pixel_put(cub->mlx_ptr,cub->win_ptr,x,y,img->text_int_px[img->imgW * img->imgYpos + img->imgXpos]);
-			//if (color != img->addr[img->imgW * img->imgYpos + img->imgXpos])
-				//printf("1");
-			/* if (ft_strcmp(img->dir, "NO") == 0 || ft_strcmp(img->dir, "EA"))
+			/* if (ft_strcmp(img->dir, "NO") == 0 || ft_strcmp(img->dir, "EA") == 0)
 				color = (color >> 1) & 8355711; */
-			if (color > 0)
-				cub->int_px[y][x] = color;
+			if (img->text_int_px[img->imgW * img->imgYpos + img->imgXpos] > 0)
+				cub->int_px[y][x] = img->text_int_px[img->imgW * img->imgYpos + img->imgXpos];
 			y++;
 		}
-		//mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img[4]->img_ptr, x, ray->drawStart);
+		//mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, cub->img[4]->img_ptr, 0, 0);
 	}
 }

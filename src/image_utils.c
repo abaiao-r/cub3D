@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:18:46 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/18 22:29:32 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/19 18:57:27 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,25 +41,6 @@ t_img	*open_xpm_image(t_cub *cub, t_img *img, char *xpm_path, char *dir)
 	img->imgW = PX;
 	mlx_destroy_image(cub->mlx_ptr, img->img_ptr);
 	return (img);
-}
-
-void	init_textures(t_cub *cub, t_img **img)
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	while (i < PX)
-	{
-		j = 0;
-		while (j < PX)
-		{
-			mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, img[0], j * PX,
-				i * PX);
-			j++;
-		}
-		i++;
-	}
 }
 
 t_img	*blank_image(t_cub *cub, t_img *img)
@@ -105,14 +86,6 @@ unsigned int	rgb_to_hex(t_elements_data *d, char c)
 		b_hex = (unsigned int)d->floor_colour_b / 16 * 16 + (unsigned int)d->ceiling_colour_b % 16;
 	}
 	return (r_hex * 65536 + g_hex * 256 + b_hex);
-}
-
-void	set_image_pixel2(t_img *image, int x, int y, int color)
-{
-	int	pixel;
-
-	pixel = y * (image->line_len / 4) + x;
-	image->addr[pixel] = color;
 }
 
 void draw_floor_ceiling(t_cub *cub)

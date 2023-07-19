@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:24:29 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/19 18:20:59 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/19 18:32:32 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@
 # include <math.h>
 
 # define PX 64
-# define WINDOW_H 480
-# define WINDOW_W 640
+# define WINDOW_H 1020
+# define WINDOW_W 1920
 
 typedef struct s_elements_data
 {
