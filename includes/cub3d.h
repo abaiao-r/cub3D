@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:24:29 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/20 18:22:08 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/20 19:41:17 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,9 @@
 # include <stdbool.h>
 
 # define PX 64
-# define WINDOW_H 1020
-# define WINDOW_W 1920
-# define MOVESPEED 0.1125
-# define ROTSPEED 0.015
+# define WINDOW_H 480
+# define WINDOW_W 640
+# define SPEED 0.1125
 
 typedef struct s_elements_data
 {
@@ -202,5 +201,7 @@ t_img	*blank_image(t_cub *cub, t_img *img);
 int key_press(int key, t_cub *cub);
 void	define_direction_camera(t_map *map, t_raycast *ray);
 int raycast(t_cub *cub);
+int **create_int_px(void);
+void	ft_free_int_array(int **array);
 
 #endif
