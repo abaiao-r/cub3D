@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:24:29 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/20 15:26:38 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/20 18:22:08 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define PX 64
 # define WINDOW_H 1020
 # define WINDOW_W 1920
-# define MOVESPEED 0.0125
+# define MOVESPEED 0.1125
 # define ROTSPEED 0.015
 
 typedef struct s_elements_data

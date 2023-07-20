@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 12:05:10 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/20 15:29:28 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/20 17:50:18 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ int	init_mlx_lib(t_cub *cub)
 		return (free_mlx(cub)); */
 	init_images(cub);
 	cub->raycast = ft_calloc(1, sizeof(t_raycast));
-	cub->raycast->posX = cub->map->player_c;
-	cub->raycast->posY = cub->map->player_l;
+	define_direction_camera(cub->map,cub->raycast);
 	raycast(cub);
 	/* int i = 0;
 	while (i < cub->map->map_lin)
