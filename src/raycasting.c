@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:42:40 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/19 21:51:30 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/20 15:29:31 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,10 +181,6 @@ void	init_raycast_vars(t_cub *cub, t_map *map, t_raycast *ray)
 	(void)color;
 
 	x = -1;
-	ray = ft_calloc(1, sizeof(t_raycast));
-	cub->raycast = ray;
-	ray->posX = map->player_c;
-	ray->posY = map->player_l;
 	define_direction_camera(map,ray);
 	while (++x < WINDOW_W)
 	{

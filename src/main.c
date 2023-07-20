@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 12:05:10 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/19 21:51:50 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/20 15:29:28 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int raycast(t_cub *cub)
 {
 	init_raycast_vars(cub, cub->map, cub->raycast);
+	draw_floor_ceiling(cub);
 	return 0;
 }
 
@@ -30,8 +31,10 @@ int	init_mlx_lib(t_cub *cub)
 /* 	if (!load_textures(cub))
 		return (free_mlx(cub)); */
 	init_images(cub);
+	cub->raycast = ft_calloc(1, sizeof(t_raycast));
+	cub->raycast->posX = cub->map->player_c;
+	cub->raycast->posY = cub->map->player_l;
 	raycast(cub);
-	draw_floor_ceiling(cub);
 	/* int i = 0;
 	while (i < cub->map->map_lin)
 	{
@@ -40,7 +43,7 @@ int	init_mlx_lib(t_cub *cub)
 	} */
 	mlx_hook(cub->win_ptr, 17, 1L << 0, close_win, cub);
 	mlx_hook(cub->win_ptr, KeyPress, KeyPressMask, key_press, cub);
-	mlx_loop_hook(cub->mlx_ptr, raycast, cub);
+	//mlx_loop_hook(cub->mlx_ptr, raycast, cub);
 	mlx_loop(cub->mlx_ptr);
 	return (0);
 }

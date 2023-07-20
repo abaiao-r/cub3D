@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:50:24 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/19 21:13:10 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/20 15:26:49 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,10 @@ int key_press(int key, t_cub *cub)
 	if (key == XK_Right)
 		cub->player->rotate += 1; */
 	if (key == XK_w)
+	{
 		move_up(cub, cub->raycast, cub->map);
+		raycast(cub);
+	}
 	/* if (key == XK_a)
 		move_left();
 	if (key == XK_s)
