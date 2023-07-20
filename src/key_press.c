@@ -6,30 +6,12 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:50:24 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/20 18:49:55 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/20 19:00:25 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-/* int key_release(int key, t_cub *cub)
-{
-    if (key == XK_Escape)
-        close_win(cub);
-    if (key == XK_w && cub->player->move_y == 1)
-		cub->player->move_y = 0;
-	if (key == XK_s && cub->player->move_y == -1)
-		cub->player->move_y = 0;
-	if (key == XK_a && cub->player->move_x == -1)
-		cub->player->move_x += 1;
-	if (key == XK_d && cub->player->move_x == 1)
-		cub->player->move_x -= 1;
-	if (key == XK_Left && cub->player->rotate <= 1)
-		cub->player->rotate = 0;
-	if (key == XK_Right && cub->player->rotate >= -1)
-		cub->player->rotate = 0;
-	return (0);
-} */
 int	is_wall(t_cub *cub, double y, double x)
 {
 	if (cub->map->game_map[(int)floor(y)][(int)floor(x)] != '1')
@@ -123,24 +105,13 @@ int key_press(int key, t_cub *cub)
 	if (key == XK_Right)
 		cub->player->rotate += 1; */
 	if (key == XK_w)
-	{
 		move_up(cub, cub->raycast, cub->map);
-		raycast(cub);
-	}
 	if (key == XK_s)
-	{
 		move_down(cub, cub->raycast, cub->map);
-		raycast(cub);
-	}
 	if (key == XK_a)
-	{
 		move_left(cub, cub->raycast, cub->map);
-		raycast(cub);
-	}
 	if (key == XK_d)
-	{
 		move_right(cub, cub->raycast, cub->map);
-		raycast(cub);
-	}
+	raycast(cub);
 	return (0);
 }
