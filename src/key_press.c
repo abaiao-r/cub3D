@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_press.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:50:24 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/20 19:33:01 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/24 14:09:26 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ int move_up(t_cub *cub, t_raycast *ray, t_map *map)
 	tmp_l = map->player_l + ray->dirY * SPEED;
 	if (!is_wall(cub, tmp_l,tmp_c))
 		return (0);
-	if(map->game_map[(int)(ray->posX + ray->dirX * SPEED)][(int)ray->posY] != '1')
-		ray->posX += ray->dirX * SPEED;
-	if(map->game_map[(int)ray->posX][(int)(ray->posY + ray->dirY * SPEED)] != '1')
+	if(map->game_map[(int)(ray->posY + ray->dirY * SPEED)][(int)ray->posX] != '1')
 		ray->posY += ray->dirY * SPEED;
+	if(map->game_map[(int)ray->posY][(int)(ray->posX + ray->dirX * SPEED)] != '1')
+		ray->posX += ray->dirX * SPEED;
 	map->player_c = map->player_c + ray->dirX * SPEED;
 	map->player_l = map->player_l + ray->dirY * SPEED;
 	return (1);
@@ -48,10 +48,10 @@ int move_down(t_cub *cub, t_raycast *ray, t_map *map)
 	tmp_l = map->player_l - ray->dirY * SPEED;
 	if (!is_wall(cub, tmp_l,tmp_c))
 		return (0);
-	if(map->game_map[(int)(ray->posX + ray->dirX * SPEED)][(int)ray->posY] != '1')
-		ray->posX -= ray->dirX * SPEED;
-	if(map->game_map[(int)ray->posX][(int)(ray->posY + ray->dirY * SPEED)] != '1')
+	if(map->game_map[(int)(ray->posY + ray->dirY * SPEED)][(int)ray->posX] != '1')
 		ray->posY -= ray->dirY * SPEED;
+	if(map->game_map[(int)ray->posY][(int)(ray->posX + ray->dirX * SPEED)] != '1')
+		ray->posX -= ray->dirX * SPEED;
 	map->player_c = map->player_c - ray->dirX * SPEED;
 	map->player_l = map->player_l - ray->dirY * SPEED;
 	return (1);
@@ -67,10 +67,10 @@ int move_right(t_cub *cub, t_raycast *ray, t_map *map)
 	tmp_l = map->player_l + ray->planeY * SPEED;
 	if (!is_wall(cub, tmp_l,tmp_c))
 		return (0);
-	if(map->game_map[(int)(ray->posX + ray->planeX * SPEED)][(int)ray->posY] != '1')
-		ray->posX += ray->planeX * SPEED;
-	if(map->game_map[(int)ray->posX][(int)(ray->posY + ray->planeY * SPEED)] != '1')
+	if(map->game_map[(int)(ray->posY + ray->planeY * SPEED)][(int)ray->posX] != '1')
 		ray->posY += ray->planeY * SPEED;
+	if(map->game_map[(int)ray->posY][(int)(ray->posX + ray->planeX * SPEED)] != '1')
+		ray->posX += ray->planeX * SPEED;
 	map->player_c = map->player_c + ray->planeX * SPEED;
 	map->player_l = map->player_l + ray->planeY * SPEED;
 	return (1);
@@ -86,10 +86,10 @@ int move_left(t_cub *cub, t_raycast *ray, t_map *map)
 	tmp_l = map->player_l - ray->planeY * SPEED;
 	if (!is_wall(cub, tmp_l,tmp_c))
 		return (0);
-	if(map->game_map[(int)(ray->posX + ray->planeX * SPEED)][(int)ray->posY] != '1')
-		ray->posX -= ray->planeX * SPEED;
-	if(map->game_map[(int)ray->posX][(int)(ray->posY + ray->planeY * SPEED)] != '1')
+	if(map->game_map[(int)(ray->posY + ray->planeY * SPEED)][(int)ray->posX] != '1')
 		ray->posY -= ray->planeY * SPEED;
+	if(map->game_map[(int)ray->posY][(int)(ray->posX + ray->planeX * SPEED)] != '1')
+		ray->posX -= ray->planeX * SPEED;
 	map->player_c = map->player_c - ray->planeX * SPEED;
 	map->player_l = map->player_l - ray->planeY * SPEED;
 	return (1);

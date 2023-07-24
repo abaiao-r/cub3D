@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   image_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:18:46 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/20 19:29:39 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/24 14:32:47 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@ t_img	*open_xpm_image(t_cub *cub, t_img *img, char *xpm_path, char *dir)
 	img = ft_calloc(1, sizeof(t_img));
 	img->dir = ft_strdup(dir);
 	img->img_ptr = mlx_xpm_file_to_image(cub->mlx_ptr, xpm_path, &x, &y);
+	if (!img->img_ptr)
+	{
+		printf("Error\nInvalid texture path: %s\n", xpm_path);
+		printf("texture path might be empty or invalid\n");
+		exit(1);
+	}
 	img->addr = (int *)mlx_get_data_addr(img->img_ptr, &img->bpp, &img->line_len,
 			&img->endian);
 	img->text_int_px = ft_calloc(1, sizeof(int) * PX * PX);
