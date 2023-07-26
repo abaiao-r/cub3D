@@ -6,7 +6,7 @@
 /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:24:29 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/26 15:21:55 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/26 16:33:43 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,16 @@
 
 # include "../.minilibx-linux/mlx.h"
 # include "../libft/libft.h"
+# include <X11/X.h>
+# include <X11/keysym.h>
 # include <errno.h>
 # include <fcntl.h>
+# include <math.h>
+# include <stdbool.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
 # include <unistd.h>
-# include <math.h>
-# include <X11/keysym.h>
-# include <X11/X.h>
-# include <stdbool.h>
 
 # define PX 64
 # define WINDOW_H 480
@@ -33,13 +33,13 @@
 
 typedef struct s_key_state
 {
-	int w; // W key state
-	int a; // A key state
-	int s; // S key state
-	int d; // D key state
-	int left_arrow; // Left arrow key state
+	int w;           // W key state
+	int a;           // A key state
+	int s;           // S key state
+	int d;           // D key state
+	int left_arrow;  // Left arrow key state
 	int right_arrow; // Right arrow key state
-} t_key_state;
+}					t_key_state;
 
 typedef struct s_elements_data
 {
@@ -67,9 +67,9 @@ typedef struct s_map
 	int				count_player;
 	int				no_empty_line;
 	int				empty_map;
-	double				player_l;
-	double				player_c;
-	char				direction;
+	double			player_l;
+	double			player_c;
+	char			direction;
 	int				elements_end;
 	char			**desc_file;
 	char			**game_map;
@@ -80,49 +80,53 @@ typedef struct s_map
 
 typedef struct s_img
 {
-	char	*dir;
-	int 	img_w;
-	int		img_x_pos;
-	double	img_step;
-	int		img_y_pos;
-	double	img_pos;
-	void	*img_ptr;
-	int		*addr;
-	int		*text_int_px;
-	int		height;
-	int		width;
-	int		bpp;
-	int		endian;
-	int		line_len;
-}		t_img;
+	char			*dir;
+	int				img_w;
+	int				img_x_pos;
+	double			img_step;
+	int				img_y_pos;
+	double			img_pos;
+	void			*img_ptr;
+	int				*addr;
+	int				*text_int_px;
+	int				height;
+	int				width;
+	int				bpp;
+	int				endian;
+	int				line_len;
+}					t_img;
 
 typedef struct s_raycast
 {
-	double		pos_x; //player start position x
-	double		pos_y; //player start position y
-	double		dir_x; //initial direction vector
-	double		dir_y; //initial direction vector
-	double		plane_x; //2d raycaster version of camera plane
-	double		plane_y; //2d raycaster version of camera plane
-	double		camera_x; //x-coordinate in camera space
-	double		ray_dir_x; //direction of the ray
-	double		ray_dir_y; //direction of the ray
-	double		side_dist_x; //distance the ray has to travel from its start position to the first x-side
-	double		side_dist_y; //distance the ray has to travel from its start position to the first y-side
-	double		delta_dist_x; //distance the ray has to travel to go from 1 x-side to the next x-side
-	double		delta_dist_y; //distance the ray has to travel to go from 1 y-side to the next y-side
-	double		perp_wall_dist; //length of the ray
-	double		wall_x;
-	int		map_x;
-	int		map_y;
-	int		step_x;
-	int		step_y; //what direction to step in x or y-direction (either +1 or -1)
-	int		hit; //was there a wall hit?
-	int		side; //was a NS or a EW wall hit?
-	int		line_height;
-	int		draw_start;
-	int		draw_end;
-	double		step;
+	double pos_x;          // player start position x
+	double pos_y;          // player start position y
+	double dir_x;          // initial direction vector
+	double dir_y;          // initial direction vector
+	double plane_x;        // 2d raycaster version of camera plane
+	double plane_y;        // 2d raycaster version of camera plane
+	double camera_x;       // x-coordinate in camera space
+	double ray_dir_x;      // direction of the ray
+	double ray_dir_y;      // direction of the ray
+	double side_dist_x;   
+		// distance the ray has to travel from its start position to the first x-side
+	double side_dist_y;   
+		// distance the ray has to travel from its start position to the first y-side
+	double delta_dist_x;  
+		// distance the ray has to travel to go from 1 x-side to the next x-side
+	double delta_dist_y;  
+		// distance the ray has to travel to go from 1 y-side to the next y-side
+	double perp_wall_dist; // length of the ray
+	double			wall_x;
+	int				map_x;
+	int				map_y;
+	int				step_x;
+	int step_y; // what direction to step in x or y-direction (either +1 or -1)
+	int hit;    // was there a wall hit?
+	int side;   // was a NS or a EW wall hit?
+	int				line_height;
+	int				draw_start;
+	int				draw_end;
+	double			step;
 }					t_raycast;
 
 typedef struct s_cub
@@ -134,7 +138,7 @@ typedef struct s_cub
 	t_raycast		*raycast;
 	t_img			**img;
 	t_map			*map;
-	t_key_state key_state;
+	t_key_state		key_state;
 
 }					t_cub;
 
@@ -161,6 +165,10 @@ t_map				*map_error_msg(t_map *map);
 /* free_resources.c */
 int					close_win(t_cub *cub);
 int					free_mlx(t_cub *cub);
+
+/* key_handler.c */
+int					key_release(int key, t_cub *cub);
+int					key_press(int key, t_cub *cub);
 
 /* map_check.c */
 int					check_chars(t_map *map);
@@ -196,6 +204,16 @@ int					check_textures_path(t_map *map,
 /* map_elements_check_textures_path2.c */
 int					file_exists(char *path, t_map *map);
 
+/* movements.c */
+int 				move_up(t_cub *cub, t_raycast *ray, t_map *map);
+int 				move_down(t_cub *cub, t_raycast *ray, t_map *map);
+int 				move_left(t_cub *cub, t_raycast *ray, t_map *map);
+int 				move_right(t_cub *cub, t_raycast *ray, t_map *map);
+int 				rotate(t_raycast *ray, int s);
+
+/*  movements_utils.c */
+int					is_wall(t_cub *cub, double y, double x);
+
 /*utils_map.c*/
 int					count_lines(char *map);
 int					ft_strlen_mod(const char *str);
@@ -204,21 +222,13 @@ int					count_cols(char *map);
 /*map_conditions.c*/
 int					map_conditions(t_map *map, int i);
 
-int key_release(int key, t_cub *cub);
-void init_images(t_cub *cub);
-void	init_raycast_vars(t_cub *cub, t_map *map, t_raycast *ray);
-void draw_floor_ceiling(t_cub *cub);
-t_img	*blank_image(t_cub *cub, t_img *img);
-int key_press(int key, t_cub *cub);
-void	set_camera_direction(t_map *map, t_raycast *ray);
-int raycast(t_cub *cub);
-int **create_int_px(void);
-void	ft_free_int_array(int **array);
-int rotate(t_raycast *ray, int s);
-int move_left(t_cub *cub, t_raycast *ray, t_map *map);
-int move_right(t_cub *cub, t_raycast *ray, t_map *map);
-int move_down(t_cub *cub, t_raycast *ray, t_map *map);
-int move_up(t_cub *cub, t_raycast *ray, t_map *map);
-int	is_wall(t_cub *cub, double y, double x);
+void				init_images(t_cub *cub);
+void				init_raycast_vars(t_cub *cub, t_map *map, t_raycast *ray);
+void				draw_floor_ceiling(t_cub *cub);
+t_img				*blank_image(t_cub *cub, t_img *img);
+void				set_camera_direction(t_map *map, t_raycast *ray);
+int					raycast(t_cub *cub);
+int					**create_int_px(void);
+void				ft_free_int_array(int **array);
 
 #endif

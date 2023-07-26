@@ -6,7 +6,7 @@
 #    By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/07 16:03:25 by pedperei          #+#    #+#              #
-#    Updated: 2023/07/24 12:43:34 by abaiao-r         ###   ########.fr        #
+#    Updated: 2023/07/26 16:36:01 by abaiao-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,10 +32,12 @@ SRCS = 	$(SRCDIR)/main.c \
 		$(SRCDIR)/map_elements_check_textures_path.c \
 		$(SRCDIR)/map_elements_check_textures_path2.c \
 		$(SRCDIR)/map_init.c \
+		$(SRCDIR)/movements.c \
+		$(SRCDIR)/movements_utils.c \
 		$(SRCDIR)/utils_map.c \
 		$(SRCDIR)/image_utils.c \
 		$(SRCDIR)/raycasting.c \
-		$(SRCDIR)/key_press.c \
+		$(SRCDIR)/key_handler.c
 
 
 OBJS = $(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
