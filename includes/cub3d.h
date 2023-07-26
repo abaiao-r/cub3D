@@ -6,7 +6,7 @@
 /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:24:29 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/20 20:58:10 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/26 14:51:20 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,11 +71,11 @@ typedef struct s_map
 typedef struct s_img
 {
 	char	*dir;
-	int 	imgW;
-	int		imgXpos;
-	double	imgStep;
-	int		imgYpos;
-	double	imgPos;
+	int 	img_w;
+	int		img_x_pos;
+	double	img_step;
+	int		img_y_pos;
+	double	img_pos;
 	void	*img_ptr;
 	int		*addr;
 	int		*text_int_px;
@@ -88,30 +88,30 @@ typedef struct s_img
 
 typedef struct s_raycast
 {
-	double		posX; //player start position x
-	double		posY; //player start position y
-	double		dirX; //initial direction vector
-	double		dirY; //initial direction vector
-	double		planeX; //2d raycaster version of camera plane
-	double		planeY; //2d raycaster version of camera plane
-	double		cameraX; //x-coordinate in camera space
-	double		rayDirX; //direction of the ray
-	double		rayDirY; //direction of the ray
-	double		sideDistX; //distance the ray has to travel from its start position to the first x-side
-	double		sideDistY; //distance the ray has to travel from its start position to the first y-side
-	double		deltaDistX; //distance the ray has to travel to go from 1 x-side to the next x-side
-	double		deltaDistY; //distance the ray has to travel to go from 1 y-side to the next y-side
-	double		perpWallDist; //length of the ray
-	double		wallX;
-	int		mapX;
-	int		mapY;
-	int		stepX;
-	int		stepY; //what direction to step in x or y-direction (either +1 or -1)
+	double		pos_x; //player start position x
+	double		pos_y; //player start position y
+	double		dir_x; //initial direction vector
+	double		dir_y; //initial direction vector
+	double		plane_x; //2d raycaster version of camera plane
+	double		plane_y; //2d raycaster version of camera plane
+	double		camera_x; //x-coordinate in camera space
+	double		ray_dir_x; //direction of the ray
+	double		ray_dir_y; //direction of the ray
+	double		side_dist_x; //distance the ray has to travel from its start position to the first x-side
+	double		side_dist_y; //distance the ray has to travel from its start position to the first y-side
+	double		delta_dist_x; //distance the ray has to travel to go from 1 x-side to the next x-side
+	double		delta_dist_y; //distance the ray has to travel to go from 1 y-side to the next y-side
+	double		perp_wall_dist; //length of the ray
+	double		wall_x;
+	int		map_x;
+	int		map_y;
+	int		step_x;
+	int		step_y; //what direction to step in x or y-direction (either +1 or -1)
 	int		hit; //was there a wall hit?
 	int		side; //was a NS or a EW wall hit?
-	int		lineHeight;
-	int		drawStart;
-	int		drawEnd;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
 	double		step;
 }					t_raycast;
 
@@ -199,7 +199,7 @@ void	init_raycast_vars(t_cub *cub, t_map *map, t_raycast *ray);
 void draw_floor_ceiling(t_cub *cub);
 t_img	*blank_image(t_cub *cub, t_img *img);
 int key_press(int key, t_cub *cub);
-void	define_direction_camera(t_map *map, t_raycast *ray);
+void	set_camera_direction(t_map *map, t_raycast *ray);
 int raycast(t_cub *cub);
 int **create_int_px(void);
 void	ft_free_int_array(int **array);

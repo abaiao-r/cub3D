@@ -6,7 +6,7 @@
 /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 12:05:10 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/24 14:08:56 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/26 14:51:20 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,9 @@ int	init_mlx_lib(t_cub *cub)
 	cub->win_ptr = mlx_new_window(cub->mlx_ptr, WINDOW_W, WINDOW_H, "cub3D");
 	if (!cub->win_ptr)
 		return (free_mlx(cub));
-/* 	if (!load_textures(cub))
-		return (free_mlx(cub)); */
 	init_images(cub);
 	cub->raycast = ft_calloc(1, sizeof(t_raycast));
-	define_direction_camera(cub->map,cub->raycast);
+	set_camera_direction(cub->map,cub->raycast);
 	raycast(cub);
 	int i = 0;
 	while (i < cub->map->map_lin)

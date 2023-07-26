@@ -6,41 +6,41 @@
 /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:42:40 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/20 20:34:06 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/26 14:51:20 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-void	define_direction_camera(t_map *map, t_raycast *ray)
+void	set_camera_direction(t_map *map, t_raycast *ray)
 {
 	if (map->direction == 'S')
 	{
-		ray->dirX = 0;
-		ray->dirY = 1;
-		ray->planeX = -0.66;
-		ray->planeY = 0;
+		ray->dir_x = 0;
+		ray->dir_y = 1;
+		ray->plane_x = -0.66;
+		ray->plane_y = 0;
 	}
 	else if (map->direction == 'N')
 	{
-		ray->dirX = 0;
-		ray->dirY = -1;
-		ray->planeX = 0.66;
-		ray->planeY = 0;
+		ray->dir_x = 0;
+		ray->dir_y = -1;
+		ray->plane_x = 0.66;
+		ray->plane_y = 0;
 	}
 	else if (map->direction == 'E')
 	{
-		ray->dirX = 1;
-		ray->dirY = 0;
-		ray->planeX = 0;
-		ray->planeY = 0.66;
+		ray->dir_x = 1;
+		ray->dir_y = 0;
+		ray->plane_x = 0;
+		ray->plane_y = 0.66;
 	}
 	else if (map->direction == 'W')
 	{
-		ray->dirX = -1;
-		ray->dirY = 0;
-		ray->planeX = 0;
-		ray->planeY = -0.66;
+		ray->dir_x = -1;
+		ray->dir_y = 0;
+		ray->plane_x = 0;
+		ray->plane_y = -0.66;
 	}
 }
 
@@ -54,36 +54,36 @@ void	define_direction_camera(t_map *map, t_raycast *ray)
 
 void	init_ray_vars(t_raycast *ray, int x, t_map *map)
 {
-	ray->cameraX = 2 * x / (double)WINDOW_W - 1;
-	ray->rayDirX = ray->dirX + ray->planeX * ray->cameraX;
-	ray->rayDirY = ray->dirY + ray->planeY * ray->cameraX;
-	ray->deltaDistX = fabs(1/ray->rayDirX);
-	ray->deltaDistY = fabs(1/ray->rayDirY);
-	ray->mapX = (int)map->player_c;
-	ray->mapY = (int)map->player_l;
+	ray->camera_x = 2 * x / (double)WINDOW_W - 1;
+	ray->ray_dir_x = ray->dir_x + ray->plane_x * ray->camera_x;
+	ray->ray_dir_y = ray->dir_y + ray->plane_y * ray->camera_x;
+	ray->delta_dist_x = fabs(1/ray->ray_dir_x);
+	ray->delta_dist_y = fabs(1/ray->ray_dir_y);
+	ray->map_x = (int)map->player_c;
+	ray->map_y = (int)map->player_l;
 }
 
 void	calc_step_side_dist(t_raycast *ray)
 {
-	if (ray->rayDirX < 0)
+	if (ray->ray_dir_x < 0)
 	{
-		ray->stepX = -1;
-		ray->sideDistX = (ray->posX - ray->mapX) * ray->deltaDistX;
+		ray->step_x = -1;
+		ray->side_dist_x = (ray->pos_x - ray->map_x) * ray->delta_dist_x;
 	}
 	else
 	{
-		ray->stepX = 1;
-		ray->sideDistX = (ray->mapX + 1.0 - ray->posX) * ray->deltaDistX;
+		ray->step_x = 1;
+		ray->side_dist_x = (ray->map_x + 1.0 - ray->pos_x) * ray->delta_dist_x;
 	}
-	if (ray->rayDirY < 0)
+	if (ray->ray_dir_y < 0)
 	{
-		ray->stepY = -1;
-		ray->sideDistY = (ray->posY - ray->mapY) * ray->deltaDistY;
+		ray->step_y = -1;
+		ray->side_dist_y = (ray->pos_y - ray->map_y) * ray->delta_dist_y;
 	}
 	else
 	{
-		ray->stepY = 1;
-		ray->sideDistY = (ray->mapY + 1.0 - ray->posY) * ray->deltaDistY;
+		ray->step_y = 1;
+		ray->side_dist_y = (ray->map_y + 1.0 - ray->pos_y) * ray->delta_dist_y;
 	}
 }
 
@@ -93,25 +93,25 @@ void	perform_dda(t_raycast *ray, t_map *map)
 	while (ray->hit == 0)
 	{
 		//jump to next map square, either in x-direction, or in y-direction
-		if (ray->sideDistX < ray->sideDistY)
+		if (ray->side_dist_x < ray->side_dist_y)
 		{
-			ray->sideDistX += ray->deltaDistX;
-			ray->mapX += ray->stepX;
+			ray->side_dist_x += ray->delta_dist_x;
+			ray->map_x += ray->step_x;
 			ray->side = 0;
 		}
 		else
 		{
-			ray->sideDistY += ray->deltaDistY;
-			ray->mapY += ray->stepY;
+			ray->side_dist_y += ray->delta_dist_y;
+			ray->map_y += ray->step_y;
 			ray->side = 1;
 		}
-		/* if (ray->mapY < 0.25
-			|| ray->mapX < 0.25
-			|| ray->mapY > WINDOW_H - 0.25
-			|| ray->mapX > WINDOW_W - 1.25)
+		/* if (ray->map_y < 0.25
+			|| ray->map_x < 0.25
+			|| ray->map_y > WINDOW_H - 0.25
+			|| ray->map_x > WINDOW_W - 1.25)
 			break ; */
 		//Check if ray has hit a wall
-		if (map->game_map[ray->mapY][ray->mapX] == '1')
+		if (map->game_map[ray->map_y][ray->map_x] == '1')
 			ray->hit = 1;
 	}
 }
@@ -120,27 +120,27 @@ void	calc_camera_distance(t_raycast *ray)
 {
 	//Calculate distance projected on camera direction (Euclidean distance would give fisheye effect!)
 	if (ray->side == 0)
-		ray->perpWallDist = (ray->sideDistX - ray->deltaDistX);
+		ray->perp_wall_dist = (ray->side_dist_x - ray->delta_dist_x);
 	else
-		ray->perpWallDist = (ray->sideDistY - ray->deltaDistY);
+		ray->perp_wall_dist = (ray->side_dist_y - ray->delta_dist_y);
 }
 
 void	prep_draw_line(t_raycast *ray)
 {
 	//Calculate height of line to draw on screen
-	ray->lineHeight = (int)(WINDOW_H / ray->perpWallDist);
+	ray->line_height = (int)(WINDOW_H / ray->perp_wall_dist);
 	//calculate lowest and highest pixel to fill in current stripe
-	ray->drawStart = -(ray->lineHeight) / 2 + WINDOW_H / 2;
-	if (ray->drawStart < 0)
-		ray->drawStart = 0;
-	ray->drawEnd = ray->lineHeight / 2 + WINDOW_H / 2;
-	if (ray->drawEnd >= WINDOW_H)
-		ray->drawEnd = WINDOW_H - 1;
+	ray->draw_start = -(ray->line_height) / 2 + WINDOW_H / 2;
+	if (ray->draw_start < 0)
+		ray->draw_start = 0;
+	ray->draw_end = ray->line_height / 2 + WINDOW_H / 2;
+	if (ray->draw_end >= WINDOW_H)
+		ray->draw_end = WINDOW_H - 1;
 	if (ray->side == 0)
-		ray->wallX = ray->posY + ray->perpWallDist * ray->rayDirY;
+		ray->wall_x = ray->pos_y + ray->perp_wall_dist * ray->ray_dir_y;
 	else
-		ray->wallX = ray->posX + ray->perpWallDist * ray->rayDirX;
-	ray->wallX -= floor((ray->wallX));
+		ray->wall_x = ray->pos_x + ray->perp_wall_dist * ray->ray_dir_x;
+	ray->wall_x -= floor((ray->wall_x));
 }
 
 t_img   *search_texture(t_img **images, char *dir)
@@ -160,13 +160,13 @@ t_img   *search_texture(t_img **images, char *dir)
 
 t_img   *select_texture(t_cub *cub, t_raycast *ray)
 {
-    if (ray->side == 1 && ray->dirY > 0)
+    if (ray->side == 1 && ray->dir_y > 0)
         return(search_texture(cub->img, "SO"));
-    if (ray->side == 1 && ray->dirY <= 0)
+    if (ray->side == 1 && ray->dir_y <= 0)
         return(search_texture(cub->img, "NO"));
-    if (ray->side == 0 && ray->dirX >= 0)
+    if (ray->side == 0 && ray->dir_x >= 0)
         return(search_texture(cub->img, "EA"));
-    if (ray->side == 0 && ray->dirX < 0)
+    if (ray->side == 0 && ray->dir_x < 0)
         return(search_texture(cub->img, "WE"));
     return (NULL);
 }
@@ -181,8 +181,8 @@ void	init_raycast_vars(t_cub *cub, t_map *map, t_raycast *ray)
 	(void)color;
 
 	x = -1;
-	ray->posX = map->player_c;
-	ray->posY = map->player_l;
+	ray->pos_x = map->player_c;
+	ray->pos_y = map->player_l;
 	ft_free_int_array(cub->int_px);
 	cub->int_px = create_int_px();
 	while (++x < WINDOW_W)
@@ -193,18 +193,18 @@ void	init_raycast_vars(t_cub *cub, t_map *map, t_raycast *ray)
 		calc_camera_distance(ray);
 		prep_draw_line(ray);
         img = select_texture(cub, ray);
-        img->imgXpos = (int)(ray->wallX * img->imgW);
-        if ((ray->side == 0 && ray->rayDirX < 0) || (ray->side == 1 && ray->rayDirY > 0))
-            img->imgXpos = img->imgW - img->imgXpos - 1;
-		img->imgStep = (double)img->imgW / ray->lineHeight;
-		img->imgPos = (ray->drawStart - WINDOW_H/2 + ray->lineHeight /2) * img->imgStep;
-		y = ray->drawStart;
-		while (y < ray->drawEnd)
+        img->img_x_pos = (int)(ray->wall_x * img->img_w);
+        if ((ray->side == 0 && ray->ray_dir_x < 0) || (ray->side == 1 && ray->ray_dir_y > 0))
+            img->img_x_pos = img->img_w - img->img_x_pos - 1;
+		img->img_step = (double)img->img_w / ray->line_height;
+		img->img_pos = (ray->draw_start - WINDOW_H/2 + ray->line_height /2) * img->img_step;
+		y = ray->draw_start;
+		while (y < ray->draw_end)
 		{
-			img->imgYpos = (int)img->imgPos & (img->imgW - 1);
-			img->imgPos += img->imgStep;
-			if (img->text_int_px[img->imgW * img->imgYpos + img->imgXpos] > 0)
-				cub->int_px[y][x] = img->text_int_px[img->imgW * img->imgYpos + img->imgXpos];
+			img->img_y_pos = (int)img->img_pos & (img->img_w - 1);
+			img->img_pos += img->img_step;
+			if (img->text_int_px[img->img_w * img->img_y_pos + img->img_x_pos] > 0)
+				cub->int_px[y][x] = img->text_int_px[img->img_w * img->img_y_pos + img->img_x_pos];
 			y++;
 		}
 	}

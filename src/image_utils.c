@@ -6,7 +6,7 @@
 /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:18:46 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/24 14:32:47 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/26 14:46:07 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_img	*open_xpm_image(t_cub *cub, t_img *img, char *xpm_path, char *dir)
 		printf("Error\nInvalid texture path: %s\n", xpm_path);
 		printf("texture path might be empty or invalid\n");
 		exit(1);
-	}
+	}//edit this
 	img->addr = (int *)mlx_get_data_addr(img->img_ptr, &img->bpp, &img->line_len,
 			&img->endian);
 	img->text_int_px = ft_calloc(1, sizeof(int) * PX * PX);
@@ -44,7 +44,7 @@ t_img	*open_xpm_image(t_cub *cub, t_img *img, char *xpm_path, char *dir)
 		}
 		y++;
 	}
-	img->imgW = PX;
+	img->img_w = PX;
 	mlx_destroy_image(cub->mlx_ptr, img->img_ptr);
 	return (img);
 }
@@ -54,7 +54,7 @@ t_img	*blank_image(t_cub *cub, t_img *img)
 	img->img_ptr = mlx_new_image(cub->mlx_ptr, WINDOW_W, WINDOW_H);
 	img->addr = (int *)mlx_get_data_addr(img->img_ptr, &img->bpp,
 			&img->line_len, &img->endian);
-	img->imgW = PX;
+	img->img_w = PX;
 	return (img);
 }
 void	set_image_pixel(t_img *image, int x, int y, int color)
