@@ -6,7 +6,7 @@
 /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:50:24 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/26 14:31:09 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/26 15:14:40 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,22 +109,46 @@ int rotate(t_raycast *ray, int s)
 	return (1);
 }
 
+int key_release(int key, t_cub *cub)
+{
+	if (key == XK_Escape)
+		close_win(cub);
+	if (key == XK_w)
+		cub->key_state.w = 0;
+	if (key == XK_s)
+		cub->key_state.s = 0;
+	if (key == XK_a)
+		cub->key_state.a = 0;
+	if (key == XK_d)
+		cub->key_state.d = 0;
+	if (key == XK_Left)
+		cub->key_state.left_arrow = 0;
+	if (key == XK_Right)
+		cub->key_state.right_arrow = 0;
+	raycast(cub);
+	return (0);
+}
+
+
+
+
+
 int key_press(int key, t_cub *cub)
 {
 	if (key == XK_Escape)
     	close_win(cub);
-    if (key == XK_Right)
-		rotate(cub->raycast, 1);
-	if (key == XK_Left)
-		rotate(cub->raycast, -1);
-	if (key == XK_w)
-		move_up(cub, cub->raycast, cub->map);
+    if (key == XK_w)
+		cub->key_state.w = 1;
 	if (key == XK_s)
-		move_down(cub, cub->raycast, cub->map);
+		cub->key_state.s = 1;
 	if (key == XK_a)
-		move_left(cub, cub->raycast, cub->map);
+		cub->key_state.a = 1;
 	if (key == XK_d)
-		move_right(cub, cub->raycast, cub->map);
+		cub->key_state.d = 1;
+	if (key == XK_Left)
+		cub->key_state.left_arrow = 1;
+	if (key == XK_Right)
+		cub->key_state.right_arrow = 1;
 	raycast(cub);
 	return (0);
 }

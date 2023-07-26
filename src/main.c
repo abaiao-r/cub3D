@@ -6,7 +6,7 @@
 /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 12:05:10 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/26 14:51:20 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/26 15:30:14 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,18 @@
 
 int raycast(t_cub *cub)
 {
+	if (cub->key_state.w)
+		move_up(cub, cub->raycast, cub->map);
+	if (cub->key_state.s)
+		move_down(cub, cub->raycast, cub->map);
+	if (cub->key_state.a)
+		move_left(cub, cub->raycast, cub->map);
+	if (cub->key_state.d)
+		move_right(cub, cub->raycast, cub->map);
+	if (cub->key_state.left_arrow)
+		rotate(cub->raycast, -1);
+	if (cub->key_state.right_arrow)
+		rotate(cub->raycast, 1);
 	init_raycast_vars(cub, cub->map, cub->raycast);
 	draw_floor_ceiling(cub);
 	return 0;
@@ -40,7 +52,8 @@ int	init_mlx_lib(t_cub *cub)
 	}
 	mlx_hook(cub->win_ptr, 17, 1L << 0, close_win, cub);
 	mlx_hook(cub->win_ptr, KeyPress, KeyPressMask, key_press, cub);
-	//mlx_loop_hook(cub->mlx_ptr, raycast, cub);
+	mlx_hook(cub->win_ptr, KeyRelease, KeyReleaseMask, key_release, cub);
+	mlx_loop_hook(cub->mlx_ptr, raycast, cub);
 	mlx_loop(cub->mlx_ptr);
 	return (0);
 }

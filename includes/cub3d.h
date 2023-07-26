@@ -6,7 +6,7 @@
 /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:24:29 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/26 14:51:20 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/26 15:21:55 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,16 @@
 # define WINDOW_H 480
 # define WINDOW_W 640
 # define SPEED 0.1125
+
+typedef struct s_key_state
+{
+	int w; // W key state
+	int a; // A key state
+	int s; // S key state
+	int d; // D key state
+	int left_arrow; // Left arrow key state
+	int right_arrow; // Right arrow key state
+} t_key_state;
 
 typedef struct s_elements_data
 {
@@ -124,6 +134,7 @@ typedef struct s_cub
 	t_raycast		*raycast;
 	t_img			**img;
 	t_map			*map;
+	t_key_state key_state;
 
 }					t_cub;
 
@@ -193,7 +204,7 @@ int					count_cols(char *map);
 /*map_conditions.c*/
 int					map_conditions(t_map *map, int i);
 
-
+int key_release(int key, t_cub *cub);
 void init_images(t_cub *cub);
 void	init_raycast_vars(t_cub *cub, t_map *map, t_raycast *ray);
 void draw_floor_ceiling(t_cub *cub);
@@ -203,5 +214,11 @@ void	set_camera_direction(t_map *map, t_raycast *ray);
 int raycast(t_cub *cub);
 int **create_int_px(void);
 void	ft_free_int_array(int **array);
+int rotate(t_raycast *ray, int s);
+int move_left(t_cub *cub, t_raycast *ray, t_map *map);
+int move_right(t_cub *cub, t_raycast *ray, t_map *map);
+int move_down(t_cub *cub, t_raycast *ray, t_map *map);
+int move_up(t_cub *cub, t_raycast *ray, t_map *map);
+int	is_wall(t_cub *cub, double y, double x);
 
 #endif
