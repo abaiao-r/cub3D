@@ -6,31 +6,11 @@
 /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 12:05:10 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/26 15:30:14 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/26 17:16:14 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
-
-int raycast(t_cub *cub)
-{
-	if (cub->key_state.w)
-		move_up(cub, cub->raycast, cub->map);
-	if (cub->key_state.s)
-		move_down(cub, cub->raycast, cub->map);
-	if (cub->key_state.a)
-		move_left(cub, cub->raycast, cub->map);
-	if (cub->key_state.d)
-		move_right(cub, cub->raycast, cub->map);
-	if (cub->key_state.left_arrow)
-		rotate(cub->raycast, -1);
-	if (cub->key_state.right_arrow)
-		rotate(cub->raycast, 1);
-	init_raycast_vars(cub, cub->map, cub->raycast);
-	draw_floor_ceiling(cub);
-	return 0;
-}
-
 
 int	init_mlx_lib(t_cub *cub)
 {
@@ -42,14 +22,14 @@ int	init_mlx_lib(t_cub *cub)
 		return (free_mlx(cub));
 	init_images(cub);
 	cub->raycast = ft_calloc(1, sizeof(t_raycast));
-	set_camera_direction(cub->map,cub->raycast);
+	set_camera_direction(cub->map, cub->raycast);
 	raycast(cub);
-	int i = 0;
+	/* int i = 0;
 	while (i < cub->map->map_lin)
 	{
 		printf("%s", cub->map->game_map[i]);
 		i++;
-	}
+	} */
 	mlx_hook(cub->win_ptr, 17, 1L << 0, close_win, cub);
 	mlx_hook(cub->win_ptr, KeyPress, KeyPressMask, key_press, cub);
 	mlx_hook(cub->win_ptr, KeyRelease, KeyReleaseMask, key_release, cub);
@@ -61,8 +41,8 @@ int	init_mlx_lib(t_cub *cub)
 int	main(int argc, char **argv)
 {
 	t_cub	*cub;
-	int		i; // test
 
+	int i; // test
 	(void)argc;
 	if (!check_args(argc, argv))
 		return (1);
@@ -71,7 +51,7 @@ int	main(int argc, char **argv)
 		return (0);
 	cub->map = init_map(argv);
 	if (!cub->map)
-		return(free(cub), 0);
+		return (free(cub), 0);
 	init_mlx_lib(cub);
 	i = 0; // test
 	while (i < cub->map->map_lin)

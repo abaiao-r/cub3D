@@ -6,7 +6,7 @@
 /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:24:29 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/26 16:33:43 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/26 18:05:31 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,12 @@
 
 typedef struct s_key_state
 {
-	int w;           // W key state
-	int a;           // A key state
-	int s;           // S key state
-	int d;           // D key state
-	int left_arrow;  // Left arrow key state
-	int right_arrow; // Right arrow key state
+	int				w;
+	int				a;
+	int				s;
+	int				d;
+	int				left_arrow;
+	int				right_arrow;
 }					t_key_state;
 
 typedef struct s_elements_data
@@ -96,33 +96,61 @@ typedef struct s_img
 	int				line_len;
 }					t_img;
 
+/* double pos_x;     // player start position x
+** double pos_y;     // player start position y
+** double dir_x;     // initial direction vector
+** double dir_y;     // initial direction vector
+** double plane_x;   // 2d raycaster version of camera plane
+** double plane_y;   // 2d raycaster version of camera plane
+** double camera_x;  // x-coordinate in camera space
+** double ray_dir_x; // direction of the ray
+** double ray_dir_y; // direction of the ray
+** double			side_dist_x;
+				// distance the ray has to travel from its start position to the first x-side
+** double			side_dist_y;
+				// distance the ray has to travel from its start position to the first y-side
+** double			delta_dist_x;
+				// distance the ray has to travel to go from 1 x-side to the next x-side
+** double			delta_dist_y;
+				// distance the ray has to travel to go from 1 y-side to the next y-side
+** double perp_wall_dist; // length of the ray
+** double			wall_x;
+** int				map_x;
+** int				map_y;
+** int				step_x;
+					// what direction to step in x or y-direction (either +1 or
+					-1)
+** int step_y; // what direction to step in x or y-direction (either +1 or -1)
+** int hit; // was there a wall hit?
+** int side; // was a NS or a EW wall hit?
+** int				line_height;
+** int				draw_start;
+** int				draw_end;
+** double			step;
+*/
 typedef struct s_raycast
 {
-	double pos_x;          // player start position x
-	double pos_y;          // player start position y
-	double dir_x;          // initial direction vector
-	double dir_y;          // initial direction vector
-	double plane_x;        // 2d raycaster version of camera plane
-	double plane_y;        // 2d raycaster version of camera plane
-	double camera_x;       // x-coordinate in camera space
-	double ray_dir_x;      // direction of the ray
-	double ray_dir_y;      // direction of the ray
-	double side_dist_x;   
-		// distance the ray has to travel from its start position to the first x-side
-	double side_dist_y;   
-		// distance the ray has to travel from its start position to the first y-side
-	double delta_dist_x;  
-		// distance the ray has to travel to go from 1 x-side to the next x-side
-	double delta_dist_y;  
-		// distance the ray has to travel to go from 1 y-side to the next y-side
-	double perp_wall_dist; // length of the ray
+	double			pos_x;
+	double			pos_y;
+	double			dir_x;
+	double			dir_y;
+	double			plane_x;
+	double			plane_y;
+	double			camera_x;
+	double			ray_dir_x;
+	double			ray_dir_y;
+	double			side_dist_x;
+	double			side_dist_y;
+	double			delta_dist_x;
+	double			delta_dist_y;
+	double			perp_wall_dist;
 	double			wall_x;
 	int				map_x;
 	int				map_y;
 	int				step_x;
-	int step_y; // what direction to step in x or y-direction (either +1 or -1)
-	int hit;    // was there a wall hit?
-	int side;   // was a NS or a EW wall hit?
+	int				step_y;
+	int				hit;
+	int				side;
 	int				line_height;
 	int				draw_start;
 	int				draw_end;
@@ -205,14 +233,28 @@ int					check_textures_path(t_map *map,
 int					file_exists(char *path, t_map *map);
 
 /* movements.c */
-int 				move_up(t_cub *cub, t_raycast *ray, t_map *map);
-int 				move_down(t_cub *cub, t_raycast *ray, t_map *map);
-int 				move_left(t_cub *cub, t_raycast *ray, t_map *map);
-int 				move_right(t_cub *cub, t_raycast *ray, t_map *map);
-int 				rotate(t_raycast *ray, int s);
+int					move_up(t_cub *cub, t_raycast *ray, t_map *map);
+int					move_down(t_cub *cub, t_raycast *ray, t_map *map);
+int					move_left(t_cub *cub, t_raycast *ray, t_map *map);
+int					move_right(t_cub *cub, t_raycast *ray, t_map *map);
+int					rotate(t_raycast *ray, int s);
 
 /*  movements_utils.c */
 int					is_wall(t_cub *cub, double y, double x);
+
+/* raycasting.c */
+void				set_camera_direction(t_map *map, t_raycast *ray);
+int					raycast(t_cub *cub);
+
+/* raycasting_calculations.c */
+void				init_raycast_vars(t_cub *cub, t_map *map, t_raycast *ray);
+
+/* raycasting_textures.c */
+void				apply_texture_to_column(t_cub *cub, t_img *img,
+						t_raycast *ray, int x);
+t_img				*search_texture(t_img **images, char *dir);
+t_img				*select_texture(t_cub *cub, t_raycast *ray);
+void				prep_draw_line(t_raycast *ray);
 
 /*utils_map.c*/
 int					count_lines(char *map);
@@ -223,7 +265,6 @@ int					count_cols(char *map);
 int					map_conditions(t_map *map, int i);
 
 void				init_images(t_cub *cub);
-void				init_raycast_vars(t_cub *cub, t_map *map, t_raycast *ray);
 void				draw_floor_ceiling(t_cub *cub);
 t_img				*blank_image(t_cub *cub, t_img *img);
 void				set_camera_direction(t_map *map, t_raycast *ray);
