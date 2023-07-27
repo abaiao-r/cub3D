@@ -1,0 +1,309 @@
+diff --git a/Makefile b/Makefile
+index 436d138..462b2dd 100644
+--- a/Makefile
++++ b/Makefile
+@@ -6,7 +6,7 @@
+ #    By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+         #
+ #                                                 +#+#+#+#+#+   +#+            #
+ #    Created: 2023/07/07 16:03:25 by pedperei          #+#    #+#              #
+-#    Updated: 2023/07/26 17:54:19 by abaiao-r         ###   ########.fr        #
++#    Updated: 2023/07/27 13:13:07 by abaiao-r         ###   ########.fr        #
+ #                                                                              #
+ # **************************************************************************** #
+ 
+@@ -25,6 +25,7 @@ SRCS = 	$(SRCDIR)/main.c \
+ 		$(SRCDIR)/free_map_aux.c \
+ 		$(SRCDIR)/free_resources.c \
+ 		$(SRCDIR)/key_handler.c \
++		$(SRCDIR)/images_init.c \
+ 		$(SRCDIR)/map_check.c \
+ 		$(SRCDIR)/map_check_extra_args.c \
+ 		$(SRCDIR)/map_conditions.c \
+@@ -35,11 +36,11 @@ SRCS = 	$(SRCDIR)/main.c \
+ 		$(SRCDIR)/map_init.c \
+ 		$(SRCDIR)/movements.c \
+ 		$(SRCDIR)/movements_utils.c \
++		$(SRCDIR)/raycasting_aux.c \
+ 		$(SRCDIR)/raycasting.c \
+ 		$(SRCDIR)/raycasting_calculations.c \
+ 		$(SRCDIR)/raycasting_textures.c \
+-		$(SRCDIR)/utils_map.c \
+-		$(SRCDIR)/image_utils.c
++		$(SRCDIR)/utils_map.c
+ 
+ OBJS = $(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
+ 
+diff --git a/includes/cub3d.h b/includes/cub3d.h
+index dbce331..a6a6a3d 100644
+--- a/includes/cub3d.h
++++ b/includes/cub3d.h
+@@ -6,7 +6,7 @@
+ /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
+ /*                                                +#+#+#+#+#+   +#+           */
+ /*   Created: 2023/07/07 16:24:29 by pedperei          #+#    #+#             */
+-/*   Updated: 2023/07/26 18:05:31 by abaiao-r         ###   ########.fr       */
++/*   Updated: 2023/07/27 13:27:35 by abaiao-r         ###   ########.fr       */
+ /*                                                                            */
+ /* ************************************************************************** */
+ 
+@@ -198,6 +198,10 @@ int					free_mlx(t_cub *cub);
+ int					key_release(int key, t_cub *cub);
+ int					key_press(int key, t_cub *cub);
+ 
++/*  images_init.c */
++void				images_init(t_cub *cub);
++int					**create_int_px(void);
++
+ /* map_check.c */
+ int					check_chars(t_map *map);
+ int					is_player_empty(char c);
+@@ -242,6 +246,9 @@ int					rotate(t_raycast *ray, int s);
+ /*  movements_utils.c */
+ int					is_wall(t_cub *cub, double y, double x);
+ 
++/* raycasting_aux.c */
++void draw_floor_ceiling(t_cub *cub);
++
+ /* raycasting.c */
+ void				set_camera_direction(t_map *map, t_raycast *ray);
+ int					raycast(t_cub *cub);
+@@ -264,12 +271,10 @@ int					count_cols(char *map);
+ /*map_conditions.c*/
+ int					map_conditions(t_map *map, int i);
+ 
+-void				init_images(t_cub *cub);
+ void				draw_floor_ceiling(t_cub *cub);
+-t_img				*blank_image(t_cub *cub, t_img *img);
++
+ void				set_camera_direction(t_map *map, t_raycast *ray);
+ int					raycast(t_cub *cub);
+-int					**create_int_px(void);
+ void				ft_free_int_array(int **array);
+ 
+ #endif
+\ No newline at end of file
+diff --git a/maps/good/test_textures.cub b/maps/good/test_textures.cub
+index 2a37787..6480c5c 100644
+--- a/maps/good/test_textures.cub
++++ b/maps/good/test_textures.cub
+@@ -18,4 +18,4 @@ C 200,200,200
+ 10001
+ 10001
+ 10001
+-11111
++11111
+\ No newline at end of file
+diff --git a/src/image_utils.c b/src/image_utils.c
+deleted file mode 100644
+index 2eb3ef2..0000000
+--- a/src/image_utils.c
++++ /dev/null
+@@ -1,155 +0,0 @@
+-/* ************************************************************************** */
+-/*                                                                            */
+-/*                                                        :::      ::::::::   */
+-/*   image_utils.c                                      :+:      :+:    :+:   */
+-/*                                                    +:+ +:+         +:+     */
+-/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
+-/*                                                +#+#+#+#+#+   +#+           */
+-/*   Created: 2023/07/12 14:18:46 by abaiao-r          #+#    #+#             */
+-/*   Updated: 2023/07/26 14:46:07 by abaiao-r         ###   ########.fr       */
+-/*                                                                            */
+-/* ************************************************************************** */
+-
+-#include "../includes/cub3d.h"
+-
+-/*Open images of the different textures*/
+-t_img	*open_xpm_image(t_cub *cub, t_img *img, char *xpm_path, char *dir)
+-{
+-	int	x;
+-	int	y;
+-
+-	x = PX;
+-	y = PX;
+-	img = ft_calloc(1, sizeof(t_img));
+-	img->dir = ft_strdup(dir);
+-	img->img_ptr = mlx_xpm_file_to_image(cub->mlx_ptr, xpm_path, &x, &y);
+-	if (!img->img_ptr)
+-	{
+-		printf("Error\nInvalid texture path: %s\n", xpm_path);
+-		printf("texture path might be empty or invalid\n");
+-		exit(1);
+-	}//edit this
+-	img->addr = (int *)mlx_get_data_addr(img->img_ptr, &img->bpp, &img->line_len,
+-			&img->endian);
+-	img->text_int_px = ft_calloc(1, sizeof(int) * PX * PX);
+-	x = 0;
+-	y = 0;
+-	while (y < PX)
+-	{
+-		x = 0;
+-		while (x < PX)
+-		{
+-			img->text_int_px[y * PX + x] = img->addr[y * PX + x];
+-			x++;
+-		}
+-		y++;
+-	}
+-	img->img_w = PX;
+-	mlx_destroy_image(cub->mlx_ptr, img->img_ptr);
+-	return (img);
+-}
+-
+-t_img	*blank_image(t_cub *cub, t_img *img)
+-{
+-	img->img_ptr = mlx_new_image(cub->mlx_ptr, WINDOW_W, WINDOW_H);
+-	img->addr = (int *)mlx_get_data_addr(img->img_ptr, &img->bpp,
+-			&img->line_len, &img->endian);
+-	img->img_w = PX;
+-	return (img);
+-}
+-void	set_image_pixel(t_img *image, int x, int y, int color)
+-{
+-	int	pixel;
+-
+-	pixel = y * (image->line_len / 4) + x;
+-	image->addr[pixel] = color;
+-}
+-
+-/* rgb_to_hex: converts rgb values to hex
+- * first, we convert the rgb values to hex values
+- * then, we multiply the red value by 65536 (256 * 256)
+- * then, we multiply the green value by 256
+- * then, we add the red, green, and blue values together
+- * then, we return the hex value
+- * note: we use unsigned int to avoid overflow
+-*/
+-unsigned int	rgb_to_hex(t_elements_data *d, char c)
+-{
+-	unsigned int r_hex = 0;
+-	unsigned int g_hex = 0;
+-	unsigned int b_hex = 0;
+-
+-	if (c == 'C')
+-	{
+-		r_hex = (unsigned int)d->ceiling_colour_r / 16 * 16 + (unsigned int)d->ceiling_colour_r % 16;
+-		g_hex = (unsigned int)d->ceiling_colour_g / 16 * 16 + (unsigned int)d->ceiling_colour_g % 16;
+-		b_hex = (unsigned int)d->ceiling_colour_b / 16 * 16 + (unsigned int)d->ceiling_colour_b % 16;
+-	}
+-	if (c == 'F')
+-	{
+-		r_hex = (unsigned int)d->floor_colour_r / 16 * 16 + (unsigned int)d->ceiling_colour_r % 16;
+-		g_hex = (unsigned int)d->floor_colour_g / 16 * 16 + (unsigned int)d->ceiling_colour_g % 16;
+-		b_hex = (unsigned int)d->floor_colour_b / 16 * 16 + (unsigned int)d->ceiling_colour_b % 16;
+-	}
+-	return (r_hex * 65536 + g_hex * 256 + b_hex);
+-}
+-
+-void draw_floor_ceiling(t_cub *cub)
+-{
+-	int	i;
+-	int	j;
+-	t_img *img;
+-
+-	i = 0;
+-	img = cub->img[4];
+-	while (i < WINDOW_H)
+-	{
+-		j = 0;
+-		while (j < WINDOW_W)
+-		{
+-			if (cub->int_px[i][j] > 0)
+-				set_image_pixel(img, j, i, cub->int_px[i][j]);
+-			else if (i < WINDOW_H/2)
+-				set_image_pixel(img, j, i, rgb_to_hex(cub->map->elements_data, 'C'));
+-			else if (i < WINDOW_H - 1)
+-				set_image_pixel(img, j, i, rgb_to_hex(cub->map->elements_data, 'F'));
+-			j++;
+-		}
+-		i++;
+-	}
+-	mlx_put_image_to_window(cub->mlx_ptr, cub->win_ptr, img->img_ptr, 0, 0);
+-}
+-
+-int **create_int_px(void)
+-{
+-	int i;
+-	int **int_px;
+-
+-	i = 0;
+-	int_px = ft_calloc(WINDOW_H + 1, sizeof(int *));
+-	while (i < WINDOW_H)
+-	{
+-		int_px[i] = ft_calloc(WINDOW_W + 1, sizeof(int));
+-		i++;
+-	}
+-	return (int_px);
+-}
+-
+-void	init_images(t_cub *cub)
+-{
+-	cub->int_px = create_int_px();
+-	cub->img = (t_img **)ft_calloc(5, sizeof(t_img *));
+-	if (!cub->img)
+-		return ;
+-	cub->img[0] = open_xpm_image(cub, cub->img[0],
+-			cub->map->elements_data->no_texture, "NO");
+-	cub->img[1] = open_xpm_image(cub, cub->img[1],
+-			cub->map->elements_data->so_texture, "SO");
+-	cub->img[2] = open_xpm_image(cub, cub->img[2],
+-			cub->map->elements_data->ea_texture, "EA");
+-	cub->img[3] = open_xpm_image(cub, cub->img[3],
+-			cub->map->elements_data->we_texture, "WE");
+-	cub->img[4] = ft_calloc(1, sizeof(t_img));
+-	blank_image(cub, cub->img[4]);
+-}
+-
+diff --git a/src/main.c b/src/main.c
+index b7fc6a5..e647930 100644
+--- a/src/main.c
++++ b/src/main.c
+@@ -6,7 +6,7 @@
+ /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
+ /*                                                +#+#+#+#+#+   +#+           */
+ /*   Created: 2023/07/08 12:05:10 by abaiao-r          #+#    #+#             */
+-/*   Updated: 2023/07/26 17:16:14 by abaiao-r         ###   ########.fr       */
++/*   Updated: 2023/07/27 12:51:51 by abaiao-r         ###   ########.fr       */
+ /*                                                                            */
+ /* ************************************************************************** */
+ 
+@@ -20,16 +20,16 @@ int	init_mlx_lib(t_cub *cub)
+ 	cub->win_ptr = mlx_new_window(cub->mlx_ptr, WINDOW_W, WINDOW_H, "cub3D");
+ 	if (!cub->win_ptr)
+ 		return (free_mlx(cub));
+-	init_images(cub);
++	images_init(cub);
+ 	cub->raycast = ft_calloc(1, sizeof(t_raycast));
+ 	set_camera_direction(cub->map, cub->raycast);
+ 	raycast(cub);
+-	/* int i = 0;
++	int i = 0;
+ 	while (i < cub->map->map_lin)
+ 	{
+ 		printf("%s", cub->map->game_map[i]);
+ 		i++;
+-	} */
++	}
+ 	mlx_hook(cub->win_ptr, 17, 1L << 0, close_win, cub);
+ 	mlx_hook(cub->win_ptr, KeyPress, KeyPressMask, key_press, cub);
+ 	mlx_hook(cub->win_ptr, KeyRelease, KeyReleaseMask, key_release, cub);
+diff --git a/src/raycasting_calculations.c b/src/raycasting_calculations.c
+index 297b914..50ed29c 100644
+--- a/src/raycasting_calculations.c
++++ b/src/raycasting_calculations.c
+@@ -6,7 +6,7 @@
+ /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
+ /*                                                +#+#+#+#+#+   +#+           */
+ /*   Created: 2023/07/26 17:48:25 by abaiao-r          #+#    #+#             */
+-/*   Updated: 2023/07/26 18:31:46 by abaiao-r         ###   ########.fr       */
++/*   Updated: 2023/07/27 13:11:54 by abaiao-r         ###   ########.fr       */
+ /*                                                                            */
+ /* ************************************************************************** */
+ 
+@@ -135,4 +135,4 @@ void	init_raycast_vars(t_cub *cub, t_map *map, t_raycast *ray)
+ 		img = select_texture(cub, ray);
+ 		apply_texture_to_column(cub, img, ray, x);
+ 	}
+-}
+\ No newline at end of file
++}

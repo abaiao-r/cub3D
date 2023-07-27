@@ -6,7 +6,7 @@
 /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:24:29 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/26 18:05:31 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/27 13:27:35 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,10 @@ int					free_mlx(t_cub *cub);
 int					key_release(int key, t_cub *cub);
 int					key_press(int key, t_cub *cub);
 
+/*  images_init.c */
+void				images_init(t_cub *cub);
+int					**create_int_px(void);
+
 /* map_check.c */
 int					check_chars(t_map *map);
 int					is_player_empty(char c);
@@ -242,6 +246,9 @@ int					rotate(t_raycast *ray, int s);
 /*  movements_utils.c */
 int					is_wall(t_cub *cub, double y, double x);
 
+/* raycasting_aux.c */
+void draw_floor_ceiling(t_cub *cub);
+
 /* raycasting.c */
 void				set_camera_direction(t_map *map, t_raycast *ray);
 int					raycast(t_cub *cub);
@@ -264,12 +271,10 @@ int					count_cols(char *map);
 /*map_conditions.c*/
 int					map_conditions(t_map *map, int i);
 
-void				init_images(t_cub *cub);
 void				draw_floor_ceiling(t_cub *cub);
-t_img				*blank_image(t_cub *cub, t_img *img);
+
 void				set_camera_direction(t_map *map, t_raycast *ray);
 int					raycast(t_cub *cub);
-int					**create_int_px(void);
 void				ft_free_int_array(int **array);
 
 #endif

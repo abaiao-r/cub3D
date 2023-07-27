@@ -6,7 +6,7 @@
 #    By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/07 16:03:25 by pedperei          #+#    #+#              #
-#    Updated: 2023/07/26 17:54:19 by abaiao-r         ###   ########.fr        #
+#    Updated: 2023/07/27 13:13:07 by abaiao-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS = 	$(SRCDIR)/main.c \
 		$(SRCDIR)/free_map_aux.c \
 		$(SRCDIR)/free_resources.c \
 		$(SRCDIR)/key_handler.c \
+		$(SRCDIR)/images_init.c \
 		$(SRCDIR)/map_check.c \
 		$(SRCDIR)/map_check_extra_args.c \
 		$(SRCDIR)/map_conditions.c \
@@ -35,11 +36,11 @@ SRCS = 	$(SRCDIR)/main.c \
 		$(SRCDIR)/map_init.c \
 		$(SRCDIR)/movements.c \
 		$(SRCDIR)/movements_utils.c \
+		$(SRCDIR)/raycasting_aux.c \
 		$(SRCDIR)/raycasting.c \
 		$(SRCDIR)/raycasting_calculations.c \
 		$(SRCDIR)/raycasting_textures.c \
-		$(SRCDIR)/utils_map.c \
-		$(SRCDIR)/image_utils.c
+		$(SRCDIR)/utils_map.c
 
 OBJS = $(SRCS:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 
