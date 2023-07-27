@@ -42,7 +42,7 @@ Cub3D is a **C** programming project that aims to create a realistic 3D graphica
 
 ## How to Run the Program
 
-1. **Clone the repository**: `git clone git@github.com:abaiao-r/cub3D.git
+1. **Clone the repository**: `git clone git@github.com:abaiao-r/cub3D.git`
 2. **Navigate to the project directory**: `cd cub3D`
 3. **Compile the program**: `make`
 4. **Run the program**: `./cub3D maps/<rest_of_the_path_to_scene_description.cub>`
