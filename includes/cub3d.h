@@ -6,7 +6,7 @@
 /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:24:29 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/27 13:27:35 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/27 14:58:11 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -247,7 +247,7 @@ int					rotate(t_raycast *ray, int s);
 int					is_wall(t_cub *cub, double y, double x);
 
 /* raycasting_aux.c */
-void draw_floor_ceiling(t_cub *cub);
+void				draw_floor_ceiling(t_cub *cub);
 
 /* raycasting.c */
 void				set_camera_direction(t_map *map, t_raycast *ray);

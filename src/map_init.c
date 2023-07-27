@@ -6,15 +6,20 @@
 /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:30:51 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/10 23:15:57 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/27 16:29:25 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-/*Aloca memória para gravar o mapa como array de strings (char **)
-utiliza-se a funcao get_next_line para ir lendo as linhas 
-passadas no ficheiro com a estrutura do mapa (.ber)*/
+/* read_desc_file: This function reads the description file.
+** It counts the number of lines in the description file.
+** It allocates memory for the file.
+** It opens the description file.
+** It reads the description file.
+** It closes the description file.
+** It returns the file.
+*/
 char	**read_desc_file(char *desc_file)
 {
 	int		fd;
@@ -38,6 +43,13 @@ char	**read_desc_file(char *desc_file)
 	return (file);
 }
 
+/* read_map: This function reads the map.
+** It allocates memory for the map.
+** It reads the map from position start_map.
+** Start_map is the index of the first line of the map.
+** Copy the map to the map variable.
+** It returns the map.
+*/
 char	**read_map(char **desc_file, int lines, int start_map)
 {
 	int		i;
@@ -57,6 +69,11 @@ char	**read_map(char **desc_file, int lines, int start_map)
 	return (map);
 }
 
+/* copy_map: This function copies the map.
+** It allocates memory for the map.
+** It copies the map to the map variable.
+** It returns the blank map.
+*/
 char	**copy_map(t_map *map)
 {
 	char	**blank_map;
@@ -73,6 +90,12 @@ char	**copy_map(t_map *map)
 	return (blank_map);
 }
 
+/* index_map_start: This function returns
+** the index of the first line of the map.
+** It iterates through the description file until it
+** finds the first line of the map.
+** It returns the index of the first line of the map.
+*/
 int	index_map_start(t_map *map)
 {
 	int	i;
@@ -87,6 +110,17 @@ int	index_map_start(t_map *map)
 	return (i);
 }
 
+/* init_map: This function initializes the map.
+** It allocates memory for the map.
+** It reads the description file.
+** It counts the number of lines in the description file.
+** It checks the elements of the description file.
+** It checks the extra arguments of the description file.
+** It reads the map.
+** It copies the map.
+** It checks if the map is valid.
+** It returns the map.
+*/
 t_map	*init_map(char **str_map)
 {
 	t_map	*map;

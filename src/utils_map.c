@@ -3,17 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   utils_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 18:55:40 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/10 18:55:55 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/27 16:49:46 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-/*conta linhas existentes no mapa passado no ficheiro .ber
-nºlinhas = nº de strings que irão ser alocadas + 1 (NULL terminator)*/
+/* count_lines: This function counts the number of lines in the map.
+** It opens the map.
+** It reads the map line by line.
+** It counts the number of lines.
+** It closes the map.
+** It returns the number of lines.
+*/
 int	count_lines(char *map)
 {
 	int		fd;
@@ -33,6 +38,10 @@ int	count_lines(char *map)
 	return (i);
 }
 
+/* ft_strlen_mod: This function counts the number of characters in the line.
+** It counts the number of characters in the line until it finds a new line.
+** It returns the number of characters in the line.
+*/
 int	ft_strlen_mod(const char *str)
 {
 	int	i;
@@ -43,6 +52,13 @@ int	ft_strlen_mod(const char *str)
 	return (i);
 }
 
+/* count_cols: This function counts the number of columns in the map.
+** It opens the map.
+** It reads the map line by line.
+** It counts the number of characters in the line.
+** It compares the number of characters in the line with the number of columns.
+** It returns the number of columns.
+*/
 int	count_cols(char *map)
 {
 	int		fd;

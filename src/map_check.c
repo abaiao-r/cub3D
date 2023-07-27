@@ -6,15 +6,18 @@
 /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 12:12:12 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/11 19:30:22 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/27 16:50:30 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-/*Vê se os caracteres pelos quais o mapa é composto são 
-('0'- empty '1'- wall 'N','S','W','E' - player)
-conta nº de players (têm que ser = 1)*/
+/* check_chars: This function checks if the characters in the map are valid.
+** It checks if the characters are N, E, S, W, 0 or 1 while it iterates
+** through the map.
+** If the characters are N, E, S, W, 0 or 1, it returns 1.
+** If the characters are not valid, it returns 0.
+*/
 int	check_chars(t_map *map)
 {
 	int	i;
@@ -41,6 +44,11 @@ int	check_chars(t_map *map)
 	return (1);
 }
 
+/* check_whitespaces: This function checks if the map has only whitespaces.
+** It checks if the map has only whitespaces while it iterates through the map.
+** If the map has only whitespaces, it returns 1.
+** If the map has not only whitespaces, it returns 0.
+*/
 int	check_whitespace(char **str, int pos)
 {
 	while (str && str[pos])
@@ -52,6 +60,11 @@ int	check_whitespace(char **str, int pos)
 	return (1);
 }
 
+/* is map valid: This function checks if the map is valid.
+** It checks if the map is valid while it iterates through the map.
+** If the map is valid, it returns 1.
+** If the map is not valid, it returns 0.
+*/
 int	is_map_valid(t_map *map)
 {
 	int	i;

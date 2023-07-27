@@ -6,12 +6,18 @@
 /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:18:46 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/27 13:24:20 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/27 16:20:49 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+/* blank_image: creates a blank image
+** This function initializes a blank image with the
+** specified width and height (WINDOW_W and WINDOW_H).
+** It creates an image using the provided dimensions and
+** sets up the necessary properties for further manipulation
+** and rendering. */
 static t_img	*blank_image(t_cub *cub, t_img *img)
 {
 	img->img_ptr = mlx_new_image(cub->mlx_ptr, WINDOW_W, WINDOW_H);
@@ -21,7 +27,13 @@ static t_img	*blank_image(t_cub *cub, t_img *img)
 	return (img);
 }
 
-/*Open images of the different textures*/
+/* copy_pixel_data: copies pixel data
+** This function copies the pixel data from the
+** provided image to the text_int_px array.
+** It does this by iterating through the image's
+** pixel data and copying it to the text_int_px array.
+** This is done to avoid having to load the image
+** every time we need to render it. */
 static void	copy_pixel_data(t_img *img)
 {
 	int	*addr;
@@ -46,7 +58,17 @@ static void	copy_pixel_data(t_img *img)
 	img->img_w = PX;
 }
 
-static t_img	*open_xpm_image(t_cub *cub, t_img *img, char *xpm_path, char *dir)
+/* open_xpm_image: opens an xpm image
+** This function opens an xpm image and copies
+** the pixel data to the text_int_px array.
+** It does this by calling the mlx_xpm_file_to_image
+** function and passing the provided xpm_path.
+** It then copies the pixel data to the text_int_px
+** array by calling the copy_pixel_data function.
+** It then destroys the image using mlx_destroy_image
+** to avoid memory leaks. */
+static t_img	*open_xpm_image(t_cub *cub, t_img *img, char *xpm_path,
+		char *dir)
 {
 	int	x;
 	int	y;
@@ -58,8 +80,8 @@ static t_img	*open_xpm_image(t_cub *cub, t_img *img, char *xpm_path, char *dir)
 	img->img_ptr = mlx_xpm_file_to_image(cub->mlx_ptr, xpm_path, &x, &y);
 	if (!img->img_ptr)
 	{
-		printf("Error\nInvalid texture path: %s\n", xpm_path);
-		printf("texture path might be empty or invalid\n");
+		write (2, "Error\nInvalid texture path: texture path \
+might be empty or invalid\n", 68);
 		exit(1);
 	}
 	img->addr = (int *)mlx_get_data_addr(img->img_ptr, &img->bpp,
@@ -69,6 +91,13 @@ static t_img	*open_xpm_image(t_cub *cub, t_img *img, char *xpm_path, char *dir)
 	return (img);
 }
 
+
+/* create_int_px: creates an int pixel
+** This function creates an int pixel by allocating
+** memory for the int_px array and then allocating
+** memory for each row of the int_px array.
+** It is used to store color values for each pixel
+** of the image. */
 int	**create_int_px(void)
 {
 	int	i;
@@ -84,6 +113,12 @@ int	**create_int_px(void)
 	return (int_px);
 }
 
+/*  images_init: initializes the images
+**  This function initializes the images by calling
+**  the create_int_px function to create the int_px array.
+**  It then allocates memory for the img array and
+**  initializes the images by calling the open_xpm_image
+**  function for each image. */
 void	images_init(t_cub *cub)
 {
 	cub->int_px = create_int_px();

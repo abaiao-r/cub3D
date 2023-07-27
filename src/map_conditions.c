@@ -3,15 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   map_conditions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 19:03:17 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/19 19:05:31 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/27 16:34:44 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+/*  is_char_valid: This function checks if the character is valid.
+**  It checks if the character is N, E, S, W, 0, 1 or space.
+**  If the character is N, E, S, W, 0 or 1, it returns 1.
+**  If the character is space, it returns 2.
+**  If the character is not valid, it returns 0.
+*/
 int	is_char_valid(char c)
 {
 	if (c == 'N' || c == 'E' || c == 'S' || c == 'W' || c == '0' || c == '1')
@@ -21,6 +27,11 @@ int	is_char_valid(char c)
 	return (0);
 }
 
+/*  is_player_empty: This function checks if the character is a player or empty.
+**  It checks if the character is N, E, S, W or 0.
+**  If the character is N, E, S, W or 0, it returns 1.
+**  If the character is not a player or empty, it returns 0.
+*/
 int	is_player_empty(char c)
 {
 	if (c == 'N' || c == 'E' || c == 'S' || c == 'W' || c == '0')
@@ -28,6 +39,11 @@ int	is_player_empty(char c)
 	return (0);
 }
 
+/*  is_player: This function checks if the character is a player.
+**  It checks if the character is N, E, S or W.
+**  If the character is N, E, S or W, it returns 1.
+**  If the character is not a player, it returns 0.
+*/
 int	is_player(char c)
 {
 	if (c == 'N' || c == 'E' || c == 'S' || c == 'W')
@@ -35,6 +51,20 @@ int	is_player(char c)
 	return (0);
 }
 
+/*  is_surrounded: This function checks if the player is surrounded by walls.
+**  It checks if the position is valid.
+**  If the position is valid, it checks if the position is a wall.
+**  If the position is a wall, it returns.
+**  If the position is not a wall, it checks if the position is a player or
+**  empty.
+**  If the position is a player or empty, it checks if the position is
+**  surrounded by walls.
+**  If the position is not surrounded by walls, it returns.
+**  If the position is surrounded by walls, it returns.
+**  eli5: this algorithm checks if the player is surrounded by walls.
+** If the player is surrounded by walls, it means that the map is valid.
+** If the player is not surrounded by walls, it means that the map is invalid.
+*/
 void	is_surrounded(t_map *map, int pos_l, int pos_c)
 {
 	if (!(pos_l >= 0 && pos_l < map->lin))

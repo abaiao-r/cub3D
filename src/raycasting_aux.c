@@ -6,7 +6,7 @@
 /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/27 13:10:27 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/27 14:02:47 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/27 14:36:34 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,14 @@ static void	set_image_pixel(t_img *image, int x, int y, int color)
  * note: we use unsigned int to avoid overflow
  */
 
-
 static unsigned int	rgb_to_hex(t_elements_data *d, char c)
 {
 	if (c == 'C')
-		return (d->ceiling_colour_r * 65536 + d->ceiling_colour_g * 256 + d->ceiling_colour_b);
+		return (d->ceiling_colour_r * 65536 + d->ceiling_colour_g * 256
+			+ d->ceiling_colour_b);
 	if (c == 'F')
-		return (d->floor_colour_r * 65536 + d->floor_colour_g * 256 + d->floor_colour_b);
+		return (d->floor_colour_r * 65536 + d->floor_colour_g * 256
+			+ d->floor_colour_b);
 	return (0);
 }
 
