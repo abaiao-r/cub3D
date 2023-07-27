@@ -52,11 +52,12 @@ Cub3D is a **C** programming project that aims to create a realistic 3D graphica
 
 ## Documentation
 
-You can find the **instrutions about the project** [here](/cub3d_(subject).pdf).
-Usefull **resources** 
-[42Docs](https://harm-smits.github.io/42docs/libs/minilibx)
-[Lodev](https://lodev.org/cgtutor/raycasting.html)
-[Permandi](https://permadi.com/1996/05/ray-casting-tutorial-table-of-contents/)
+You can find the **instructions about the project** [here](/cub3d_(subject).pdf).
+
+Useful **resources**:
+- [42Docs](https://harm-smits.github.io/42docs/libs/minilibx)
+- [Lodev](https://lodev.org/cgtutor/raycasting.html)
+- [Permandi](https://permadi.com/1996/05/ray-casting-tutorial-table-of-contents/)
 
 
 ## Contributing
