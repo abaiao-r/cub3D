@@ -69,4 +69,4 @@ Cub3D is released under the **Apache License** [here](/LICENSE)
 
 ---
 
-*This project is brought to you by [Andre Francisco Baiao Rolao Candido da Silva and Pedro Manuel Pereira Coelho Bigote]. You can find more of our work on [GitHub](https://github.com/abaiao-r) and [GitHub](https://github.com/pedperei).* 
+*This project is brought to you by [Andre Francisco Baiao Rolao Candido da Silva and Pedro Manuel Pereira Coelho Bigote]. You can find more of our work on [Andre](https://github.com/abaiao-r) and [Pedro](https://github.com/pedperei).* 
