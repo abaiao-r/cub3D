@@ -6,11 +6,36 @@
 /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 12:05:10 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/27 12:51:51 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/27 20:04:45 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+static void	print_controls(void)
+{
+	printf("\n");
+	printf("\033[1;36m");
+	printf("                 ■■      ■■■■  ■■■■■■■  \n");
+	printf("                /■■     ■/// ■/■■////■■ \n");
+	printf("  ■■■■■  ■■   ■■/■■    /    /■/■■    /■■\n");
+	printf(" ■■///■■/■■  /■■/■■■■■■   ■■■ /■■    /■■\n");
+	printf("/■■  // /■■  /■■/■■///■■ /// ■/■■    /■■\n");
+	printf("/■■   ■■/■■  /■■/■■  /■■■   /■/■■    ■■ \n");
+	printf("//■■■■■ //■■■■■■/■■■■■■/ ■■■■ /■■■■■■■  \n");
+	printf(" /////   ////// /////   ////  ///////   \n");
+	printf("\033[0m");
+	printf("\n");
+	printf("\033[1;95m");
+	printf("\tW\033[0m: move forward\t");
+	printf("\033[1;95m\tS\033[0m: move backward\n");
+	printf("\033[1;95m\tA\033[0m: strafe left\t");
+	printf("\033[1;95m\tD\033[0m: strafe right\n");
+	printf("\033[1;95m\t<\033[0m: rotate left\t");
+	printf("\033[1;95m\t>\033[0m: rotate right\n");
+	printf("\033[1;95m\tESC\033[0m: exit\n");
+	printf("\n");
+}
 
 int	init_mlx_lib(t_cub *cub)
 {
@@ -24,12 +49,12 @@ int	init_mlx_lib(t_cub *cub)
 	cub->raycast = ft_calloc(1, sizeof(t_raycast));
 	set_camera_direction(cub->map, cub->raycast);
 	raycast(cub);
-	int i = 0;
-	while (i < cub->map->map_lin)
-	{
-		printf("%s", cub->map->game_map[i]);
-		i++;
-	}
+	/* 	int i = 0;
+		while (i < cub->map->map_lin)
+		{
+			printf("%s", cub->map->game_map[i]);
+			i++;
+		} */
 	mlx_hook(cub->win_ptr, 17, 1L << 0, close_win, cub);
 	mlx_hook(cub->win_ptr, KeyPress, KeyPressMask, key_press, cub);
 	mlx_hook(cub->win_ptr, KeyRelease, KeyReleaseMask, key_release, cub);
@@ -42,7 +67,6 @@ int	main(int argc, char **argv)
 {
 	t_cub	*cub;
 
-	int i; // test
 	(void)argc;
 	if (!check_args(argc, argv))
 		return (1);
@@ -52,11 +76,12 @@ int	main(int argc, char **argv)
 	cub->map = init_map(argv);
 	if (!cub->map)
 		return (free(cub), 0);
+	print_controls();
 	init_mlx_lib(cub);
-	i = 0; // test
+	/* int i = 0;
 	while (i < cub->map->map_lin)
 	{
 		printf("%s", cub->map->game_map[i]);
 		i++;
-	}
+	} */
 }
