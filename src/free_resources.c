@@ -6,11 +6,18 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:18:46 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/28 16:55:14 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/28 17:38:53 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+static void	close_win_aux(t_cub *cub, int i)
+{
+	free(cub->img[i]->dir);
+	free(cub->img[i]->text_int_px);
+	free(cub->img[i]);
+}
 
 /* still a draft */
 int	close_win(t_cub *cub)
@@ -21,20 +28,22 @@ int	close_win(t_cub *cub)
 	i = 0;
 	while (i < 4)
 	{
-		free(cub->img[i]->dir);
-		free(cub->img[i]->text_int_px);
-		free(cub->img[i]);
+		if (cub->img[i])
+			close_win_aux(cub, i);
 		i++;
 	}
 	mlx_clear_window(cub->mlx_ptr, cub->win_ptr);
-    mlx_destroy_image(cub->mlx_ptr, cub->img[i]->img_ptr);
-    free(cub->img[i]);
+	if (cub->img[i])
+	{
+		mlx_destroy_image(cub->mlx_ptr, cub->img[i]->img_ptr);
+		free(cub->img[i]);
+	}
 	mlx_destroy_window(cub->mlx_ptr, cub->win_ptr);
 	mlx_destroy_display(cub->mlx_ptr);
 	free(cub->mlx_ptr);
 	ft_free_int_array(cub->int_px);
 	free(cub->img);
-    free(cub->raycast);
+	free(cub->raycast);
 	free(cub);
 	exit(0);
 	return (1);
@@ -57,15 +66,11 @@ void	ft_free_int_array(int **array)
 /* still a draft */
 int	free_mlx(t_cub *cub)
 {
-	//free das cenas do map
 	if (cub->win_ptr && cub->mlx_ptr)
 	{
 		mlx_clear_window(cub->mlx_ptr, cub->win_ptr);
-		//todo: free das texturas
-		//mlx_destroy_image(cub->mlx_ptr, cub->text->no);
 		mlx_destroy_window(cub->mlx_ptr, cub->win_ptr);
 	}
-	// free da struct cub
 	free(cub->mlx_ptr);
 	free(cub->win_ptr);
 	free(cub->map);

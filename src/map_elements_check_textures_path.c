@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_elements_check_textures_path.c                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 19:51:36 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/12 17:57:40 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/28 17:37:08 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,7 +140,6 @@ static char	*def_path(char *temp, t_elements_var *elements_var)
 			return (0);
 		path = ft_strndup(&elements_var->temp[i],
 				ft_strlen_word(&elements_var->temp[i]));
-		printf("path: %s\n", path);
 	}
 	else
 	{

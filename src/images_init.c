@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:18:46 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/28 16:42:45 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/28 17:35:25 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,9 @@ static t_img	*open_xpm_image(t_cub *cub, t_img *img, char *xpm_path,
 	{
 		write (2, "Error\nInvalid texture path: texture path \
 might be empty or invalid\n", 68);
+		free(img->dir);
+		free(img);
+		close_win(cub);
 		exit(1);
 	}
 	img->addr = (int *)mlx_get_data_addr(img->img_ptr, &img->bpp,
@@ -90,7 +93,6 @@ might be empty or invalid\n", 68);
 	mlx_destroy_image(cub->mlx_ptr, img->img_ptr);
 	return (img);
 }
-
 
 /* create_int_px: creates an int pixel
 ** This function creates an int pixel by allocating

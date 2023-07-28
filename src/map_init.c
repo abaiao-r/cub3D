@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_init.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:30:51 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/27 16:29:25 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/28 17:36:57 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,5 @@ t_map	*init_map(char **str_map)
 	map->save_path = copy_map(map);
 	if (!is_map_valid(map))
 		return (map_error_msg(map));
-	else
-		printf("MAP OK\n");
 	return (map);
 }

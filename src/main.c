@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 12:05:10 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/28 15:50:22 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/28 17:35:59 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,6 @@ int	init_mlx_lib(t_cub *cub)
 	cub->raycast = ft_calloc(1, sizeof(t_raycast));
 	set_camera_direction(cub->map, cub->raycast);
 	raycast(cub);
-	/* 	int i = 0;
-		while (i < cub->map->map_lin)
-		{
-			printf("%s", cub->map->game_map[i]);
-			i++;
-		} */
 	mlx_hook(cub->win_ptr, 17, 1L << 0, close_win, cub);
 	mlx_hook(cub->win_ptr, KeyPress, KeyPressMask, key_press, cub);
 	mlx_hook(cub->win_ptr, KeyRelease, KeyReleaseMask, key_release, cub);
@@ -78,10 +72,4 @@ int	main(int argc, char **argv)
 		return (free(cub), 0);
 	print_controls();
 	init_mlx_lib(cub);
-	/* int i = 0;
-	while (i < cub->map->map_lin)
-	{
-		printf("%s", cub->map->game_map[i]);
-		i++;
-	} */
 }
