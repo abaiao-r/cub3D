@@ -6,7 +6,7 @@
 /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:18:46 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/27 15:08:50 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/28 16:24:55 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 /* still a draft */
 int close_win(t_cub *cub)
 {
+    int i;
+
     //free das cenas do map
     map_free(cub->map);
     //todo: free das texturas
@@ -22,7 +24,20 @@ int close_win(t_cub *cub)
     mlx_clear_window(cub->mlx_ptr, cub->win_ptr);
     mlx_destroy_window(cub->mlx_ptr, cub->win_ptr);
     mlx_destroy_display(cub->mlx_ptr);
+//free array 2d t_img
+    i = 0;
+    while (i < 5)
+    {
+        free(cub->img[i]->dir);
+        free(cub->img[i]->text_int_px);
+       /*  if (i == 4)
+            mlx_destroy_image(cub->mlx_ptr, cub->img[i]->img_ptr); */
+        free(cub->img[i]);
+        i++;
+    }
+
     // free da struct cub
+    free(cub->img);
     free(cub->mlx_ptr);
     free(cub);
     exit(0);
