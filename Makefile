@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+         #
+#    By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/07 16:03:25 by pedperei          #+#    #+#              #
-#    Updated: 2023/07/27 13:13:07 by abaiao-r         ###   ########.fr        #
+#    Updated: 2023/07/28 15:29:53 by pedperei         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # Compiler settings	
 CC = cc
-CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address,undefined
+CFLAGS = -Wall -Wextra -Werror -g #-fsanitize=address,undefined
 
 # Directories
 SRCDIR = ./src

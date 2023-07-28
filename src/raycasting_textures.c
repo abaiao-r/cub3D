@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting_textures.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 17:53:25 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/26 18:28:31 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/28 15:19:21 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,13 @@ t_img	*search_texture(t_img **images, char *dir)
 */
 t_img	*select_texture(t_cub *cub, t_raycast *ray)
 {
-	if (ray->side == 1 && ray->dir_y > 0)
+	if (ray->side == 1 && ray->ray_dir_y > 0)
 		return (search_texture(cub->img, "SO"));
-	if (ray->side == 1 && ray->dir_y <= 0)
+	if (ray->side == 1 && ray->ray_dir_y <= 0)
 		return (search_texture(cub->img, "NO"));
-	if (ray->side == 0 && ray->dir_x >= 0)
+	if (ray->side == 0 && ray->ray_dir_x >= 0)
 		return (search_texture(cub->img, "EA"));
-	if (ray->side == 0 && ray->dir_x < 0)
+	if (ray->side == 0 && ray->ray_dir_x < 0)
 		return (search_texture(cub->img, "WE"));
 	return (NULL);
 }
