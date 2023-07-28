@@ -3,23 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   free_resources.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:18:46 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/28 17:38:53 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/28 18:15:59 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-static void	close_win_aux(t_cub *cub, int i)
-{
-	free(cub->img[i]->dir);
-	free(cub->img[i]->text_int_px);
-	free(cub->img[i]);
-}
-
-/* still a draft */
+/* close_win: This function closes the window.
+** It frees the memory allocated for the map.
+** It then frees the memory allocated for the images by iterating through the
+** images array.
+** It then clears the window and destroys the image and the window.
+** It then frees the memory allocated for the int_px array.
+*/
 int	close_win(t_cub *cub)
 {
 	int	i;
@@ -28,16 +27,14 @@ int	close_win(t_cub *cub)
 	i = 0;
 	while (i < 4)
 	{
-		if (cub->img[i])
-			close_win_aux(cub, i);
+		free(cub->img[i]->dir);
+		free(cub->img[i]->text_int_px);
+		free(cub->img[i]);
 		i++;
 	}
 	mlx_clear_window(cub->mlx_ptr, cub->win_ptr);
-	if (cub->img[i])
-	{
-		mlx_destroy_image(cub->mlx_ptr, cub->img[i]->img_ptr);
-		free(cub->img[i]);
-	}
+	mlx_destroy_image(cub->mlx_ptr, cub->img[i]->img_ptr);
+	free(cub->img[i]);
 	mlx_destroy_window(cub->mlx_ptr, cub->win_ptr);
 	mlx_destroy_display(cub->mlx_ptr);
 	free(cub->mlx_ptr);
@@ -49,6 +46,10 @@ int	close_win(t_cub *cub)
 	return (1);
 }
 
+/*  ft_free_int_array: This function frees the memory allocated for the int_px
+** array.
+** unecessary funtion because we already have it in libft.
+*/
 void	ft_free_int_array(int **array)
 {
 	int	i;
@@ -63,17 +64,32 @@ void	ft_free_int_array(int **array)
 	array = NULL;
 }
 
-/* still a draft */
+/* free_mlx: This function frees the memory allocated for the mlx_ptr and the
+** win_ptr.
+** It then frees the memory allocated for the map.
+** It then exits the program.
+*/
 int	free_mlx(t_cub *cub)
 {
-	if (cub->win_ptr && cub->mlx_ptr)
+	int i;
+	map_free(cub->map);
+	i = 0;
+	while (i < 4)
 	{
-		mlx_clear_window(cub->mlx_ptr, cub->win_ptr);
-		mlx_destroy_window(cub->mlx_ptr, cub->win_ptr);
+		free(cub->img[i]->dir);
+		free(cub->img[i]->text_int_px);
+		free(cub->img[i]);
+		i++;
 	}
+	mlx_clear_window(cub->mlx_ptr, cub->win_ptr);
+	mlx_destroy_image(cub->mlx_ptr, cub->img[i]->img_ptr);
+	free(cub->img[i]);
+	mlx_destroy_window(cub->mlx_ptr, cub->win_ptr);
+	mlx_destroy_display(cub->mlx_ptr);
 	free(cub->mlx_ptr);
-	free(cub->win_ptr);
-	free(cub->map);
+	ft_free_int_array(cub->int_px);
+	free(cub->img);
+	free(cub->raycast);
 	free(cub);
 	exit(0);
 }

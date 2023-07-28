@@ -3,15 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 12:05:10 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/28 17:35:59 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/28 18:10:39 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
+/* print_controls: prints the controls.
+ */
 static void	print_controls(void)
 {
 	printf("\n");
@@ -37,12 +39,23 @@ static void	print_controls(void)
 	printf("\n");
 }
 
+/* init_mlx_lib: initializes the mlx library.
+ * It initializes the mlx_ptr and the win_ptr.
+ * It then initializes the images.
+ * It then initializes the raycast structure.
+ * It then sets the camera direction.
+ * It then calls the raycast function.
+ * It then sets the hooks.
+ * @param cub: cub structure.
+ * @return: 0 if the mlx library is not initialized, 1 if it is.
+ */
 int	init_mlx_lib(t_cub *cub)
 {
 	cub->mlx_ptr = mlx_init();
 	if (!cub->mlx_ptr)
 		return (free_mlx(cub));
-	cub->win_ptr = mlx_new_window(cub->mlx_ptr, WINDOW_W, WINDOW_H, "cub3D");
+	/* cub->win_ptr = mlx_new_window(cub->mlx_ptr, WINDOW_W, WINDOW_H, "cub3D"); */
+	cub->win_ptr = NULL;
 	if (!cub->win_ptr)
 		return (free_mlx(cub));
 	images_init(cub);
@@ -57,6 +70,15 @@ int	init_mlx_lib(t_cub *cub)
 	return (0);
 }
 
+/*  main: main function.
+ *  It checks if the arguments are correct.
+ *  If the arguments are correct, it initializes the cub structure.
+ *  If the cub structure is not initialized, it returns 0.
+ *  It then initializes the map.
+ *  If the map is not initialized, it returns 0.
+ *  It then prints the controls.
+ *  It then initializes the mlx library.
+ */
 int	main(int argc, char **argv)
 {
 	t_cub	*cub;
