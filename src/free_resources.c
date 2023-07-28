@@ -6,7 +6,7 @@
 /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:18:46 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/28 18:39:01 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/28 18:49:20 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ int	close_win(t_cub *cub)
 	return (1);
 }
 
-/* still a draft */
+/* close_win_2: This function closes the window.
+** It frees the memory allocated for the map.
+** It then frees the memory allocated for the mlx_ptr and the win_ptr.
+*/
 int	close_win_2(t_cub *cub)
 {
 	map_free(cub->map);
@@ -83,35 +86,4 @@ void	ft_free_int_array(int **array)
 	}
 	free(array);
 	array = NULL;
-}
-
-/* free_mlx: This function frees the memory allocated for the mlx_ptr and the
-** win_ptr.
-** It then frees the memory allocated for the map.
-** It then exits the program.
-*/
-int	free_mlx(t_cub *cub)
-{
-	int	i;
-
-	map_free(cub->map);
-	i = 0;
-	while (i < 4)
-	{
-		free(cub->img[i]->dir);
-		free(cub->img[i]->text_int_px);
-		free(cub->img[i]);
-		i++;
-	}
-	mlx_clear_window(cub->mlx_ptr, cub->win_ptr);
-	mlx_destroy_image(cub->mlx_ptr, cub->img[i]->img_ptr);
-	free(cub->img[i]);
-	mlx_destroy_window(cub->mlx_ptr, cub->win_ptr);
-	mlx_destroy_display(cub->mlx_ptr);
-	free(cub->mlx_ptr);
-	ft_free_int_array(cub->int_px);
-	free(cub->img);
-	free(cub->raycast);
-	free(cub);
-	exit(0);
 }

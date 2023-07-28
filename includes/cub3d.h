@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
+/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:24:29 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/28 18:17:59 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/28 18:49:00 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,7 +193,6 @@ t_map				*map_error_msg(t_map *map);
 /* free_resources.c */
 int					close_win(t_cub *cub);
 int					close_win_2(t_cub *cub);
-int					free_mlx(t_cub *cub);
 
 /* key_handler.c */
 int					key_release(int key, t_cub *cub);
