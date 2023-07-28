@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/08 12:05:10 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/28 17:35:59 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/28 18:34:54 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,12 +41,14 @@ int	init_mlx_lib(t_cub *cub)
 {
 	cub->mlx_ptr = mlx_init();
 	if (!cub->mlx_ptr)
-		return (free_mlx(cub));
+		return (close_win_2(cub));
 	cub->win_ptr = mlx_new_window(cub->mlx_ptr, WINDOW_W, WINDOW_H, "cub3D");
 	if (!cub->win_ptr)
-		return (free_mlx(cub));
+		return (close_win_2(cub));
 	images_init(cub);
 	cub->raycast = ft_calloc(1, sizeof(t_raycast));
+	if (!cub->raycast)
+		return (close_win(cub));
 	set_camera_direction(cub->map, cub->raycast);
 	raycast(cub);
 	mlx_hook(cub->win_ptr, 17, 1L << 0, close_win, cub);
