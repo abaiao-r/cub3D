@@ -6,7 +6,7 @@
 /*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:18:46 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/28 18:15:59 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/28 18:24:48 by abaiao-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ int	close_win(t_cub *cub)
 
 /*  ft_free_int_array: This function frees the memory allocated for the int_px
 ** array.
-** unecessary funtion because we already have it in libft.
 */
 void	ft_free_int_array(int **array)
 {
