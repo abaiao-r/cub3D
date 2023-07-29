@@ -3,14 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   free_resources.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/12 14:18:46 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/28 18:49:20 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/29 19:34:22 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
+
+static void	close_win_aux(t_cub *cub, int i)
+{
+	free(cub->img[i]->dir);
+	free(cub->img[i]->text_int_px);
+	free(cub->img[i]);
+}
 
 /* close_win: This function closes the window.
 ** It frees the memory allocated for the map.
@@ -27,14 +34,16 @@ int	close_win(t_cub *cub)
 	i = 0;
 	while (i < 4)
 	{
-		free(cub->img[i]->dir);
-		free(cub->img[i]->text_int_px);
-		free(cub->img[i]);
+		if (cub->img[i])
+			close_win_aux(cub, i);
 		i++;
 	}
 	mlx_clear_window(cub->mlx_ptr, cub->win_ptr);
-	mlx_destroy_image(cub->mlx_ptr, cub->img[i]->img_ptr);
-	free(cub->img[i]);
+	if (cub->img[i])
+	{
+		mlx_destroy_image(cub->mlx_ptr, cub->img[i]->img_ptr);
+		free(cub->img[i]);
+	}
 	mlx_destroy_window(cub->mlx_ptr, cub->win_ptr);
 	mlx_destroy_display(cub->mlx_ptr);
 	free(cub->mlx_ptr);
