@@ -6,28 +6,31 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 17:48:25 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/28 16:35:53 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/29 16:17:37 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/cub3d.h"
 
-/*  calc_camera_distance: This function calculates the camera distance.
-**  It checks if the side is 0.
-**  If the side is 0, it means that the ray is facing the left side of the map.
-**  If the side is 1, it means that the ray is facing the right side of the map.
+/*
+**	calc_camera_distance: Function calculates the camera distance to the wall.
+**  It checks if the hit is 0.
+**  If the side_hit is 1, 
+**	it means that the ray has hit the NO or SO face of the wall.
+**  If the side_hit is 0, 
+**	it means that the ray has hit the WE or EA face of the wall.
 */
 static void	calc_camera_distance(t_raycast *ray)
 {
-	if (ray->side == 0)
-		ray->perp_wall_dist = (ray->side_dist_x - ray->delta_dist_x);
+	if (ray->side_hit == 0)
+		ray->wall_dist = (ray->side_dist_x - ray->delta_dist_x);
 	else
-		ray->perp_wall_dist = (ray->side_dist_y - ray->delta_dist_y);
+		ray->wall_dist = (ray->side_dist_y - ray->delta_dist_y);
 }
 
 /*  perform_dda: This function performs the DDA algorithm.
 **  It checks if the ray hit a wall.
-**  If the ray hit a wall, it sets the hit variable to 1.
+**  If the ray hit a wall, it sets the is_hit variable to 1.
 **  If the ray didn't hit a wall, it continues the DDA algorithm.
 **  It checks if the side distance x is less than the side distance y.
 **  If the side distance x is less than the side distance y, it means that
@@ -37,23 +40,23 @@ static void	calc_camera_distance(t_raycast *ray)
 */
 static void	perform_dda(t_raycast *ray, t_map *map)
 {
-	ray->hit = 0;
-	while (ray->hit == 0)
+	ray->is_hit = 0;
+	while (ray->is_hit == 0)
 	{
 		if (ray->side_dist_x < ray->side_dist_y)
 		{
 			ray->side_dist_x += ray->delta_dist_x;
 			ray->map_x += ray->step_x;
-			ray->side = 0;
+			ray->side_hit = 0;
 		}
 		else
 		{
 			ray->side_dist_y += ray->delta_dist_y;
 			ray->map_y += ray->step_y;
-			ray->side = 1;
+			ray->side_hit = 1;
 		}
 		if (map->game_map[ray->map_y][ray->map_x] == '1')
-			ray->hit = 1;
+			ray->is_hit = 1;
 	}
 }
 
@@ -95,9 +98,9 @@ static void	calc_step_side_dist(t_raycast *ray)
 */
 static void	init_ray_vars(t_raycast *ray, int x, t_map *map)
 {
-	ray->camera_x = 2 * x / (double)WINDOW_W - 1;
-	ray->ray_dir_x = ray->dir_x + ray->plane_x * ray->camera_x;
-	ray->ray_dir_y = ray->dir_y + ray->plane_y * ray->camera_x;
+	ray->cam_x = 2 * x / (double)WINDOW_W - 1;
+	ray->ray_dir_x = ray->dir_x + ray->cam_plane_x * ray->cam_x;
+	ray->ray_dir_y = ray->dir_y + ray->cam_plane_y * ray->cam_x;
 	ray->delta_dist_x = fabs(1 / ray->ray_dir_x);
 	ray->delta_dist_y = fabs(1 / ray->ray_dir_y);
 	ray->map_x = (int)map->player_c;

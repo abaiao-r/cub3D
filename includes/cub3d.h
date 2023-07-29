@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/07 16:24:29 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/28 18:49:00 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/29 15:38:16 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,65 +96,33 @@ typedef struct s_img
 	int				line_len;
 }					t_img;
 
-/* double pos_x;     // player start position x
-** double pos_y;     // player start position y
-** double dir_x;     // initial direction vector
-** double dir_y;     // initial direction vector
-** double plane_x;   // 2d raycaster version of camera plane
-** double plane_y;   // 2d raycaster version of camera plane
-** double camera_x;  // x-coordinate in camera space
-** double ray_dir_x; // direction of the ray
-** double ray_dir_y; // direction of the ray
-** double			side_dist_x;
-				// distance the ray has to travel from its start position to the first x-side
-** double			side_dist_y;
-				// distance the ray has to travel from its start position to the first y-side
-** double			delta_dist_x;
-				// distance the ray has to travel to go from 1 x-side to the next x-side
-** double			delta_dist_y;
-				// distance the ray has to travel to go from 1 y-side to the next y-side
-** double perp_wall_dist; // length of the ray
-** double			wall_x;
-** int				map_x;
-** int				map_y;
-** int				step_x;
-					// what direction to step in x or y-direction (either +1 or
-					-1)
-** int step_y; // what direction to step in x or y-direction (either +1 or -1)
-** int hit; // was there a wall hit?
-** int side; // was a NS or a EW wall hit?
-** int				line_height;
-** int				draw_start;
-** int				draw_end;
-** double			step;
-*/
 typedef struct s_raycast
 {
 	double			pos_x;
 	double			pos_y;
 	double			dir_x;
 	double			dir_y;
-	double			plane_x;
-	double			plane_y;
-	double			camera_x;
+	double			cam_plane_x;
+	double			cam_plane_y;
+	double			cam_x;
 	double			ray_dir_x;
 	double			ray_dir_y;
 	double			side_dist_x;
 	double			side_dist_y;
 	double			delta_dist_x;
 	double			delta_dist_y;
-	double			perp_wall_dist;
-	double			wall_x;
+	double			wall_dist;
+	double			wall_hit_x;
+	double			step;
 	int				map_x;
 	int				map_y;
 	int				step_x;
 	int				step_y;
-	int				hit;
-	int				side;
+	int				is_hit;
+	int				side_hit;
 	int				line_height;
 	int				draw_start;
 	int				draw_end;
-	double			step;
 }					t_raycast;
 
 typedef struct s_cub

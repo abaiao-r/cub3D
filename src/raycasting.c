@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raycasting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/13 17:42:40 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/27 14:31:29 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/29 15:50:17 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@ static void	set_camera_direction_ns(t_map *map, t_raycast *ray)
 	{
 		ray->dir_x = 0;
 		ray->dir_y = 1;
-		ray->plane_x = -0.66;
-		ray->plane_y = 0;
+		ray->cam_plane_x = -0.66;
+		ray->cam_plane_y = 0;
 	}
 	else if (map->direction == 'N')
 	{
 		ray->dir_x = 0;
 		ray->dir_y = -1;
-		ray->plane_x = 0.66;
-		ray->plane_y = 0;
+		ray->cam_plane_x = 0.66;
+		ray->cam_plane_y = 0;
 	}
 }
 
@@ -46,15 +46,15 @@ static void	set_camera_direction_ew(t_map *map, t_raycast *ray)
 	{
 		ray->dir_x = 1;
 		ray->dir_y = 0;
-		ray->plane_x = 0;
-		ray->plane_y = 0.66;
+		ray->cam_plane_x = 0;
+		ray->cam_plane_y = 0.66;
 	}
 	else if (map->direction == 'W')
 	{
 		ray->dir_x = -1;
 		ray->dir_y = 0;
-		ray->plane_x = 0;
-		ray->plane_y = -0.66;
+		ray->cam_plane_x = 0;
+		ray->cam_plane_y = -0.66;
 	}
 }
 

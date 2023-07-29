@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   key_handler.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/19 15:50:24 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/27 14:31:33 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/29 15:53:07 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 ** It also calls the raycast function.*/
 int	key_release(int key, t_cub *cub)
 {
-	if (key == XK_Escape)
-		close_win(cub);
 	if (key == XK_w)
 		cub->key_state.w = 0;
 	if (key == XK_s)

@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 17:53:25 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/28 15:19:21 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/29 18:16:03 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ void	apply_texture_to_column(t_cub *cub, t_img *img, t_raycast *ray, int x)
 {
 	int	y;
 
-	img->img_x_pos = (int)(ray->wall_x * img->img_w);
-	if ((ray->side == 0 && ray->ray_dir_x < 0) || (ray->side == 1
+	img->img_x_pos = (int)(ray->wall_hit_x * img->img_w);
+	if ((ray->side_hit == 0 && ray->ray_dir_x < 0) || (ray->side_hit == 1
 			&& ray->ray_dir_y > 0))
 		img->img_x_pos = img->img_w - img->img_x_pos - 1;
 	img->img_step = (double)img->img_w / ray->line_height;
@@ -67,50 +67,51 @@ t_img	*search_texture(t_img **images, char *dir)
 }
 
 /*  select_texture: This function selects the texture to be applied to the
-**  wall based on the ray->side and ray->dir_x and ray->dir_y.
-**  If the ray->side is 1 and ray->dir_y is greater than 0, it means that
+**  wall based on the ray->side_hit and ray->dir_x and ray->dir_y.
+**  If the ray->side_hit is 1 and ray->dir_y is greater than 0, it means that
 **  the ray hit a wall looking down, so the texture to be applied is the
 **  South texture.
-**  If the ray->side is 1 and ray->dir_y is less or equal to 0, it means that
+**  If the ray->side_hit is 1 and ray->dir_y is less or equal to 0, it means that
 **  the ray hit a wall looking up, so the texture to be applied is the
 **  North texture.
-**  If the ray->side is 0 and ray->dir_x is greater or equal to 0, it means
+**  If the ray->side_hit is 0 and ray->dir_x is greater or equal to 0, it means
 **  that the ray hit a wall looking to the right, so the texture to be applied
 **  is the East texture.
-**  If the ray->side is 0 and ray->dir_x is less than 0, it means that
+**  If the ray->side_hit is 0 and ray->dir_x is less than 0, it means that
 **  the ray hit a wall looking to the left, so the texture to be applied
 **  is the West texture.
 */
 t_img	*select_texture(t_cub *cub, t_raycast *ray)
 {
-	if (ray->side == 1 && ray->ray_dir_y > 0)
+	if (ray->side_hit == 1 && ray->ray_dir_y > 0)
 		return (search_texture(cub->img, "SO"));
-	if (ray->side == 1 && ray->ray_dir_y <= 0)
+	if (ray->side_hit == 1 && ray->ray_dir_y <= 0)
 		return (search_texture(cub->img, "NO"));
-	if (ray->side == 0 && ray->ray_dir_x >= 0)
+	if (ray->side_hit == 0 && ray->ray_dir_x >= 0)
 		return (search_texture(cub->img, "EA"));
-	if (ray->side == 0 && ray->ray_dir_x < 0)
+	if (ray->side_hit == 0 && ray->ray_dir_x < 0)
 		return (search_texture(cub->img, "WE"));
 	return (NULL);
 }
 
 /*  prep_draw_line: This function prepares the variables to draw the line.
 **  It calculates the line height, the draw start and draw end.
-**  It also calculates the wall_x, which is the exact value where the wall
-**  was hit.
+**  It also calculates the wall_hit_x, which is the exact value where the wall
+**  was hit(could be the y coordinate if the side_hit == 1) but it is always used
+**  to calculate the x coordinate of the texture.
 */
 void	prep_draw_line(t_raycast *ray)
 {
-	ray->line_height = (int)(WINDOW_H / ray->perp_wall_dist);
+	ray->line_height = (int)(1.5 * WINDOW_H / ray->wall_dist);
 	ray->draw_start = -(ray->line_height) / 2 + WINDOW_H / 2;
 	if (ray->draw_start < 0)
 		ray->draw_start = 0;
 	ray->draw_end = ray->line_height / 2 + WINDOW_H / 2;
 	if (ray->draw_end >= WINDOW_H)
 		ray->draw_end = WINDOW_H - 1;
-	if (ray->side == 0)
-		ray->wall_x = ray->pos_y + ray->perp_wall_dist * ray->ray_dir_y;
+	if (ray->side_hit == 0)
+		ray->wall_hit_x = ray->pos_y + ray->wall_dist * ray->ray_dir_y;
 	else
-		ray->wall_x = ray->pos_x + ray->perp_wall_dist * ray->ray_dir_x;
-	ray->wall_x -= floor((ray->wall_x));
+		ray->wall_hit_x = ray->pos_x + ray->wall_dist * ray->ray_dir_x;
+	ray->wall_hit_x -= floor((ray->wall_hit_x));
 }

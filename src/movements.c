@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   movements.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 16:11:38 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/26 16:41:55 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/29 15:08:31 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,18 +75,18 @@ int	move_right(t_cub *cub, t_raycast *ray, t_map *map)
 	double	tmp_l;
 
 	(void)cub;
-	tmp_c = map->player_c + ray->plane_x * SPEED;
-	tmp_l = map->player_l + ray->plane_y * SPEED;
+	tmp_c = map->player_c + ray->cam_plane_x * SPEED;
+	tmp_l = map->player_l + ray->cam_plane_y * SPEED;
 	if (!is_wall(cub, tmp_l, tmp_c))
 		return (0);
-	if (map->game_map[(int)(ray->pos_y + ray->plane_y
+	if (map->game_map[(int)(ray->pos_y + ray->cam_plane_y
 			* SPEED)][(int)ray->pos_x] != '1')
-		ray->pos_y += ray->plane_y * SPEED;
-	if (map->game_map[(int)ray->pos_y][(int)(ray->pos_x + ray->plane_x
+		ray->pos_y += ray->cam_plane_y * SPEED;
+	if (map->game_map[(int)ray->pos_y][(int)(ray->pos_x + ray->cam_plane_x
 		* SPEED)] != '1')
-		ray->pos_x += ray->plane_x * SPEED;
-	map->player_c = map->player_c + ray->plane_x * SPEED;
-	map->player_l = map->player_l + ray->plane_y * SPEED;
+		ray->pos_x += ray->cam_plane_x * SPEED;
+	map->player_c = map->player_c + ray->cam_plane_x * SPEED;
+	map->player_l = map->player_l + ray->cam_plane_y * SPEED;
 	return (1);
 }
 
@@ -101,18 +101,18 @@ int	move_left(t_cub *cub, t_raycast *ray, t_map *map)
 	double	tmp_l;
 
 	(void)cub;
-	tmp_c = map->player_c - ray->plane_x * SPEED;
-	tmp_l = map->player_l - ray->plane_y * SPEED;
+	tmp_c = map->player_c - ray->cam_plane_x * SPEED;
+	tmp_l = map->player_l - ray->cam_plane_y * SPEED;
 	if (!is_wall(cub, tmp_l, tmp_c))
 		return (0);
-	if (map->game_map[(int)(ray->pos_y + ray->plane_y
+	if (map->game_map[(int)(ray->pos_y + ray->cam_plane_y
 			* SPEED)][(int)ray->pos_x] != '1')
-		ray->pos_y -= ray->plane_y * SPEED;
-	if (map->game_map[(int)ray->pos_y][(int)(ray->pos_x + ray->plane_x
+		ray->pos_y -= ray->cam_plane_y * SPEED;
+	if (map->game_map[(int)ray->pos_y][(int)(ray->pos_x + ray->cam_plane_x
 		* SPEED)] != '1')
-		ray->pos_x -= ray->plane_x * SPEED;
-	map->player_c = map->player_c - ray->plane_x * SPEED;
-	map->player_l = map->player_l - ray->plane_y * SPEED;
+		ray->pos_x -= ray->cam_plane_x * SPEED;
+	map->player_c = map->player_c - ray->cam_plane_x * SPEED;
+	map->player_l = map->player_l - ray->cam_plane_y * SPEED;
 	return (1);
 }
 
@@ -124,14 +124,15 @@ int	move_left(t_cub *cub, t_raycast *ray, t_map *map)
 int	rotate(t_raycast *ray, int s)
 {
 	double	tmp_dir_x;
-	double	tmp_plane_x;
+	double	tmp_cam_plane_x;
 
 	tmp_dir_x = ray->dir_x;
-	tmp_plane_x = ray->plane_x;
+	tmp_cam_plane_x = ray->cam_plane_x;
 	ray->dir_x = ray->dir_x * cos(s * SPEED) - ray->dir_y * sin(s * SPEED);
 	ray->dir_y = tmp_dir_x * sin(s * SPEED) + ray->dir_y * cos(s * SPEED);
-	ray->plane_x = ray->plane_x * cos(s * SPEED) - ray->plane_y * \
+	ray->cam_plane_x = ray->cam_plane_x * cos(s * SPEED) - ray->cam_plane_y * \
 			sin(s * SPEED);
-	ray->plane_y = tmp_plane_x * sin(s * SPEED) + ray->plane_y * cos(s * SPEED);
+	ray->cam_plane_y = tmp_cam_plane_x * sin(s * SPEED) + \
+			ray->cam_plane_y * cos(s * SPEED);
 	return (1);
 }
