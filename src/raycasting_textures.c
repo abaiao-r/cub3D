@@ -6,7 +6,7 @@
 /*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/26 17:53:25 by abaiao-r          #+#    #+#             */
-/*   Updated: 2023/07/29 18:16:03 by pedperei         ###   ########.fr       */
+/*   Updated: 2023/07/29 19:02:27 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ t_img	*select_texture(t_cub *cub, t_raycast *ray)
 */
 void	prep_draw_line(t_raycast *ray)
 {
-	ray->line_height = (int)(1.5 * WINDOW_H / ray->wall_dist);
+	ray->line_height = (int)(WINDOW_H / ray->wall_dist);
 	ray->draw_start = -(ray->line_height) / 2 + WINDOW_H / 2;
 	if (ray->draw_start < 0)
 		ray->draw_start = 0;
