@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_conditions.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: abaiao-r <abaiao-r@student.42.fr>          +#+  +:+       +#+        */
+/*   By: pedperei <pedperei@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/10 19:03:17 by pedperei          #+#    #+#             */
-/*   Updated: 2023/07/27 16:34:44 by abaiao-r         ###   ########.fr       */
+/*   Updated: 2023/07/30 15:12:41 by pedperei         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,10 @@ void	is_surrounded(t_map *map, int pos_l, int pos_c)
 	is_surrounded(map, pos_l, pos_c + 1);
 	is_surrounded(map, pos_l - 1, pos_c);
 	is_surrounded(map, pos_l, pos_c - 1);
+	is_surrounded(map, pos_l + 1, pos_c + 1);
+	is_surrounded(map, pos_l + 1, pos_c - 1);
+	is_surrounded(map, pos_l - 1, pos_c + 1);
+	is_surrounded(map, pos_l - 1, pos_c - 1);
 	return ;
 }
 
