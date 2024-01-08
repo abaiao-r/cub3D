@@ -1,6 +1,6 @@
-# Cub3D
+# cub3D
 
-![Cub3D Logo](cub3d_logo.png)
+![Cub3D](cub3d_logo.png)
 
 ## Synopsis
 
